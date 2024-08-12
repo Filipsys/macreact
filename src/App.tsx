@@ -16,10 +16,12 @@ import messages from "./assets/icons/messages.png";
 import safari from "./assets/icons/safari.png";
 import settings from "./assets/icons/settings.png";
 
+// backdrop-blur-[100px] backdrop-brightness-90 484a91 5161b4 5075bb
+
 function App() {
   return (
-    <div className="h-screen w-screen text-white">
-      <nav className="w-screen h-10 font-[500] flex flex-row justify-between items-center shadow-sm z-10 backdrop-blur-3xl backdrop-brightness-95 [text-shadow:_0_2px_2px_rgb(0_0_0_/_30%)]">
+    <div className="h-screen w-screen text-white select-none">
+      <nav className="w-screen h-10 font-[500] flex flex-row justify-between items-center shadow-sm z-10 [text-shadow:_0_2px_2px_rgb(0_0_0_/_30%)] bg-gradient-to-r from-[#363b87] to-[#3058b6] via-[#3952a7] ">
         <div className="flex flex-row">
           <div className="px-5">
             <AppleIcon />
@@ -56,8 +58,10 @@ function App() {
         </div>
       </nav>
 
+      
+
       <div className="w-screen h-20 absolute bottom-0 left-0 flex items-center justify-center">
-        <div className="w-fit backdrop-blur-2xl rounded-2xl border-2 border-white/10 backdrop-brightness-90">
+        <div className="w-fit backdrop-blur-2xl rounded-2xl border-2 border-white/10 backdrop-brightness-[.8]">
           <ul className="flex flex-row justify-between">
             <li><img src={finder} alt="finder" style={{ width: "64px" }} /></li>
             {/* <li>Apps</li> */}

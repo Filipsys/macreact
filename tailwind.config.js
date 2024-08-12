@@ -6,6 +6,7 @@ export default {
       fontSize: {
         "sm-base": ["0.938rem", { lineHeight: "1.25rem" }],
       },
+      
     },
   },
   plugins: [],
