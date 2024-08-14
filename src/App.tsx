@@ -11,7 +11,7 @@ import {
 import imgWallpaper from "./assets/backgrounds/sonoma4k.jpg";
 import finder from "./assets/icons/finder.png";
 import apps from "./assets/icons/apps.png";
-import mail from "./assets/icons/mail.png"; 
+import mail from "./assets/icons/mail.png";
 import maps from "./assets/icons/maps.png";
 import messages from "./assets/icons/messages.png";
 import safari from "./assets/icons/safari.png";
@@ -29,13 +29,27 @@ function App() {
           </div>
 
           <ul className="flex flex-row h-fit w-fit text-[13px] text-center  py-1">
-            <li className="flex items-center h-[24px] rounded-[4px] hover:bg-white/[.2] font-bold px-2 py-1">Finder</li>
-            <li className="flex items-center h-[24px] rounded-[4px] hover:bg-white/[.2] px-[11px] py-1">File</li>
-            <li className="flex items-center h-[24px] rounded-[4px] hover:bg-white/[.2] px-[11px] py-1">Edit</li>
-            <li className="flex items-center h-[24px] rounded-[4px] hover:bg-white/[.2] px-[11px] py-1">View</li>
-            <li className="flex items-center h-[24px] rounded-[4px] hover:bg-white/[.2] px-[11px] py-1">Go</li>
-            <li className="flex items-center h-[24px] rounded-[4px] hover:bg-white/[.2] px-[11px] py-1">Window</li>
-            <li className="flex items-center h-[24px] rounded-[4px] hover:bg-white/[.2] px-[11px] py-1">Help</li>
+            <li className="flex items-center h-[24px] rounded-[4px] hover:bg-white/[.2] font-bold px-2 py-1">
+              Finder
+            </li>
+            <li className="flex items-center h-[24px] rounded-[4px] hover:bg-white/[.2] px-[11px] py-1">
+              File
+            </li>
+            <li className="flex items-center h-[24px] rounded-[4px] hover:bg-white/[.2] px-[11px] py-1">
+              Edit
+            </li>
+            <li className="flex items-center h-[24px] rounded-[4px] hover:bg-white/[.2] px-[11px] py-1">
+              View
+            </li>
+            <li className="flex items-center h-[24px] rounded-[4px] hover:bg-white/[.2] px-[11px] py-1">
+              Go
+            </li>
+            <li className="flex items-center h-[24px] rounded-[4px] hover:bg-white/[.2] px-[11px] py-1">
+              Window
+            </li>
+            <li className="flex items-center h-[24px] rounded-[4px] hover:bg-white/[.2] px-[11px] py-1">
+              Help
+            </li>
           </ul>
         </div>
 
@@ -55,26 +69,65 @@ function App() {
             </li>
           </ul>
 
-          <div className="text-[13px] text-center  px-5 [text-shadow:_0px_0px_5px_rgb(0_0_0_/_30%)]">Mon Jun 5 9:41 AM</div>
+          <div className="text-[13px] text-center  px-5 [text-shadow:_0px_0px_5px_rgb(0_0_0_/_30%)]">
+            Mon Jun 5 9:41 AM
+          </div>
         </div>
       </nav>
 
-      
+      <div className="w-screen h-fit absolute top-0 left-0 flex items-center justify-center pt-12 text-[#252525]">
+        <div className="w-[344px] h-[77px] p-3 bg-[#f6f6f6] rounded-2xl drop-shadow-lg gap-2 flex">
+          <div className="max-w-md h-max text-sm">
+            <p className="font-bold">Title goes here</p>
+            <p className="font-medium leading-4">This is the description of the notification and it is very long</p>
+          </div>
+          <div className="w-8 h-max relative">
+            <p className="absolute top-0 right-0 text-zinc-200 text-sm">now</p> 
+          </div>
+        </div>
+      </div>
 
       <div className="w-screen h-fit absolute bottom-0 left-0 flex items-center justify-center pb-1">
         <div className="w-fit h-[65px] backdrop-blur-2xl rounded-2xl border-[1px] border-white/10 backdrop-brightness-[.8]">
           <ul className="flex flex-row justify-between gap-[2px] pt-1">
-            <li><div className="h-[60px] pl-1">
-              <img src={finder} alt="finder" style={{ width: "50px" }} />
-              <div className="w-full h[10px] flex items-center justify-center"><div className="w-[4px] h-[4px] bg-gray-400 opacity-75 rounded-full" /></div>  
-            </div>
+            <li>
+              <div className="h-[60px] pl-1">
+                <img src={finder} alt="finder" style={{ width: "50px" }} />
+                <div className="w-full h[10px] flex items-center justify-center">
+                  <div className="w-[4px] h-[4px] bg-gray-400 opacity-75 rounded-full" />
+                </div>
+              </div>
             </li>
-            <li><div className="h-[60px]"><img src={apps} alt="apps" style={{ width: "50px" }} /></div></li>
-            <li><div className="h-[60px]"><img src={safari} alt="safari" style={{ width: "50px" }} /></div></li>
-            <li><div className="h-[60px]"><img src={messages} alt="messages" style={{ width: "50px" }} /></div></li>
-            <li><div className="h-[60px]"><img src={mail} alt="mail" style={{ width: "50px" }} /></div></li>
-            <li><div className="h-[60px]"><img src={maps} alt="maps" style={{ width: "50px" }} /></div></li>
-            <li><div className="h-[60px] pr-1"><img src={settings} alt="settings" style={{ width: "50px" }} /></div></li>
+            <li>
+              <div className="h-[60px]">
+                <img src={apps} alt="apps" style={{ width: "50px" }} />
+              </div>
+            </li>
+            <li>
+              <div className="h-[60px]">
+                <img src={safari} alt="safari" style={{ width: "50px" }} />
+              </div>
+            </li>
+            <li>
+              <div className="h-[60px]">
+                <img src={messages} alt="messages" style={{ width: "50px" }} />
+              </div>
+            </li>
+            <li>
+              <div className="h-[60px]">
+                <img src={mail} alt="mail" style={{ width: "50px" }} />
+              </div>
+            </li>
+            <li>
+              <div className="h-[60px]">
+                <img src={maps} alt="maps" style={{ width: "50px" }} />
+              </div>
+            </li>
+            <li>
+              <div className="h-[60px] pr-1">
+                <img src={settings} alt="settings" style={{ width: "50px" }} />
+              </div>
+            </li>
           </ul>
         </div>
       </div>
