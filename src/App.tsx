@@ -8,14 +8,14 @@ import {
   AccountIcon,
 } from "./assets/navIcons";
 
-import imgWallpaper from "./assets/backgrounds/sonoma4k.jpg";
-import finder from "./assets/icons/finder.png";
-import apps from "./assets/icons/apps.png";
-import mail from "./assets/icons/mail.png";
-import maps from "./assets/icons/maps.png";
-import messages from "./assets/icons/messages.png";
-import safari from "./assets/icons/safari.png";
-import settings from "./assets/icons/settings.png";
+import imgWallpaper from "./assets/backgrounds/sonoma4k.webp";
+import finder from "./assets/icons/finder.webp";
+import apps from "./assets/icons/apps.webp";
+import mail from "./assets/icons/mail.webp";
+import maps from "./assets/icons/maps.webp";
+import messages from "./assets/icons/messages.webp";
+import safari from "./assets/icons/safari.webp";
+import settings from "./assets/icons/settings.webp";
 
 // backdrop-blur-[100px] backdrop-brightness-90 484a91 5161b4 5075bb
 
