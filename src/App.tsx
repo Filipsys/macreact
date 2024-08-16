@@ -54,18 +54,26 @@ function App() {
         </div>
 
         <div className="flex flex-row">
-          <ul className="flex flex-row h-5 w-fit items-center justify-center space-x-5">
+          <ul className="flex flex-row h-5 w-fit items-center justify-center gap-2">
             <li>
-              <WifiIcon />
+              <div className="rounded-sm hover:bg-white/[.2] p-1">
+                <WifiIcon />
+              </div>
             </li>
             <li>
-              <SearchIcon />
+              <div className="rounded-sm hover:bg-white/[.2] p-1">
+                <SearchIcon />
+              </div>
             </li>
             <li>
-              <AccountIcon />
+              <div className="rounded-sm hover:bg-white/[.2] p-1">
+                <AccountIcon />
+              </div>
             </li>
             <li>
-              <MenuIcon />
+              <div className="rounded-sm hover:bg-white/[.2] p-1">
+                <MenuIcon />
+              </div>
             </li>
           </ul>
 
@@ -75,14 +83,16 @@ function App() {
         </div>
       </nav>
 
-      <div className="w-screen h-fit absolute top-0 left-0 flex items-center justify-center pt-12 text-[#252525]">
+      <div className="w-screen h-fit absolute top-0 left-0 flex items-center justify-center pt-12 text-[#252525] pointer-events-none">
         <div className="w-[344px] h-[77px] p-3 bg-[#f6f6f6] rounded-2xl drop-shadow-lg gap-2 flex">
           <div className="max-w-md h-max text-sm">
             <p className="font-bold">Title goes here</p>
-            <p className="font-medium leading-4">This is the description of the notification and it is very long</p>
+            <p className="font-medium leading-4">
+              This is the description of the notification and it is very long
+            </p>
           </div>
           <div className="w-8 h-max relative">
-            <p className="absolute top-0 right-0 text-zinc-200 text-sm">now</p> 
+            <p className="absolute top-0 right-0 text-zinc-200 text-sm">now</p>
           </div>
         </div>
       </div>
