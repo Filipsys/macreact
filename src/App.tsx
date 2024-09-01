@@ -77,14 +77,12 @@ function App() {
     const y = e.clientY;
     const safariWidth = safariRef.current.clientWidth;
     const safariHeight = safariRef.current.clientHeight;
-    const safariLeft = safariRef.current.offsetLeft;
-    const safariTop = safariRef.current.offsetTop;
 
-    const newX = safariLeft + safariWidth - x;
-    const newY = safariTop + safariHeight - y;
+    const cursorOnSafariX = x - safariRef.current.offsetLeft;
+    const cursorOnSafariY = y - safariRef.current.offsetTop;
 
-    safariRef.current.style.left = `${newX}px`;
-    safariRef.current.style.top = `${newY}px`;
+    safariRef.current.style.left = `${cursorOnSafariX}px`;
+    safariRef.current.style.top = `${cursorOnSafariY}px`;
   };
 
   return (
@@ -95,14 +93,14 @@ function App() {
             <AppleIcon />
           </div>
 
-          <ul className="flex h-fit w-fit flex-row py-1 text-center text-[13px] *:flex *:h-[24px] *:items-center *:rounded-[4px] *:px-[11px] *:py-1 *:hover:bg-white/[.2]">
-            <li className="px-2 font-bold">Finder</li>
-            <li>File</li>
-            <li>Edit</li>
-            <li>View</li>
-            <li>Go</li>
-            <li>Window</li>
-            <li>Help</li>
+          <ul className="flex h-fit w-fit flex-row py-1 text-center text-[13px] *:flex *:h-[24px] *:items-center *:rounded-[4px] *:px-[11px] *:py-1">
+            <li className="px-2 font-bold hover:bg-white/[.2]">Finder</li>
+            <li className="hover:bg-white/[.2]">File</li>
+            <li className="hover:bg-white/[.2]">Edit</li>
+            <li className="hover:bg-white/[.2]">View</li>
+            <li className="hover:bg-white/[.2]">Go</li>
+            <li className="hover:bg-white/[.2]">Window</li>
+            <li className="hover:bg-white/[.2]">Help</li>
           </ul>
         </div>
 
