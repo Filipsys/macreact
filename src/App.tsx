@@ -24,10 +24,14 @@ import maps from "./assets/icons/maps.webp";
 import messages from "./assets/icons/messages.webp";
 import safari from "./assets/icons/safari.webp";
 import settings from "./assets/icons/settings.webp";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 function App() {
   const [dragging, setDragging] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const [notificationIsActive, setNotificationIsActive] = useState(false);
+  const [safariIsActive, setSafariIsActive] = useState(false);
   const safariRef = useRef<HTMLDivElement>(null);
 
   const getCurrentTime = () => {
@@ -73,20 +77,18 @@ function App() {
     if (!safariRef.current) return;
     if (!dragging) return;
 
-    const x = e.clientX;
-    const y = e.clientY;
-    const safariWidth = safariRef.current.clientWidth;
-    const safariHeight = safariRef.current.clientHeight;
+    setPosition({
+      x: e.clientX - offset.x,
+      y: e.clientY - offset.y,
+    });
 
-    const cursorOnSafariX = x - safariRef.current.offsetLeft;
-    const cursorOnSafariY = y - safariRef.current.offsetTop;
-
-    safariRef.current.style.left = `${cursorOnSafariX}px`;
-    safariRef.current.style.top = `${cursorOnSafariY}px`;
+    safariRef.current.style.left = `${position.x}px`;
+    safariRef.current.style.top = `${position.y}px`;
   };
 
   return (
     <div className="select-none text-white">
+      {/* Top Taskbar */}
       <nav className="z-10 flex h-max w-screen flex-row items-center justify-between bg-gradient-to-r from-[#363b87] via-[#3952a7] to-[#3058b6] font-[500] shadow-sm [text-shadow:_0px_0px_5px_rgb(0_0_0_/_30%)]">
         <div className="flex flex-row items-center">
           <div className="px-5">
@@ -126,7 +128,13 @@ function App() {
         </div>
       </nav>
 
-      <div className="pointer-events-none absolute left-0 top-0 flex h-fit w-screen items-center justify-center pt-12 text-[#252525]">
+      {/* Notification */}
+      <div
+        className="pointer-events-none absolute left-0 top-0 flex h-fit w-screen items-center justify-center pt-12 text-[#252525]"
+        style={{
+          display: notificationIsActive ? "block" : "none",
+        }}
+      >
         <div className="flex w-[344px] gap-2 rounded-2xl bg-[#f6f6f6] p-3 drop-shadow-[0px_0px_10px_rgb(0_0_0_/_30%)]">
           <div className="flex min-w-10 items-center justify-center">
             <img
@@ -147,31 +155,47 @@ function App() {
         </div>
       </div>
 
+      {/* Safari */}
       <div
-        className="absolute flex h-[660px] w-[860px] resize-y flex-col rounded-xl border-[1px] border-white/10 backdrop-blur-2xl backdrop-brightness-[.8]"
+        className="absolute left-1/2 top-1/2 flex h-[660px] w-[860px] -translate-x-1/2 -translate-y-1/2 resize-y flex-col rounded-xl border-[1px] border-white/10 backdrop-blur-2xl backdrop-brightness-[.8]"
         ref={safariRef}
+        style={{
+          display: safariIsActive ? "block" : "none",
+        }}
       >
         <nav
           className="relative flex h-11 w-full items-center justify-between rounded-t-xl bg-white/90 shadow-sm"
-          onMouseDown={() => setDragging(true)}
+          onMouseDown={(e) => (
+            setDragging(true),
+            setOffset({
+              x: e.clientX - position.x,
+              y: e.clientY - position.y,
+            })
+          )}
           onMouseUp={() => setDragging(false)}
           onMouseLeave={() => setDragging(false)}
           onMouseMove={(e) => handleMove(e)}
         >
           <div className="absolute left-0 flex items-center px-4">
-            <div className="flex gap-[6px]">
-              <div className="size-[10px] rounded-full bg-gray-400 opacity-75" />
-              <div className="size-[10px] rounded-full bg-gray-400 opacity-75" />
-              <div className="size-[10px] rounded-full bg-gray-400 opacity-75" />
+            <div className="z-10 flex gap-[6px] *:size-[10px] *:rounded-full *:bg-gray-400 *:opacity-75 *:transition-colors">
+              <div className="hover:bg-red-500 hover:opacity-100" />
+              <div className="hover:bg-yellow-500 hover:opacity-100" />
+              <div className="hover:bg-green-500 hover:opacity-100" />
             </div>
 
-            <div className="px-[18px] *:h-[14px]">
-              <SidebarIcon />
+            <div className="z-10 px-[12px]">
+              <div className="rounded-md p-1 px-2 hover:bg-white">
+                <SidebarIcon />
+              </div>
             </div>
 
-            <div className="flex gap-4 *:h-[14px]">
-              <LeftArrowIcon />
-              <RightArrowIcon />
+            <div className="z-10 flex gap-1">
+              <div className="rounded-md p-1 px-2 hover:bg-white">
+                <LeftArrowIcon />
+              </div>
+              <div className="rounded-md p-1 px-2 hover:bg-white">
+                <RightArrowIcon />
+              </div>
             </div>
           </div>
 
@@ -200,15 +224,16 @@ function App() {
         <div className="h-full w-full rounded-b-xl bg-white/60 p-2"></div>
       </div>
 
+      {/* Taskbar */}
       <div className="absolute bottom-0 left-0 flex h-fit w-screen items-center justify-center pb-1">
         <div className="h-[65px] w-fit rounded-2xl border-[1px] border-white/10 backdrop-blur-2xl backdrop-brightness-[.8]">
           <ul className="flex flex-row justify-between gap-[2px] pt-1">
             <li>
               <div className="h-[60px] pl-1">
                 <img src={finder} alt="finder" style={{ width: "50px" }} />
-                <div className="h[10px] flex w-full items-center justify-center">
+                {/* <div className="h[10px] flex w-full items-center justify-center">
                   <div className="h-[4px] w-[4px] rounded-full bg-gray-400 opacity-75" />
-                </div>
+                </div> */}
               </div>
             </li>
             <li>
@@ -217,8 +242,17 @@ function App() {
               </div>
             </li>
             <li>
-              <div className="h-[60px]">
+              <div
+                className="h-[60px]"
+                onClick={() => setSafariIsActive(!safariIsActive)}
+              >
                 <img src={safari} alt="safari" style={{ width: "50px" }} />
+                <div
+                  className="h[10px] flex w-full items-center justify-center"
+                  style={{ display: safariIsActive ? "flex" : "none" }}
+                >
+                  <div className="h-[4px] w-[4px] rounded-full bg-gray-400 opacity-75" />
+                </div>
               </div>
             </li>
             <li>
@@ -245,6 +279,7 @@ function App() {
         </div>
       </div>
 
+      {/* Wallpaper */}
       <div className="absolute left-0 top-0 z-[-10] h-dvh w-full bg-cover bg-center bg-no-repeat">
         <img src={imgWallpaper} alt="wallpaper" />
       </div>
