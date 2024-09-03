@@ -6,6 +6,9 @@ import {
   SearchIcon,
   MenuIcon,
   AccountIcon,
+  DockSeperatorIcon,
+  NotificationIcon,
+  BinIcon,
 } from "./assets/navIcons";
 
 import {
@@ -24,7 +27,17 @@ import maps from "./assets/icons/maps.webp";
 import messages from "./assets/icons/messages.webp";
 import safari from "./assets/icons/safari.webp";
 import settings from "./assets/icons/settings.webp";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, act } from "react";
+
+const taskbarApps = [
+  // ["Finder", finder],
+  ["Apps", apps],
+  ["Safari", safari],
+  ["Mail", mail],
+  ["Maps", maps],
+  ["Messages", messages],
+  ["Settings", settings],
+];
 
 function App() {
   const [dragging, setDragging] = useState(false);
@@ -32,7 +45,10 @@ function App() {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [notificationIsActive, setNotificationIsActive] = useState(false);
   const [safariIsActive, setSafariIsActive] = useState(false);
+  const [activeApps, setActiveApps] = useState<string[]>([]);
+  const [hiddenApps, setHiddenApps] = useState<string[]>([]);
   const safariRef = useRef<HTMLDivElement>(null);
+  // const openedAppRef = useRef<HTMLDivElement>(null);
 
   const getCurrentTime = () => {
     const changeto12Hour = (hour: number) => {
@@ -71,6 +87,25 @@ function App() {
         </span>
       </span>
     );
+  };
+
+  const handleAppChange = (app: string) => {
+    if (activeApps.includes(app))
+      return (
+        setHiddenApps([...hiddenApps, app]),
+        setActiveApps(activeApps.filter((a) => a !== app))
+      );
+    if (hiddenApps.includes(app))
+      return (
+        setHiddenApps(hiddenApps.filter((a) => a !== app)),
+        setActiveApps([...activeApps, app])
+      );
+
+    setActiveApps([...activeApps, app]);
+  };
+
+  const closeApp = (app: string) => {
+    setActiveApps(activeApps.filter((a) => a !== app));
   };
 
   const handleMove = (e: React.MouseEvent) => {
@@ -160,25 +195,28 @@ function App() {
         className="absolute left-1/2 top-1/2 flex h-[660px] w-[860px] -translate-x-1/2 -translate-y-1/2 resize-y flex-col rounded-xl border-[1px] border-white/10 backdrop-blur-2xl backdrop-brightness-[.8]"
         ref={safariRef}
         style={{
-          display: safariIsActive ? "block" : "none",
+          display: activeApps.includes("Safari") ? "block" : "none",
         }}
       >
         <nav
           className="relative flex h-11 w-full items-center justify-between rounded-t-xl bg-white/90 shadow-sm"
-          onMouseDown={(e) => (
-            setDragging(true),
-            setOffset({
-              x: e.clientX - position.x,
-              y: e.clientY - position.y,
-            })
-          )}
-          onMouseUp={() => setDragging(false)}
-          onMouseLeave={() => setDragging(false)}
-          onMouseMove={(e) => handleMove(e)}
+          // onMouseDown={(e) => (
+          //   setDragging(true),
+          //   setOffset({
+          //     x: e.clientX - position.x,
+          //     y: e.clientY - position.y,
+          //   })
+          // )}
+          // onMouseUp={() => setDragging(false)}
+          // onMouseLeave={() => setDragging(false)}
+          // onMouseMove={(e) => handleMove(e)}
         >
           <div className="absolute left-0 flex items-center px-4">
             <div className="z-10 flex gap-[6px] *:size-[10px] *:rounded-full *:bg-gray-400 *:opacity-75 *:transition-colors">
-              <div className="hover:bg-red-500 hover:opacity-100" />
+              <div
+                className="hover:bg-red-500 hover:opacity-100"
+                onClick={() => closeApp("Safari")}
+              />
               <div className="hover:bg-yellow-500 hover:opacity-100" />
               <div className="hover:bg-green-500 hover:opacity-100" />
             </div>
@@ -230,49 +268,42 @@ function App() {
           <ul className="flex flex-row justify-between gap-[2px] pt-1">
             <li>
               <div className="h-[60px] pl-1">
-                <img src={finder} alt="finder" style={{ width: "50px" }} />
+                <img src={finder} alt="finder" className="w-[50px]" />
                 {/* <div className="h[10px] flex w-full items-center justify-center">
                   <div className="h-[4px] w-[4px] rounded-full bg-gray-400 opacity-75" />
                 </div> */}
               </div>
             </li>
-            <li>
-              <div className="h-[60px]">
-                <img src={apps} alt="apps" style={{ width: "50px" }} />
-              </div>
-            </li>
-            <li>
-              <div
-                className="h-[60px]"
-                onClick={() => setSafariIsActive(!safariIsActive)}
-              >
-                <img src={safari} alt="safari" style={{ width: "50px" }} />
-                <div
-                  className="h[10px] flex w-full items-center justify-center"
-                  style={{ display: safariIsActive ? "flex" : "none" }}
-                >
-                  <div className="h-[4px] w-[4px] rounded-full bg-gray-400 opacity-75" />
+
+            {taskbarApps.map(([name, icon]) => (
+              <li key={name}>
+                <div className="h-[60px]" onClick={() => handleAppChange(name)}>
+                  <img src={icon} alt={name} className="w-[50px]" />
+
+                  <div
+                    className="h[10px] flex w-full items-center justify-center"
+                    style={{
+                      display:
+                        activeApps.includes(name) || hiddenApps.includes(name)
+                          ? "flex"
+                          : "none",
+                    }}
+                  >
+                    <div className="h-[4px] w-[4px] rounded-full bg-gray-400 opacity-75" />
+                  </div>
                 </div>
+              </li>
+            ))}
+
+            <li>
+              <div className="flex h-full items-center justify-center px-[6px] *:mb-2 *:opacity-40">
+                <DockSeperatorIcon />
               </div>
             </li>
+
             <li>
-              <div className="h-[60px]">
-                <img src={messages} alt="messages" style={{ width: "50px" }} />
-              </div>
-            </li>
-            <li>
-              <div className="h-[60px]">
-                <img src={mail} alt="mail" style={{ width: "50px" }} />
-              </div>
-            </li>
-            <li>
-              <div className="h-[60px]">
-                <img src={maps} alt="maps" style={{ width: "50px" }} />
-              </div>
-            </li>
-            <li>
-              <div className="h-[60px] pr-1">
-                <img src={settings} alt="settings" style={{ width: "50px" }} />
+              <div className="h-[60px] pr-1 *:h-[50px]">
+                <BinIcon />
               </div>
             </li>
           </ul>

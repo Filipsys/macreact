@@ -6,7 +6,15 @@ export default {
       fontSize: {
         "sm-base": ["0.938rem", { lineHeight: "1.25rem" }],
       },
-      
+      keyframes: {
+        "jump-up": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
+      },
+      animation: {
+        jumpup: "jump-up 1s ease-in-out",
+      },
     },
   },
   plugins: [],
