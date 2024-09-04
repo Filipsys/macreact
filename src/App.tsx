@@ -9,6 +9,7 @@ import {
   DockSeperatorIcon,
   NotificationIcon,
   BinIcon,
+  // CloseButtonIcon,
 } from "./assets/navIcons";
 
 import {
@@ -27,7 +28,8 @@ import maps from "./assets/icons/maps.webp";
 import messages from "./assets/icons/messages.webp";
 import safari from "./assets/icons/safari.webp";
 import settings from "./assets/icons/settings.webp";
-import { useState, useRef, useEffect, act } from "react";
+import { useState, useRef } from "react";
+// import { NavPopover } from "./assets/components/NavPopover";
 
 const taskbarApps = [
   // ["Finder", finder],
@@ -44,11 +46,15 @@ function App() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [notificationIsActive, setNotificationIsActive] = useState(false);
-  const [safariIsActive, setSafariIsActive] = useState(false);
+  // const [safariIsActive, setSafariIsActive] = useState(false);
   const [activeApps, setActiveApps] = useState<string[]>([]);
   const [hiddenApps, setHiddenApps] = useState<string[]>([]);
+  const [appsWithNotifications, setAppsWithNotifications] = useState<[string, number][]>([["Messages", 3]] as [
+    string,
+    number,
+  ][]);
+  // const [isHovered, setIsHovered] = useState([false, ""]);
   const safariRef = useRef<HTMLDivElement>(null);
-  // const openedAppRef = useRef<HTMLDivElement>(null);
 
   const getCurrentTime = () => {
     const changeto12Hour = (hour: number) => {
@@ -59,28 +65,14 @@ function App() {
     const date = new Date();
     const timeDict = {
       days: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-      months: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     };
 
     const time = changeto12Hour(date.getHours());
     return (
       <span className="flex gap-[6px]">
         <span>
-          {timeDict.days[date.getDay()]} {timeDict.months[date.getMonth()]}{" "}
-          {date.getDate()}
+          {timeDict.days[date.getDay()]} {timeDict.months[date.getMonth()]} {date.getDate()}
         </span>
         <span>
           {time.hour}:{date.getMinutes()} {time.pm ? "PM" : "AM"}
@@ -90,21 +82,20 @@ function App() {
   };
 
   const handleAppChange = (app: string) => {
-    if (activeApps.includes(app))
-      return (
-        setHiddenApps([...hiddenApps, app]),
-        setActiveApps(activeApps.filter((a) => a !== app))
-      );
+    if (activeApps.includes(app)) return;
+
     if (hiddenApps.includes(app))
-      return (
-        setHiddenApps(hiddenApps.filter((a) => a !== app)),
-        setActiveApps([...activeApps, app])
-      );
+      return setHiddenApps(hiddenApps.filter((a) => a !== app)), setActiveApps([...activeApps, app]);
 
     setActiveApps([...activeApps, app]);
   };
 
   const closeApp = (app: string) => {
+    setActiveApps(activeApps.filter((a) => a !== app));
+  };
+
+  const hideApp = (app: string) => {
+    setHiddenApps([...hiddenApps, app]);
     setActiveApps(activeApps.filter((a) => a !== app));
   };
 
@@ -172,17 +163,11 @@ function App() {
       >
         <div className="flex w-[344px] gap-2 rounded-2xl bg-[#f6f6f6] p-3 drop-shadow-[0px_0px_10px_rgb(0_0_0_/_30%)]">
           <div className="flex min-w-10 items-center justify-center">
-            <img
-              src={safari}
-              alt="settings-icon"
-              className="size-10 drop-shadow-sm"
-            />
+            <img src={safari} alt="settings-icon" className="size-10 drop-shadow-sm" />
           </div>
           <div className="w-fit text-xs">
             <p className="font-bold">Title goes here</p>
-            <p className="font-medium leading-4">
-              This is the description of the notification and it is very long
-            </p>
+            <p className="font-medium leading-4">This is the description of the notification and it is very long</p>
           </div>
           <div className="relative w-8">
             <p className="absolute right-0 top-0 text-xs text-zinc-200">now</p>
@@ -212,13 +197,12 @@ function App() {
           // onMouseMove={(e) => handleMove(e)}
         >
           <div className="absolute left-0 flex items-center px-4">
-            <div className="z-10 flex gap-[6px] *:size-[10px] *:rounded-full *:bg-gray-400 *:opacity-75 *:transition-colors">
-              <div
-                className="hover:bg-red-500 hover:opacity-100"
-                onClick={() => closeApp("Safari")}
-              />
-              <div className="hover:bg-yellow-500 hover:opacity-100" />
-              <div className="hover:bg-green-500 hover:opacity-100" />
+            <div className="z-10 flex gap-[6px] *:size-[10px] *:rounded-full *:transition-colors">
+              <div className="bg-red-600 *:size-3" onClick={() => closeApp("Safari")}>
+                {/* <CloseButtonIcon /> */}
+              </div>
+              <div className="bg-yellow-600" />
+              <div className="bg-green-500" onClick={() => hideApp("Safari")} />
             </div>
 
             <div className="z-10 px-[12px]">
@@ -244,9 +228,7 @@ function App() {
                   <div className="*:mr-1 *:size-3">
                     <SearchIcon2 />
                   </div>
-                  <span className="text-xs font-extralight text-gray-400">
-                    Search or enter website name
-                  </span>
+                  <span className="text-xs font-extralight text-gray-400">Search or enter website name</span>
                 </div>
               </div>
             </div>
@@ -259,7 +241,7 @@ function App() {
           </div>
         </nav>
 
-        <div className="h-full w-full rounded-b-xl bg-white/60 p-2"></div>
+        <div className="h-full w-full rounded-b-xl bg-white/60 p-2" />
       </div>
 
       {/* Taskbar */}
@@ -277,16 +259,35 @@ function App() {
 
             {taskbarApps.map(([name, icon]) => (
               <li key={name}>
-                <div className="h-[60px]" onClick={() => handleAppChange(name)}>
-                  <img src={icon} alt={name} className="w-[50px]" />
+                {/* popovers currently disabled as they aren't fully working yet (I'm just dumb) */}
+                {/* {isHovered ? <NavPopover appName={name} /> : null} */}
+
+                <div
+                  className="relative h-[60px]"
+                  onClick={() => {
+                    handleAppChange(name);
+                  }}
+                  // onMouseEnter={() => setIsHovered([true, name])}
+                  // onMouseLeave={() => setIsHovered([false, name])}
+                >
+                  <div
+                    className={`${!activeApps.includes(name) && !hiddenApps.includes(name) ? null : "animate-jumpup"}`}
+                  >
+                    <div className="absolute right-0 top-0 z-20 size-[18px]">
+                      {appsWithNotifications.some(([appName]) => appName === name) && (
+                        <NotificationIcon
+                          amount={appsWithNotifications.find(([appName]) => appName === name)?.[1] ?? 0}
+                        />
+                      )}
+                    </div>
+
+                    <img src={icon} alt={name} className="w-[50px] active:brightness-75" />
+                  </div>
 
                   <div
                     className="h[10px] flex w-full items-center justify-center"
                     style={{
-                      display:
-                        activeApps.includes(name) || hiddenApps.includes(name)
-                          ? "flex"
-                          : "none",
+                      display: activeApps.includes(name) || hiddenApps.includes(name) ? "flex" : "none",
                     }}
                   >
                     <div className="h-[4px] w-[4px] rounded-full bg-gray-400 opacity-75" />
