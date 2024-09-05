@@ -180,7 +180,7 @@ function App() {
         className="absolute left-1/2 top-1/2 flex h-[660px] w-[860px] -translate-x-1/2 -translate-y-1/2 resize-y flex-col rounded-xl border-[1px] border-white/10 backdrop-blur-2xl backdrop-brightness-[.8]"
         ref={safariRef}
         style={{
-          display: activeApps.includes("Safari") ? "block" : "none",
+          display: activeApps.includes("Safari") ? "flex" : "none",
         }}
       >
         <nav
@@ -281,7 +281,18 @@ function App() {
                       )}
                     </div>
 
-                    <img src={icon} alt={name} className="w-[50px] active:brightness-75" />
+                    <div>
+                      <div className="absolute -translate-y-12">
+                        <div className="h-fit w-fit rounded-md bg-gray-400 px-2 py-1">{name}</div>
+
+                        <div
+                          className="h-8 w-8 bg-gray-300"
+                          style={{ clipPath: "polygon(0% 0%, 100% 0%, 50% 50%, 0% 100%)" }}
+                        />
+                      </div>
+
+                      <img src={icon} alt={name} className="w-[50px] active:brightness-75" />
+                    </div>
                   </div>
 
                   <div
