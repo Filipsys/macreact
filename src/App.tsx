@@ -53,7 +53,6 @@ function App() {
     string,
     number,
   ][]);
-  // const [isHovered, setIsHovered] = useState([false, ""]);
   const safariRef = useRef<HTMLDivElement>(null);
 
   const getCurrentTime = () => {
@@ -133,17 +132,17 @@ function App() {
         </div>
 
         <div className="flex flex-row">
-          <ul className="flex h-5 w-fit flex-row items-center justify-center gap-2 *:rounded-sm *:p-1 *:hover:bg-white/[.2]">
-            <li>
+          <ul className="flex h-5 w-fit flex-row items-center justify-center gap-2 *:rounded-sm *:p-1">
+            <li className="hover:bg-white/[.2]">
               <WifiIcon />
             </li>
-            <li>
+            <li className="hover:bg-white/[.2]">
               <SearchIcon />
             </li>
-            <li>
+            <li className="hover:bg-white/[.2]">
               <AccountIcon />
             </li>
-            <li>
+            <li className="hover:bg-white/[.2]">
               <MenuIcon />
             </li>
           </ul>
@@ -241,7 +240,28 @@ function App() {
           </div>
         </nav>
 
-        <div className="h-full w-full rounded-b-xl bg-white/60 p-2" />
+        <div className="flex h-full w-full items-center justify-center rounded-b-xl bg-white/60 p-2">
+          <div className="mb-48 flex flex-col items-center gap-2">
+            <div>Bookmarks</div>
+            <div className="flex flex-row gap-2">
+              <div className="flex flex-col items-center gap-2">
+                <div className="size-12 bg-slate-300" />
+
+                <p>Bookmark 1</p>
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <div className="size-12 bg-slate-300" />
+
+                <p>Bookmark 1</p>
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <div className="size-12 bg-slate-300" />
+
+                <p>Bookmark 1</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Taskbar */}
@@ -259,16 +279,11 @@ function App() {
 
             {taskbarApps.map(([name, icon]) => (
               <li key={name}>
-                {/* popovers currently disabled as they aren't fully working yet (I'm just dumb) */}
-                {/* {isHovered ? <NavPopover appName={name} /> : null} */}
-
                 <div
                   className="relative h-[60px]"
                   onClick={() => {
                     handleAppChange(name);
                   }}
-                  // onMouseEnter={() => setIsHovered([true, name])}
-                  // onMouseLeave={() => setIsHovered([false, name])}
                 >
                   <div
                     className={`${!activeApps.includes(name) && !hiddenApps.includes(name) ? null : "animate-jumpup"}`}
@@ -281,13 +296,13 @@ function App() {
                       )}
                     </div>
 
-                    <div>
-                      <div className="absolute -translate-y-12">
-                        <div className="h-fit w-fit rounded-md bg-gray-400 px-2 py-1">{name}</div>
+                    <div className="group/iconElement">
+                      <div className="absolute flex w-full -translate-y-12 flex-col items-center opacity-0 transition-opacity group-hover/iconElement:opacity-100">
+                        <div className="h-fit w-fit rounded-md bg-black px-2 py-1">{name}</div>
 
                         <div
-                          className="h-8 w-8 bg-gray-300"
-                          style={{ clipPath: "polygon(0% 0%, 100% 0%, 50% 50%, 0% 100%)" }}
+                          className="h-5 w-5 -translate-y-1 bg-black"
+                          style={{ clipPath: "polygon(50% 50%, 0 0, 100% 0)" }}
                         />
                       </div>
 
