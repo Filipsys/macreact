@@ -41,6 +41,18 @@ const taskbarApps = [
   ["Settings", settings],
 ];
 
+const bookmarks = [
+  ["Apple"],
+  ["iCloud"],
+  ["Google"],
+  ["Facebook"],
+  ["Twitter"],
+  ["Instagram"],
+  ["Spotify"],
+  ["Netflix"],
+  ["YouTube"],
+];
+
 function App() {
   const [dragging, setDragging] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -183,7 +195,7 @@ function App() {
         }}
       >
         <nav
-          className="relative flex h-11 w-full items-center justify-between rounded-t-xl bg-white/90 shadow-sm"
+          className="relative flex h-11 w-full items-center justify-between rounded-t-xl bg-[#414242] shadow-sm"
           // onMouseDown={(e) => (
           //   setDragging(true),
           //   setOffset({
@@ -240,25 +252,22 @@ function App() {
           </div>
         </nav>
 
-        <div className="flex h-full w-full items-center justify-center rounded-b-xl bg-white/60 p-2">
-          <div className="mb-48 flex flex-col items-center gap-2">
-            <div>Bookmarks</div>
-            <div className="flex flex-row gap-2">
-              <div className="flex flex-col items-center gap-2">
-                <div className="size-12 bg-slate-300" />
+        <div className="flex h-full w-full items-center justify-center rounded-b-xl border-[1px] border-t-0 border-[#bbbbbb]/[.09] bg-[#4A4A4A]/[.39] p-2">
+          <div className="flex w-4/5 flex-col gap-2 px-16">
+            <div className="text-xl font-bold">Favourites</div>
+            <div className="mb-8 flex flex-wrap gap-4">
+              {bookmarks.map(([name]) => (
+                <div className="flex flex-col items-center gap-2 pb-2">
+                  <div className="size-16 rounded-lg bg-slate-300" />
+                  <p className="text-xs [line-height:.7]">{name}</p>
+                </div>
+              ))}
+            </div>
 
-                <p>Bookmark 1</p>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <div className="size-12 bg-slate-300" />
-
-                <p>Bookmark 1</p>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <div className="size-12 bg-slate-300" />
-
-                <p>Bookmark 1</p>
-              </div>
+            <div className="text-xl font-bold">Security & Privacy report</div>
+            <div className="flex flex-row items-center gap-4 rounded-xl bg-black p-4">
+              <div>16</div>
+              <div className="text-sm">In the last 7 days Safari has blocked 16 tracking sites.</div>
             </div>
           </div>
         </div>
