@@ -20,6 +20,8 @@ import {
   SearchIcon as SearchIcon2,
 } from "./assets/safariIcons";
 
+import { ContextMenu } from "./components/ContextMenu.tsx";
+
 import imgWallpaper from "./assets/backgrounds/sonoma4k.webp";
 import finder from "./assets/icons/finder.webp";
 import apps from "./assets/icons/apps.webp";
@@ -28,11 +30,12 @@ import maps from "./assets/icons/maps.webp";
 import messages from "./assets/icons/messages.webp";
 import safari from "./assets/icons/safari.webp";
 import settings from "./assets/icons/settings.webp";
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
+import { c } from "vite/dist/node/types.d-aGj9QkWt";
 // import { NavPopover } from "./assets/components/NavPopover";
 
 const taskbarApps = [
-  // ["Finder", finder],
+  ["Finder", finder],
   ["Apps", apps],
   ["Safari", safari],
   ["Mail", mail],
@@ -53,6 +56,13 @@ const bookmarks = [
   ["YouTube"],
 ];
 
+const wallpapers = [
+  ["assets/backgrounds/sonoma4k.webp", "Sonoma"],
+  ["assets/backgrounds/sonoma4k.webp", "Sonoma"],
+  ["assets/backgrounds/sonoma4k.webp", "Sonoma"],
+  ["assets/backgrounds/sonoma4k.webp", "Sonoma"],
+];
+
 function App() {
   const [dragging, setDragging] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -66,9 +76,13 @@ function App() {
     number,
   ][]);
   const safariRef = useRef<HTMLDivElement>(null);
+  const wallpaperRef = useRef<HTMLDivElement>(null);
+  const contextMenuRef = useRef<HTMLDivElement>(null);
+
+  // wallpaperRef.current?.addEventListener();
 
   const getCurrentTime = () => {
-    const changeto12Hour = (hour: number) => {
+    const changeTo12Hour = (hour: number) => {
       if (hour > 12) return { hour: hour - 12, pm: true };
       return { hour, pm: false };
     };
@@ -79,11 +93,11 @@ function App() {
       months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     };
 
-    const time = changeto12Hour(date.getHours());
+    const time = changeTo12Hour(date.getHours());
     return (
       <span className="flex gap-[6px]">
         <span>
-          {timeDict.days[date.getDay()]} {timeDict.months[date.getMonth()]} {date.getDate()}
+          {timeDict.days[date.getDay()]} {date.getDate()} {timeDict.months[date.getMonth()]}
         </span>
         <span>
           {time.hour}:{date.getMinutes()} {time.pm ? "PM" : "AM"}
@@ -96,7 +110,7 @@ function App() {
     if (activeApps.includes(app)) return;
 
     if (hiddenApps.includes(app))
-      return setHiddenApps(hiddenApps.filter((a) => a !== app)), setActiveApps([...activeApps, app]);
+      return setHiddenApps(hiddenApps.filter(a => a !== app)), setActiveApps([...activeApps, app]);
 
     setActiveApps([...activeApps, app]);
   };
@@ -109,6 +123,23 @@ function App() {
     setHiddenApps([...hiddenApps, app]);
     setActiveApps(activeApps.filter((a) => a !== app));
   };
+
+  const handleRightClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    const { clientX, clientY } = e;
+    const contextMenu = contextMenuRef.current;
+    if (!contextMenu) return;
+
+    contextMenu.style.display = "block";
+    contextMenu.style.left = `${clientX}px`;
+    contextMenu.style.top = `${clientY}px`;
+
+    document.addEventListener("click", () => {
+      contextMenu.style.display = "none";
+      document.removeEventListener("click", () => {});
+    });
+  }
 
   const handleMove = (e: React.MouseEvent) => {
     if (!safariRef.current) return;
@@ -126,35 +157,35 @@ function App() {
   return (
     <div className="select-none text-white">
       {/* Top Taskbar */}
-      <nav className="z-10 flex h-max w-screen flex-row items-center justify-between bg-gradient-to-r from-[#363b87] via-[#3952a7] to-[#3058b6] font-[500] shadow-sm [text-shadow:_0px_0px_5px_rgb(0_0_0_/_30%)]">
+      <nav className="z-10 flex h-6 w-screen flex-row items-center justify-between bg-gradient-to-r from-[#363b87] via-[#3952a7] to-[#3058b6] font-[500] shadow-sm [text-shadow:_0px_0px_5px_rgb(0_0_0_/_30%)]">
         <div className="flex flex-row items-center">
-          <div className="px-5">
+          <div className="px-3">
             <AppleIcon />
           </div>
 
           <ul className="flex h-fit w-fit flex-row py-1 text-center text-[13px] *:flex *:h-[24px] *:items-center *:rounded-[4px] *:px-[11px] *:py-1">
-            <li className="px-2 font-bold hover:bg-white/[.2]">Finder</li>
-            <li className="hover:bg-white/[.2]">File</li>
-            <li className="hover:bg-white/[.2]">Edit</li>
-            <li className="hover:bg-white/[.2]">View</li>
-            <li className="hover:bg-white/[.2]">Go</li>
-            <li className="hover:bg-white/[.2]">Window</li>
-            <li className="hover:bg-white/[.2]">Help</li>
+            <li className="font-bold active:bg-white/[.2]">Finder</li>
+            <li className="active:bg-white/[.2]">File</li>
+            <li className="active:bg-white/[.2]">Edit</li>
+            <li className="active:bg-white/[.2]">View</li>
+            <li className="active:bg-white/[.2]">Go</li>
+            <li className="active:bg-white/[.2]">Window</li>
+            <li className="active:bg-white/[.2]">Help</li>
           </ul>
         </div>
 
         <div className="flex flex-row">
-          <ul className="flex h-5 w-fit flex-row items-center justify-center gap-2 *:rounded-sm *:p-1">
-            <li className="hover:bg-white/[.2]">
+          <ul className="flex h-5 w-fit flex-row items-center justify-center gap-2 *:rounded-sm *:p-1 *:px-2">
+            <li className="active:bg-white/[.2]">
               <WifiIcon />
             </li>
-            <li className="hover:bg-white/[.2]">
+            <li className="active:bg-white/[.2]">
               <SearchIcon />
             </li>
-            <li className="hover:bg-white/[.2]">
+            <li className="active:bg-white/[.2]">
               <AccountIcon />
             </li>
-            <li className="hover:bg-white/[.2]">
+            <li className="active:bg-white/[.2]">
               <MenuIcon />
             </li>
           </ul>
@@ -188,14 +219,14 @@ function App() {
 
       {/* Safari */}
       <div
-        className="absolute left-1/2 top-1/2 flex h-[660px] w-[860px] -translate-x-1/2 -translate-y-1/2 resize-y flex-col rounded-xl border-[1px] border-white/10 backdrop-blur-2xl backdrop-brightness-[.8]"
+        className="absolute left-1/2 top-1/2 flex h-[660px] w-[860px] -translate-x-1/2 -translate-y-1/2 resize-y flex-col rounded-xl backdrop-blur-xl backdrop-brightness-[.38] [box-shadow:0px_0px_0px_1px_rgb(122,_120,_120),0px_0px_0px_2px_rgb(32,_41,_38)]"
         ref={safariRef}
         style={{
           display: activeApps.includes("Safari") ? "flex" : "none",
         }}
       >
         <nav
-          className="relative flex h-11 w-full items-center justify-between rounded-t-xl bg-[#414242] shadow-sm"
+          className="relative flex h-11 w-full items-center justify-between rounded-t-xl bg-[rgb(49,_57,_56)] shadow-sm"
           // onMouseDown={(e) => (
           //   setDragging(true),
           //   setOffset({
@@ -212,8 +243,8 @@ function App() {
               <div className="bg-red-600 *:size-3" onClick={() => closeApp("Safari")}>
                 {/* <CloseButtonIcon /> */}
               </div>
-              <div className="bg-yellow-600" />
-              <div className="bg-green-500" onClick={() => hideApp("Safari")} />
+              <div className="bg-yellow-600" onClick={() => hideApp("Safari")} />
+              <div className="bg-green-500" />
             </div>
 
             <div className="z-10 px-[12px]">
@@ -234,12 +265,12 @@ function App() {
 
           <div className="absolute flex h-full w-full justify-center">
             <div className="h-full w-96 p-2">
-              <div className="flex h-full w-full justify-center rounded-md bg-[#dbe5eb]">
+              <div className="flex h-full w-full justify-center rounded-md bg-[rgb(39,_33,_34)]">
                 <div className="flex items-center">
                   <div className="*:mr-1 *:size-3">
                     <SearchIcon2 />
                   </div>
-                  <span className="text-xs font-extralight text-gray-400">Search or enter website name</span>
+                  <span className="text-xs font-extralight text-[rgb(83,_76,_76)]">Search or enter website name</span>
                 </div>
               </div>
             </div>
@@ -256,8 +287,8 @@ function App() {
           <div className="flex w-4/5 flex-col gap-2 px-16">
             <div className="text-xl font-bold">Favourites</div>
             <div className="mb-8 flex flex-wrap gap-4">
-              {bookmarks.map(([name]) => (
-                <div className="flex flex-col items-center gap-2 pb-2">
+              {bookmarks.map(([name], index) => (
+                <div className="flex flex-col items-center gap-2 pb-2" key={`bookmarks-${index}`}>
                   <div className="size-16 rounded-lg bg-slate-300" />
                   <p className="text-xs [line-height:.7]">{name}</p>
                 </div>
@@ -276,18 +307,18 @@ function App() {
       {/* Taskbar */}
       <div className="absolute bottom-0 left-0 flex h-fit w-screen items-center justify-center pb-1">
         <div className="h-[65px] w-fit rounded-2xl border-[1px] border-white/10 backdrop-blur-2xl backdrop-brightness-[.8]">
-          <ul className="flex flex-row justify-between gap-[2px] pt-1">
-            <li>
+          <ul className="flex flex-row justify-between gap-[2px] px-1 pt-1">
+            {/* <li>
               <div className="h-[60px] pl-1">
                 <img src={finder} alt="finder" className="w-[50px]" />
-                {/* <div className="h[10px] flex w-full items-center justify-center">
+                <div className="h[10px] flex w-full items-center justify-center">
                   <div className="h-[4px] w-[4px] rounded-full bg-gray-400 opacity-75" />
-                </div> */}
+                </div>
               </div>
-            </li>
+            </li> */}
 
             {taskbarApps.map(([name, icon]) => (
-              <li key={name}>
+              <li key={`taskbar-app-${name}`}>
                 <div
                   className="relative h-[60px]"
                   onClick={() => {
@@ -305,12 +336,14 @@ function App() {
                       )}
                     </div>
 
+                    {/* Popover */}
                     <div className="group/iconElement">
-                      <div className="absolute flex w-full -translate-y-12 flex-col items-center opacity-0 transition-opacity group-hover/iconElement:opacity-100">
-                        <div className="h-fit w-fit rounded-md bg-black px-2 py-1">{name}</div>
-
+                      <div className="absolute flex w-full -translate-y-10 flex-col items-center opacity-0 transition-opacity group-hover/iconElement:opacity-100">
+                        <div className="z-10 h-fit w-fit rounded-md bg-[#343132] px-3 py-1 [box-shadow:_0px_0px_0px_1px_#505050,0px_0px_0px_2px_#000000]">
+                          <p className="text-xs">{name}</p>
+                        </div>
                         <div
-                          className="h-5 w-5 -translate-y-1 bg-black"
+                          className="h-5 w-5 -translate-y-1 bg-[#343132]"
                           style={{ clipPath: "polygon(50% 50%, 0 0, 100% 0)" }}
                         />
                       </div>
@@ -347,8 +380,15 @@ function App() {
       </div>
 
       {/* Wallpaper */}
-      <div className="absolute left-0 top-0 z-[-10] h-dvh w-full bg-cover bg-center bg-no-repeat">
-        <img src={imgWallpaper} alt="wallpaper" />
+      <div className="absolute left-0 top-0 z-[-10] h-dvh w-full bg-cover bg-center"
+           ref={wallpaperRef}
+           onContextMenu={(e) => handleRightClick(e)}>
+        <img src={imgWallpaper} alt="wallpaper" className="w-full h-full object-cover" />
+      </div>
+
+      {/* Context Menu */}
+      <div ref={contextMenuRef} className="z-50 absolute" style={{display: "none"}}>
+        <ContextMenu />
       </div>
     </div>
   );
