@@ -37,8 +37,8 @@ export const BottomTaskbar = () => {
 
   return (
     <div className="absolute bottom-0 left-0 flex h-fit w-screen items-center justify-center pb-1">
-      <div
-        className="h-[65px] w-fit rounded-2xl border-[1px] border-white/10 backdrop-blur-2xl backdrop-brightness-[.8]">
+      <div className="h-[65px] w-fit rounded-2xl border border-black/20 backdrop-blur-xl backdrop-brightness-[.85]">
+        {/* [box-shadow:0_0_0_1px_#1A1A1A] [drop-shadow:0_0_0_1px_rgba(0,0,0,.2)] backdrop-blur-[30px] */}
         <ul className="flex flex-row justify-between gap-[2px] px-1 pt-1">
           {/* <li>
               <div className="h-[60px] pl-1">
@@ -70,10 +70,8 @@ export const BottomTaskbar = () => {
 
                   {/* Popover */}
                   <div className="group/iconElement">
-                    <div
-                      className="absolute flex w-full -translate-y-10 flex-col items-center opacity-0 transition-opacity group-hover/iconElement:opacity-100">
-                      <div
-                        className="z-10 h-fit w-fit rounded-md bg-[#343132] px-3 py-1 [box-shadow:_0px_0px_0px_1px_#505050,0px_0px_0px_2px_#000000]">
+                    <div className="absolute flex w-full -translate-y-10 flex-col items-center opacity-0 transition-opacity group-hover/iconElement:opacity-100">
+                      <div className="z-10 h-fit w-fit rounded-md bg-[#343132] px-3 py-1 [box-shadow:_0px_0px_0px_1px_#505050,0px_0px_0px_2px_#000000]">
                         <p className="text-xs">{name}</p>
                       </div>
                       <div
@@ -112,6 +110,5 @@ export const BottomTaskbar = () => {
         </ul>
       </div>
     </div>
-
-  )
+  );
 }

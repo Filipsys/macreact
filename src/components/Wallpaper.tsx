@@ -1,4 +1,4 @@
-// import React, { useRef } from "react";
+// import React, { useEffect, useRef } from "react";
 import imgWallpaper from "../assets/backgrounds/sonoma4k.webp";
 
 // const wallpapers: [] = [
@@ -9,6 +9,7 @@ import imgWallpaper from "../assets/backgrounds/sonoma4k.webp";
 // ];
 
 export const Wallpaper = () => {
+  // const [currentWallpaper, setCurrentWallpaper] = React.useState(0);
   // const wallpaperRef = useRef<HTMLDivElement>(null);
   // const contextMenuRef = useRef<HTMLDivElement>(null);
 

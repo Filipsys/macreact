@@ -24,7 +24,9 @@ const getCurrentTime = () => {
 export const TopTaskbar = () => {
   return (
     <nav
-      className="z-10 flex h-6 w-screen flex-row items-center justify-between bg-gradient-to-r from-[#363b87] via-[#3952a7] to-[#3058b6] font-[500] shadow-sm [text-shadow:_0px_0px_5px_rgb(0_0_0_/_30%)]">
+      onContextMenu={(e) => e.preventDefault()}
+      className="z-10 flex h-6 w-screen flex-row items-center justify-between bg-gradient-to-r from-[#363b87] via-[#3952a7] to-[#3058b6] font-[500] shadow-sm [text-shadow:_0px_0px_5px_rgb(0_0_0_/_30%)]"
+    >
       <div className="flex flex-row items-center">
         <div className="px-3">
           <AppleIcon />
