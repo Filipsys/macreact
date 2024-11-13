@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 const Divider = () => <div className="border-b border-gray-300 opacity-15 mx-1 my-1"></div>;
   
@@ -9,48 +9,90 @@ const DropdownItem = (props: {name: string}) => (
   </div>
 );
 
-const ContextCategory = (props: children) => (
+const ContextCategory = ({children}: {children: React.ReactNode}) => (
   <ul className="flex flex-col gap-[2px]">
-    {props.children}
+    {children}
   </ul>
 );
 
 const ContextItem = (props: {
-  name?: string;
+  name?: string,
+  onClick?: () => void,
   children?: React.ReactNode
 }) => {
   return (props.name ?
-    <li className="hover:bg-[#254d8c] px-4 rounded-[4px]">{props.name}</li> :
-    <li className="hover:bg-[#254d8c] pl-4 pr-2 rounded-[4px]">{props.children}</li>
+    <li className="hover:bg-[#254d8c] px-4 py-[1px] rounded-[4px]" onClick={props.onClick}>{props.name}</li> :
+    <li className="hover:bg-[#254d8c] pl-4 py-[1px] rounded-[4px] pr-2" onClick={props.onClick}>{props.children}</li>
   );
 };
 
-export const ContextMenu = () => {
-  return (
-    <div className="w-44 rounded-md p-1 text-sm text-white backdrop-blur-3xl bg-zinc-950/[.65] [box-shadow:_0px_0px_0px_1px_#505050,0px_0px_0px_2px_#000000,0px_0px_16px_1px_rgba(0,_0,_0,_.5)]">
-        <ContextCategory>
-          <ContextItem name="New Folder" />
-        </ContextCategory>
-        <Divider />
-        <ContextCategory>
-          <ContextItem name="Get Info" />
-          <ContextItem name="Change Wallpaper..." />
-          <ContextItem name="Edit Widgets..." />
-        </ContextCategory>
-        <Divider />
-        <ContextCategory>
-          <ContextItem name="Use Stacks" />
-          <ContextItem>
-            <DropdownItem name="Group Stacks By" />
-          </ContextItem>
-          <ContextItem name="Show View Options" />
-        </ContextCategory>
-        <Divider />
-        <ContextCategory>
-          <ContextItem>
-            <DropdownItem name="Import from iPhone" />
-          </ContextItem>
-        </ContextCategory>
-      </div>
-    );
+export const ContextMenu = ({ children }: { children: React.ReactNode }) => {
+  const contextMenuRef = useRef<HTMLDivElement>(null);
+
+  const ListenerWrapper = ({ children }: { children: React.ReactNode }) => (
+    <div className="w-full h-full"
+         onContextMenu={(e) => {
+           e.preventDefault();
+           console.log("Context menu");
+
+           if (contextMenuRef.current) {
+              const { clientX, clientY } = e;
+              const contextMenu = contextMenuRef.current;
+
+              contextMenu.style.display = "block";
+              contextMenu.style.left = `${clientX}px`;
+              contextMenu.style.top = `${clientY}px`;
+
+              document.addEventListener("click", () => {
+                contextMenu.style.display = "none";
+                document.removeEventListener("click", () => {});
+              });
+           }
+         }}
+    >
+      {children}
+    </div>
+  );
+
+  const handleWallpaperChange = () => {
+    console.log("Change wallpaper");
   };
+
+  return (
+    <>
+      <ListenerWrapper>
+        <div
+          style={{ display: "none" }}
+          ref={contextMenuRef}
+          className="absolute z-50 w-44 cursor-default rounded-md p-1 text-xs text-white backdrop-blur-3xl backdrop-brightness-75 [box-shadow:_0px_0px_0px_1px_#505050,0px_0px_0px_2px_#000000,0px_0px_16px_1px_rgba(0,_0,_0,_.5)]"
+        >
+          <ContextCategory>
+            <ContextItem name="New Folder" />
+          </ContextCategory>
+          <Divider />
+          <ContextCategory>
+            <ContextItem name="Get Info" />
+            <ContextItem name="Change Wallpaper..." onClick={handleWallpaperChange} />
+            <ContextItem name="Edit Widgets..." />
+          </ContextCategory>
+          <Divider />
+          <ContextCategory>
+            <ContextItem name="Use Stacks" />
+            <ContextItem>
+              <DropdownItem name="Group Stacks By" />
+            </ContextItem>
+            <ContextItem name="Show View Options" />
+          </ContextCategory>
+          <Divider />
+          <ContextCategory>
+            <ContextItem>
+              <DropdownItem name="Import from iPhone" />
+            </ContextItem>
+          </ContextCategory>
+        </div>
+
+      {children}
+      </ListenerWrapper>
+    </>
+  );
+};
