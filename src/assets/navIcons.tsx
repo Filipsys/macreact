@@ -76,7 +76,7 @@ export function MenuIcon() {
 export function DockSeperatorIcon() {
   return (
     <svg width="2" height="45" viewBox="0 0 2 45" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0.5" width="1" height="45" rx="0.5" fill="#E8E8E8" />
+      <rect x="0.5" width="0.6" height="45" rx="0.5" fill="#E8E8E8" />
     </svg>
   );
 }

@@ -25,15 +25,15 @@ export const TopTaskbar = () => {
   return (
     <nav
       onContextMenu={(e) => e.preventDefault()}
-      className="z-10 flex h-6 w-screen flex-row items-center justify-between bg-gradient-to-r from-[#363b87] via-[#3952a7] to-[#3058b6] font-[500] shadow-sm [text-shadow:_0px_0px_5px_rgb(0_0_0_/_30%)]"
+      className="z-10 flex h-7 w-screen flex-row items-center justify-between bg-gradient-to-r from-[#363b87] via-[#3952a7] to-[#3058b6] font-[500] shadow-sm [text-shadow:_0px_0px_5px_rgb(0_0_0_/_30%)]"
     >
-      <div className="flex flex-row items-center">
-        <div className="px-3">
+      <div className="flex flex-row items-center h-full">
+        <div className="px-5">
           <AppleIcon />
         </div>
 
         <ul
-          className="flex h-fit w-fit flex-row py-1 text-center text-[13px] *:flex *:h-[24px] *:items-center *:rounded-[4px] *:px-[11px] *:py-1 cursor-default">
+          className="flex h-fit flex-row py-1 text-[13px] font-light *:h-[24px] *:items-center *:rounded-[4px] gap-[22px] *:py-1 cursor-default">
           <li className="font-bold active:bg-white/[.2]">Finder</li>
           <li className="active:bg-white/[.2]">File</li>
           <li className="active:bg-white/[.2]">Edit</li>

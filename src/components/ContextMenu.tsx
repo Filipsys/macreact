@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
+import { mainContext } from "../main.tsx";
 
 const Divider = () => <div className="border-b border-gray-300 opacity-15 mx-1 my-1"></div>;
-  
+
 const DropdownItem = (props: {name: string}) => (
   <div className="flex flex-row justify-between">
     <p>{props.name}</p>
@@ -21,34 +22,34 @@ const ContextItem = (props: {
   children?: React.ReactNode
 }) => {
   return (props.name ?
-    <li className="hover:bg-[#254d8c] px-4 py-[1px] rounded-[4px]" onClick={props.onClick}>{props.name}</li> :
-    <li className="hover:bg-[#254d8c] pl-4 py-[1px] rounded-[4px] pr-2" onClick={props.onClick}>{props.children}</li>
+      <li className="hover:bg-[#254d8c] px-4 py-[1px] rounded-[4px]" onClick={props.onClick}>{props.name}</li> :
+      <li className="hover:bg-[#254d8c] pl-4 py-[1px] rounded-[4px] pr-2" onClick={props.onClick}>{props.children}</li>
   );
 };
 
 export const ContextMenu = ({ children }: { children: React.ReactNode }) => {
   const contextMenuRef = useRef<HTMLDivElement>(null);
+  const { values, setValues }: any = useContext(mainContext);
 
   const ListenerWrapper = ({ children }: { children: React.ReactNode }) => (
-    <div className="w-full h-full"
-         onContextMenu={(e) => {
-           e.preventDefault();
-           console.log("Context menu");
+    <div className="w-full h-full" onContextMenu={(e) => {
+       if (!contextMenuRef.current) return;
+       e.preventDefault();
 
-           if (contextMenuRef.current) {
-              const { clientX, clientY } = e;
-              const contextMenu = contextMenuRef.current;
+       console.log("Context menu");
 
-              contextMenu.style.display = "block";
-              contextMenu.style.left = `${clientX}px`;
-              contextMenu.style.top = `${clientY}px`;
+       const { clientX, clientY } = e;
+       const contextMenu = contextMenuRef.current;
 
-              document.addEventListener("click", () => {
-                contextMenu.style.display = "none";
-                document.removeEventListener("click", () => {});
-              });
-           }
-         }}
+       contextMenu.style.display = "block";
+       contextMenu.style.left = `${clientX}px`;
+       contextMenu.style.top = `${clientY}px`;
+
+       document.addEventListener("click", () => {
+         contextMenu.style.display = "none";
+         document.removeEventListener("click", () => {});
+       });
+     }}
     >
       {children}
     </div>
@@ -56,6 +57,9 @@ export const ContextMenu = ({ children }: { children: React.ReactNode }) => {
 
   const handleWallpaperChange = () => {
     console.log("Change wallpaper");
+
+    console.log(values);
+    setValues({ wallpaper: values.wallpaper < 3 ? values.wallpaper + 1 : 0 });
   };
 
   return (
@@ -64,7 +68,8 @@ export const ContextMenu = ({ children }: { children: React.ReactNode }) => {
         <div
           style={{ display: "none" }}
           ref={contextMenuRef}
-          className="absolute z-50 w-44 cursor-default rounded-md p-1 text-xs text-white backdrop-blur-3xl backdrop-brightness-75 [box-shadow:_0px_0px_0px_1px_#505050,0px_0px_0px_2px_#000000,0px_0px_16px_1px_rgba(0,_0,_0,_.5)]"
+          // className="absolute z-50 w-44 cursor-default rounded-md p-1 text-xs text-white backdrop-blur-3xl backdrop-brightness-75 [box-shadow:_0px_0px_0px_1px_#505050,0px_0px_0px_2px_#000000,0px_0px_16px_1px_rgba(0,_0,_0,_.5)]"
+          className="absolute z-50 w-40 cursor-default font-light rounded-md p-1 text-xs text-white border border-black/20 backdrop-blur-xl backdrop-brightness-[.45]"
         >
           <ContextCategory>
             <ContextItem name="New Folder" />
@@ -91,7 +96,7 @@ export const ContextMenu = ({ children }: { children: React.ReactNode }) => {
           </ContextCategory>
         </div>
 
-      {children}
+        {children}
       </ListenerWrapper>
     </>
   );

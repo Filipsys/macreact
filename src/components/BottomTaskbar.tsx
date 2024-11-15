@@ -1,4 +1,4 @@
-import { BinIcon, DockSeperatorIcon, NotificationIcon } from "../assets/navIcons.tsx";
+import { DockSeperatorIcon, NotificationIcon } from "../assets/navIcons.tsx";
 import { useState } from "react";
 import finder from "../assets/icons/finder.webp";
 import apps from "../assets/icons/apps.webp";
@@ -7,6 +7,7 @@ import mail from "../assets/icons/mail.webp";
 import maps from "../assets/icons/maps.webp";
 import messages from "../assets/icons/messages.webp";
 import settings from "../assets/icons/settings.webp";
+import darkFullBin from "../assets/icons/full-bin-dark.png";
 
 const taskbarApps = [
   ["Finder", finder],
@@ -37,29 +38,16 @@ export const BottomTaskbar = () => {
 
   return (
     <div className="absolute bottom-0 left-0 flex h-fit w-screen items-center justify-center pb-1">
-      <div className="h-[65px] w-fit rounded-2xl border border-black/20 backdrop-blur-xl backdrop-brightness-[.85]">
-        {/* [box-shadow:0_0_0_1px_#1A1A1A] [drop-shadow:0_0_0_1px_rgba(0,0,0,.2)] backdrop-blur-[30px] */}
+      <div className="h-[65px] w-fit rounded-2xl border border-black/20 backdrop-blur-xl backdrop-brightness-[.70]">
         <ul className="flex flex-row justify-between gap-[2px] px-1 pt-1">
-          {/* <li>
-              <div className="h-[60px] pl-1">
-                <img src={finder} alt="finder" className="w-[50px]" />
-                <div className="h[10px] flex w-full items-center justify-center">
-                  <div className="h-[4px] w-[4px] rounded-full bg-gray-400 opacity-75" />
-                </div>
-              </div>
-            </li> */}
 
           {taskbarApps.map(([name, icon]) => (
             <li key={`taskbar-app-${name}`}>
               <div
                 className="relative h-[60px]"
-                onClick={() => {
-                  handleAppChange(name);
-                }}
+                onClick={() => { handleAppChange(name) }}
               >
-                <div
-                  className={`${!activeApps.includes(name) && !hiddenApps.includes(name) ? null : "animate-jumpup"}`}
-                >
+                <div className={`${!activeApps.includes(name) && !hiddenApps.includes(name) ? null : "animate-jumpup"}`}>
                   <div className="absolute right-0 top-0 z-20 size-[18px]">
                     {appsWithNotifications.some(([appName]) => appName === name) && (
                       <NotificationIcon
@@ -104,7 +92,7 @@ export const BottomTaskbar = () => {
 
           <li>
             <div className="h-[60px] pr-1 *:h-[50px]">
-              <BinIcon />
+              <img src={darkFullBin} alt="bin" className="w-[50px]" />
             </div>
           </li>
         </ul>
