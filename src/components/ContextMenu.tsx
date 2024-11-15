@@ -29,7 +29,8 @@ const ContextItem = (props: {
 
 export const ContextMenu = ({ children }: { children: React.ReactNode }) => {
   const contextMenuRef = useRef<HTMLDivElement>(null);
-  const { values, setValues }: any = useContext(mainContext);
+  // @ts-expect-error - Temporary fix
+  const { values, setValues } = useContext(mainContext);
 
   const ListenerWrapper = ({ children }: { children: React.ReactNode }) => (
     <div className="w-full h-full" onContextMenu={(e) => {
