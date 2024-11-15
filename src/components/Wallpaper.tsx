@@ -3,14 +3,15 @@ import { useContext } from "react";
 import { mainContext } from "../main.tsx";
 
 const wallpapers = [
-  "src/assets/backgrounds/sequoia-light.jpg",
-  "src/assets/backgrounds/sonoma4k.webp",
-  "src/assets/backgrounds/wallpaper2.webp",
-  "src/assets/backgrounds/sequoia-dark.jpg",
+  "./backgrounds/sequoia-light.webp",
+  "./backgrounds/sonoma4k.webp",
+  "./backgrounds/wallpaper2.webp",
+  "./backgrounds/sequoia-dark.webp",
 ];
 
 export const Wallpaper = () => {
-  const { values }: any = useContext(mainContext);
+  // @ts-expect-error - Temporary fix
+  const { values }: { wallpaper: number } = useContext(mainContext);
 
   return (
     <div className="absolute left-0 top-0 z-[-10] h-dvh w-full bg-cover bg-center">
