@@ -37,12 +37,17 @@ export const ContextMenu = ({ children }: { children: React.ReactNode }) => {
        if (!contextMenuRef.current) return;
        e.preventDefault();
 
-       console.log("Context menu");
+       console.log("Context menu opened.");
 
-       const { clientX, clientY } = e;
+       let { clientX, clientY } = e;
        const contextMenu = contextMenuRef.current;
+      contextMenu.style.display = "block";
 
-       contextMenu.style.display = "block";
+       if (clientX + contextMenu.offsetWidth > window.innerWidth)
+          clientX -= contextMenu.offsetWidth;
+       if (clientY + contextMenu.offsetHeight > window.innerHeight)
+          clientY -= contextMenu.offsetHeight;
+
        contextMenu.style.left = `${clientX}px`;
        contextMenu.style.top = `${clientY}px`;
 

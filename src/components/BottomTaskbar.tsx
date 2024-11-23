@@ -1,5 +1,5 @@
 import { DockSeperatorIcon, NotificationIcon } from "../assets/navIcons.tsx";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import finder from "../assets/icons/finder.webp";
 import apps from "../assets/icons/apps.webp";
 import safari from "../assets/icons/safari.webp";
@@ -8,6 +8,7 @@ import maps from "../assets/icons/maps.webp";
 import messages from "../assets/icons/messages.webp";
 import settings from "../assets/icons/settings.webp";
 import darkFullBin from "../assets/icons/full-bin-dark.png";
+import { mainContext } from "../main.tsx";
 
 const taskbarApps = [
   ["Finder", finder],
@@ -20,18 +21,18 @@ const taskbarApps = [
 ];
 
 export const BottomTaskbar = () => {
-  const [activeApps, setActiveApps] = useState<string[]>([]);
-  const [hiddenApps, setHiddenApps] = useState<string[]>([]);
-  const [appsWithNotifications] = useState<[string, number][]>([["Messages", 3]] as [
-    string,
-    number,
-  ][]);
+  const { activeApps, setActiveApps, hiddenApps, setHiddenApps } = useContext(mainContext);
+  const [appsWithNotifications] = useState<[string, number][]>([["Messages", 3]] as [string, number][]);
 
   const handleAppChange = (app: string) => {
     if (activeApps.includes(app)) return;
 
-    if (hiddenApps.includes(app))
-      return setHiddenApps(hiddenApps.filter(a => a !== app)); setActiveApps([...activeApps, app]);
+    if (hiddenApps.includes(app)) {
+      setHiddenApps(hiddenApps.filter(a => a !== app));
+      setActiveApps([...activeApps, app]);
+
+      return;
+    }
 
     setActiveApps([...activeApps, app]);
   };
@@ -59,7 +60,7 @@ export const BottomTaskbar = () => {
                   {/* Popover */}
                   <div className="group/iconElement">
                     <div className="absolute flex w-full -translate-y-10 flex-col items-center opacity-0 transition-opacity group-hover/iconElement:opacity-100">
-                      <div className="z-10 h-fit w-fit rounded-md bg-[#343132] px-3 py-1 [box-shadow:_0px_0px_0px_1px_#505050,0px_0px_0px_2px_#000000]">
+                      <div className="z-10 h-fit w-fit rounded-md bg-[#343132]/80 px-3 py-1 [box-shadow:_0px_0px_0px_1px_#505050,0px_0px_0px_2px_#000000]">
                         <p className="text-xs">{name}</p>
                       </div>
                       <div

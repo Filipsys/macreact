@@ -5,7 +5,8 @@ import {
   SidebarIcon,
   UploadIcon
 } from "../assets/safariIcons.tsx";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
+import { mainContext } from "../main.tsx";
 
 const bookmarks = [
   ["Apple"],
@@ -23,9 +24,9 @@ export const Safari = () => {
   const [dragging, setDragging] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const [activeApps, setActiveApps] = useState<string[]>([]);
-  const [hiddenApps, setHiddenApps] = useState<string[]>([]);
   const safariRef = useRef<HTMLDivElement>(null);
+
+  const { activeApps, setActiveApps, hiddenApps, setHiddenApps } = useContext(mainContext);
 
   const handleMove = (e: React.MouseEvent) => {
     if (!safariRef.current) return;
@@ -52,12 +53,11 @@ export const Safari = () => {
   return (
     <div
       className="absolute left-1/2 top-1/2 flex h-[660px] w-[860px] -translate-x-1/2 -translate-y-1/2 resize-y flex-col rounded-xl backdrop-blur-xl backdrop-brightness-[.38] [box-shadow:0px_0px_0px_1px_rgb(122,_120,_120),0px_0px_0px_2px_rgb(32,_41,_38)]"
-      // style={{ display: activeApps.includes("Safari") ? "flex" : "none" }}
-      style={{ display: "flex" }}
+      style={{ display: activeApps.includes("Safari") ? "flex" : "none" }}
       ref={safariRef}
     >
       <nav
-        className="relative flex h-11 w-full items-center justify-between rounded-t-xl bg-[rgb(49,_57,_56)] shadow-sm"
+        className="relative flex h-12 w-full items-center justify-between rounded-t-xl bg-[rgb(49,_57,_56)] shadow-sm"
         onMouseDown={(e) => {
           setDragging(true)
           setOffset({
@@ -79,16 +79,16 @@ export const Safari = () => {
           </div>
 
           <div className="z-10 px-[12px]">
-            <div className="rounded-md p-1 px-2 hover:bg-white">
+            <div className="rounded-md p-1 px-2 hover:bg-white/5 *:fill-gray-300">
               <SidebarIcon />
             </div>
           </div>
 
           <div className="z-10 flex gap-1">
-            <div className="rounded-md p-1 px-2 hover:bg-white">
+            <div className="rounded-md p-1 px-2 hover:bg-white/5 *:fill-gray-300">
               <LeftArrowIcon />
             </div>
-            <div className="rounded-md p-1 px-2 hover:bg-white">
+            <div className="rounded-md p-1 px-2 hover:bg-white/5 *:fill-gray-300">
               <RightArrowIcon />
             </div>
           </div>
@@ -96,12 +96,13 @@ export const Safari = () => {
 
         <div className="absolute flex h-full w-full justify-center">
           <div className="h-full w-96 p-2">
-            <div className="flex h-full w-full justify-center rounded-md bg-[rgb(39,_33,_34)]">
+            <div className="flex h-full w-full justify-center rounded-md bg-[#353130]">
               <div className="flex items-center">
-                <div className="*:mr-1 *:size-3">
+                <div className="*:mr-1.5 *:size-3 *:fill-gray-300">
                   <SearchIcon2 />
                 </div>
-                <span className="text-xs font-extralight text-[rgb(83,_76,_76)]">Search or enter website name</span>
+
+                <span className="text-sm font-base text-gray-500">Search or enter website name</span>
               </div>
             </div>
           </div>

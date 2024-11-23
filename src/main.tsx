@@ -4,7 +4,16 @@ import { MainProvider } from "./mainProvider.tsx";
 import App from "./App.tsx";
 import "./index.css";
 
-export const mainContext = createContext({ wallpaper: 0 });
+interface MainContext {
+  activeApps: string[];
+  setActiveApps: (apps: string[]) => void;
+  hiddenApps: string[];
+  setHiddenApps: (apps: string[]) => void;
+}
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+export const mainContext = createContext<MainContext>();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

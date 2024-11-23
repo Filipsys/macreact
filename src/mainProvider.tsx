@@ -3,8 +3,17 @@ import { mainContext } from "./main.tsx";
 import React from "react";
 
 export const MainProvider = ({ children }: { children: React.ReactNode }) => {
-  const [values, setValues] = useState({ wallpaper: 0 });
+  const [values, setValues] = useState<{ wallpaper: number }>({ wallpaper: 0 });
+  const [activeApps, setActiveApps] = useState<string[]>([]);
+  const [hiddenApps, setHiddenApps] = useState<string[]>([]);
 
-  // @ts-expect-error - This is a valid return type
-  return <mainContext.Provider value={{ values, setValues }}>{children}</mainContext.Provider>;
+  return <mainContext.Provider
+    value={{
+      values, setValues,
+      activeApps, setActiveApps,
+      hiddenApps, setHiddenApps
+    }}
+  >
+    {children}
+  </mainContext.Provider>;
 };

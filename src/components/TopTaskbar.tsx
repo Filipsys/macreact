@@ -16,7 +16,7 @@ const getCurrentTime = () => {
   return (
     <span className="flex gap-[6px] cursor-default">
         <span>{timeDict.days[date.getDay()]} {date.getDate()} {timeDict.months[date.getMonth()]}</span>
-        <span>{time.hour}:{date.getMinutes()} {time.pm ? "PM" : "AM"}</span>
+        <span>{time.hour.toString().padStart(2, '0')}:{date.getMinutes().toString().padStart(2, '0')} {time.pm ? "PM" : "AM"}</span>
       </span>
   );
 };
@@ -45,7 +45,7 @@ export const TopTaskbar = () => {
       </div>
 
       <div className="flex flex-row">
-        <ul className="flex h-5 w-fit flex-row items-center justify-center gap-2 *:rounded-sm *:p-1 *:px-2">
+        <ul className="flex h-5 w-fit flex-row items-center justify-center gap-1.5 *:rounded-sm *:p-1 *:px-2">
           <li className="active:bg-white/[.2]">
             <WifiIcon />
           </li>

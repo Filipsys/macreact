@@ -6,7 +6,6 @@ import { Wallpaper } from "./components/Wallpaper.tsx";
 import { ContextMenu } from "./components/ContextMenu.tsx";
 import { LoadingScreen } from "./components/LoadingScreen.tsx";
 import { Safari } from "./components/Safari.tsx";
-// import { Notification } from "./components/Notification.tsx";
 
 function App() {
   return (
@@ -14,8 +13,6 @@ function App() {
       <LoadingScreen />
 
       <TopTaskbar />
-
-      {/*<Notification />*/}
 
       <Safari />
 
