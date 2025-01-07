@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { mainContext } from "../main";
+import { CloseIcon, MinimizeIcon, ExpandIcon } from "../assets/windowControlIcons";
 
 export const WindowControl = () => {
   const { activeApps, setActiveApps, hiddenApps, setHiddenApps } = useContext(mainContext);
@@ -14,15 +15,21 @@ export const WindowControl = () => {
   };
 
   return (
-    <div className="group flex gap-[6px] *:z-10 *:size-[10px] *:rounded-full">
-      <div className="bg-red-600 *:size-3" onClick={() => closeApp("Safari")}>
-        <p className="hidden text-sm font-extralight group-hover:block">x</p>
+    <div className="group flex gap-[6px] *:z-10 *:*:hidden *:*:size-full *:size-[12px] *:*:items-center *:*:justify-center *:rounded-full *:*:opacity-50">
+      <div className="bg-red-600" onClick={() => closeApp("Safari")}>
+        <div className="*:size-[7px] group-hover:flex">
+          <CloseIcon />
+        </div>
       </div>
       <div className="bg-yellow-600" onClick={() => hideApp("Safari")}>
-        <p className="hidden text-sm font-extralight group-hover:block">_</p>
+        <div className="*:w-[8px] group-hover:flex">
+          <MinimizeIcon />
+        </div>
       </div>
       <div className="bg-green-500">
-        <p className="hidden text-sm font-extralight group-hover:block">^</p>
+        <div className="*:size-[6px] group-hover:flex">
+          <ExpandIcon />
+        </div>
       </div>
     </div>
   );

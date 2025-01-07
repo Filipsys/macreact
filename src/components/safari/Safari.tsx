@@ -40,7 +40,7 @@ export const Safari = () => {
 
           <div className="mb-8 flex flex-wrap gap-4">
             {bookmarks.map((name, index) => (
-              <Bookmark name={name} index={index.toString()} />
+              <Bookmark name={name} index={index.toString()} key={`bookmark-nr-${index}`} />
             ))}
           </div>
 

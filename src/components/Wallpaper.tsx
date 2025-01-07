@@ -10,13 +10,13 @@ const wallpapers = [
 ];
 
 export const Wallpaper = () => {
-  const { values }: { wallpaper: number } = useContext(mainContext);
+  const { wallpaper } = useContext(mainContext);
 
   return (
     <div className="absolute left-0 top-0 z-[-10] h-dvh w-full bg-cover bg-center">
-      {wallpapers.map((_wallpaper, index) => (
+      {wallpapers.map((wallpaper, index) => (
         <img
-          src={wallpapers[index]}
+          src={wallpaper} // wallpapers[index]
           alt="preloaded-img"
           key={`preloaded-img-${index}`}
           style={{
@@ -40,7 +40,7 @@ export const Wallpaper = () => {
         </div>
       </div>
 
-      <img src={wallpapers[values.wallpaper]} alt="wallpaper" className="h-full w-full object-cover" />
+      <img src={wallpapers[wallpaper]} alt="wallpaper" className="h-full w-full object-cover" />
     </div>
   );
-}
+};
