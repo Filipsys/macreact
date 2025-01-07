@@ -1,6 +1,8 @@
 import { SidebarIcon, LeftArrowIcon, RightArrowIcon, UploadIcon, SearchIcon } from "../../assets/safariIcons";
 import { WindowControl } from "../WindowControl";
 
+const navigationButtonsEnabled = false;
+
 export const TopNavigation = (props: {
   position: { x: number; y: number };
   setDragging: (arg: boolean) => void;
@@ -8,7 +10,7 @@ export const TopNavigation = (props: {
   handleMove: (e: React.MouseEvent) => void;
 }) => (
   <nav
-    className="relative flex h-12 w-full items-center justify-between rounded-t-xl bg-[rgb(49,_57,_56)] shadow-sm"
+    className="relative flex h-12 w-full items-center justify-between rounded-t-xl bg-[#3e3938] shadow-sm"
     onMouseDown={(e) => {
       props.setDragging(true);
       props.setOffset({
@@ -24,16 +26,20 @@ export const TopNavigation = (props: {
       <WindowControl />
 
       <div className="z-10 px-[12px]">
-        <div className="rounded-md p-1 px-2 *:fill-gray-300 hover:bg-white/5">
+        <div className="rounded-md p-1 px-2 *:fill-[#bfbab9] hover:bg-white/5">
           <SidebarIcon />
         </div>
       </div>
 
       <div className="z-10 flex gap-1">
-        <div className="rounded-md p-1 px-2 *:fill-gray-300 hover:bg-white/5">
+        <div
+          className={`rounded-md p-1 px-2 ${navigationButtonsEnabled ? "*:fill-[#bfbab9]" : "*:fill-[#635e5c]"} hover:bg-white/5`}
+        >
           <LeftArrowIcon />
         </div>
-        <div className="rounded-md p-1 px-2 *:fill-gray-300 hover:bg-white/5">
+        <div
+          className={`rounded-md p-1 px-2 ${navigationButtonsEnabled ? "*:fill-[#bfbab9]" : "*:fill-[#635e5c]"} hover:bg-white/5`}
+        >
           <RightArrowIcon />
         </div>
       </div>
@@ -41,9 +47,9 @@ export const TopNavigation = (props: {
 
     <div className="absolute flex h-full w-full justify-center">
       <div className="h-full w-96 p-2">
-        <div className="flex h-full w-full justify-center rounded-md bg-[#353130]">
+        <div className="flex h-full w-full justify-center rounded-md bg-[#302b2a]">
           <div className="flex items-center">
-            <div className="*:mr-1.5 *:size-3 *:fill-gray-300">
+            <div className="*:mr-1.5 *:size-3 *:fill-[#999595]">
               <SearchIcon />
             </div>
 
@@ -53,7 +59,7 @@ export const TopNavigation = (props: {
       </div>
     </div>
 
-    <div className="absolute right-0 flex gap-3 px-4">
+    <div className="absolute right-0 flex gap-5 px-6 *:fill-[#635e5c]">
       <UploadIcon />
       <UploadIcon />
       <UploadIcon />
