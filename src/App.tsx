@@ -6,11 +6,12 @@ import { Wallpaper } from "./components/Wallpaper.tsx";
 import { ContextMenu } from "./components/ContextMenu.tsx";
 import { LoadingScreen } from "./components/LoadingScreen.tsx";
 import { Safari } from "./components/safari/Safari.tsx";
+import { DEBUG_MODE } from "./utils.ts";
 
 function App() {
   return (
-    <div className="h-dvh w-full select-none tracking-wide text-white">
-      <LoadingScreen />
+    <div className="flex h-dvh w-full select-none flex-col tracking-wide text-white">
+      {!DEBUG_MODE ? <LoadingScreen /> : null}
 
       <TopTaskbar />
 

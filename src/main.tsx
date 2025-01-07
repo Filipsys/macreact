@@ -9,6 +9,8 @@ interface MainContext {
   setActiveApps: (apps: string[]) => void;
   hiddenApps: string[];
   setHiddenApps: (apps: string[]) => void;
+  wallpaper: number;
+  setWallpaper: (wallpaperNumber: number) => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

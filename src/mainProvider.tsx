@@ -3,17 +3,22 @@ import { mainContext } from "./main.tsx";
 import React from "react";
 
 export const MainProvider = ({ children }: { children: React.ReactNode }) => {
-  const [values, setValues] = useState<{ wallpaper: number }>({ wallpaper: 0 });
   const [activeApps, setActiveApps] = useState<string[]>([]);
   const [hiddenApps, setHiddenApps] = useState<string[]>([]);
+  const [wallpaper, setWallpaper] = useState<number>(0);
 
-  return <mainContext.Provider
-    value={{
-      values, setValues,
-      activeApps, setActiveApps,
-      hiddenApps, setHiddenApps
-    }}
-  >
-    {children}
-  </mainContext.Provider>;
+  return (
+    <mainContext.Provider
+      value={{
+        activeApps,
+        setActiveApps,
+        hiddenApps,
+        setHiddenApps,
+        wallpaper,
+        setWallpaper,
+      }}
+    >
+      {children}
+    </mainContext.Provider>
+  );
 };
