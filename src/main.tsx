@@ -13,9 +13,14 @@ interface MainContext {
   setWallpaper: (wallpaperNumber: number) => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-export const mainContext = createContext<MainContext>({});
+export const mainContext = createContext<MainContext>({
+  activeApps: [],
+  setActiveApps: () => {},
+  hiddenApps: [],
+  setHiddenApps: () => {},
+  wallpaper: 0,
+  setWallpaper: () => {},
+});
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

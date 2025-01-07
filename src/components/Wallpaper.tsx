@@ -1,4 +1,3 @@
-// import React, { useEffect, useRef } from "react";
 import { useContext } from "react";
 import { mainContext } from "../main.tsx";
 
@@ -16,7 +15,7 @@ export const Wallpaper = () => {
     <div className="absolute left-0 top-0 z-[-10] h-dvh w-full bg-cover bg-center">
       {wallpapers.map((wallpaper, index) => (
         <img
-          src={wallpaper} // wallpapers[index]
+          src={wallpaper}
           alt="preloaded-img"
           key={`preloaded-img-${index}`}
           style={{
