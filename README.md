@@ -1,1 +1,5 @@
-Once I get a macbook air, I'll be able to make this work
+## TODO tasks
+
+### High priority
+
+- [x] Add app closing and hiding functionality to `WindowControl.tsx` component (most likely using `useContext()`).
