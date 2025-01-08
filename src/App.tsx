@@ -1,7 +1,7 @@
 import "./index.css";
 
 import { TopTaskbar } from "./components/TopTaskbar.tsx";
-import { BottomTaskbar } from "./components/BottomTaskbar.tsx";
+import { BottomTaskbar } from "./components/bottom-taskbar/BottomTaskbar.tsx";
 import { Wallpaper } from "./components/Wallpaper.tsx";
 import { ContextMenu } from "./components/ContextMenu.tsx";
 import { LoadingScreen } from "./components/LoadingScreen.tsx";
