@@ -1,8 +1,8 @@
 import { createContext, StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { MainProvider } from "./mainProvider.tsx";
-import App from "./App.tsx";
-import "./index.css";
+import { MainProvider } from "@/mainProvider";
+import App from "@/App";
+import "@/index.css";
 
 interface MainContext {
   activeApps: string[];

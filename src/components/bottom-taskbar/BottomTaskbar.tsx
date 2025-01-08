@@ -1,17 +1,17 @@
-import { DockSeperatorIcon } from "../../assets/navIcons.tsx";
+import { DockSeperatorIcon } from "@/assets/navIcons";
 import { useContext, useState } from "react";
-import { mainContext } from "../../main.tsx";
-import { TaskbarApp } from "./TaskbarApp.tsx";
+import { mainContext } from "@/main";
+import { TaskbarApp } from "@components/bottom-taskbar/TaskbarApp";
 
 // Icons
-import finder from "../../assets/icons/finder.webp";
-import apps from "../../assets/icons/apps.webp";
-import safari from "../../assets/icons/safari.webp";
-import mail from "../../assets/icons/mail.webp";
-import maps from "../../assets/icons/maps.webp";
-import messages from "../../assets/icons/messages.webp";
-import settings from "../../assets/icons/settings.webp";
-import darkFullBin from "../../assets/icons/full-bin-dark.png";
+import finder from "@/assets/icons/finder.webp";
+import apps from "@/assets/icons/apps.webp";
+import safari from "@/assets/icons/safari.webp";
+import mail from "@/assets/icons/mail.webp";
+import maps from "@/assets/icons/maps.webp";
+import messages from "@/assets/icons/messages.webp";
+import settings from "@/assets/icons/settings.webp";
+import darkFullBin from "@/assets/icons/full-bin-dark.png";
 
 const taskbarApps = [
   ["Finder", finder],

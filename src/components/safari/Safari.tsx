@@ -1,7 +1,7 @@
+import { mainContext } from "@/main";
+import { TopNavigation } from "@components/safari/TopNavigation";
+import { Bookmark } from "@components/safari/Bookmark";
 import React, { useContext, useRef, useState } from "react";
-import { mainContext } from "../../main.tsx";
-import { TopNavigation } from "./TopNavigation.tsx";
-import { Bookmark } from "./Bookmark.tsx";
 
 const bookmarks = ["Apple", "iCloud", "Google", "Facebook", "Twitter", "Instagram", "Spotify", "Netflix", "YouTube"];
 

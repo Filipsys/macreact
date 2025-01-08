@@ -1,5 +1,5 @@
-import { SidebarIcon, LeftArrowIcon, RightArrowIcon, UploadIcon, SearchIcon } from "../../assets/safariIcons";
-import { WindowControl } from "../WindowControl";
+import { SidebarIcon, LeftArrowIcon, RightArrowIcon, UploadIcon, SearchIcon } from "@/assets/safariIcons";
+import { WindowControl } from "@components/WindowControl";
 
 const navigationButtonsEnabled = false;
 

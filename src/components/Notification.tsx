@@ -1,4 +1,4 @@
-import safari from "../assets/icons/safari.webp";
+import safari from "@/assets/icons/safari.webp";
 import { useState } from "react";
 
 export const Notification = () => {
@@ -22,5 +22,5 @@ export const Notification = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

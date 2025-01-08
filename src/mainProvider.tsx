@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { mainContext } from "./main.tsx";
+import { mainContext } from "@/main";
 import React from "react";
 
 export const MainProvider = ({ children }: { children: React.ReactNode }) => {

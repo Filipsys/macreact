@@ -1,5 +1,5 @@
-import { NotificationIcon } from "../../assets/navIcons";
-import { NavbarPopoverAndIcon } from "./NavbarPopoverAndIcon";
+import { NotificationIcon } from "@/assets/navIcons";
+import { NavbarPopoverAndIcon } from "@components/bottom-taskbar/NavbarPopoverAndIcon";
 
 export const TaskbarApp = (props: {
   name: string;

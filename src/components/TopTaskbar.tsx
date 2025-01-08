@@ -1,4 +1,4 @@
-import { AccountIcon, AppleIcon, MenuIcon, SearchIcon, WifiIcon } from "../assets/navIcons.tsx";
+import { AccountIcon, AppleIcon, MenuIcon, SearchIcon, WifiIcon } from "@/assets/navIcons";
 
 const getCurrentTime = () => {
   const changeTo12Hour = (hour: number) => {

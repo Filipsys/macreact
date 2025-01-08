@@ -12,3 +12,4 @@
 ### Low priority
 
 - [ ] Change hardcoded wallpapers amount in `ContextMenu.tsx`.
+- [x] Add `@` aliases to project

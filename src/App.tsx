@@ -1,12 +1,12 @@
 import "./index.css";
 
-import { TopTaskbar } from "./components/TopTaskbar.tsx";
-import { BottomTaskbar } from "./components/bottom-taskbar/BottomTaskbar.tsx";
-import { Wallpaper } from "./components/Wallpaper.tsx";
-import { ContextMenu } from "./components/ContextMenu.tsx";
-import { LoadingScreen } from "./components/LoadingScreen.tsx";
-import { Safari } from "./components/safari/Safari.tsx";
-import { DEBUG_MODE } from "./utils.ts";
+import { TopTaskbar } from "@components/TopTaskbar";
+import { BottomTaskbar } from "@components/bottom-taskbar/BottomTaskbar";
+import { Wallpaper } from "@components/Wallpaper";
+import { ContextMenu } from "@components/ContextMenu";
+import { LoadingScreen } from "@components/LoadingScreen";
+import { Safari } from "@components/safari/Safari";
+import { DEBUG_MODE } from "@/utils";
 
 function App() {
   return (

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { mainContext } from "../main.tsx";
+import { mainContext } from "@/main";
 
 const wallpapers = [
   "./backgrounds/sequoia-light.webp",

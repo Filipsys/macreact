@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from "react";
-import { mainContext } from "../main.tsx";
+import { mainContext } from "@/main";
 
 const Divider = () => <div className="mx-1 my-1 border-b border-gray-300 opacity-15"></div>;
 

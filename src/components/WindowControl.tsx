@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { mainContext } from "../main";
-import { CloseIcon, MinimizeIcon, ExpandIcon } from "../assets/windowControlIcons";
+import { mainContext } from "@/main";
+import { CloseIcon, MinimizeIcon, ExpandIcon } from "@/assets/windowControlIcons";
 
 export const WindowControl = () => {
   const { activeApps, setActiveApps, hiddenApps, setHiddenApps } = useContext(mainContext);
