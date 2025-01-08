@@ -28,7 +28,6 @@ const ContextItem = (props: { name?: string; onClick?: () => void; children?: Re
 
 export const ContextMenu = ({ children }: { children: React.ReactNode }) => {
   const contextMenuRef = useRef<HTMLDivElement>(null);
-  // @ts-expect-error - Temporary fix
   const { wallpaper, setWallpaper } = useContext(mainContext);
 
   const ListenerWrapper = ({ children }: { children: React.ReactNode }) => (
