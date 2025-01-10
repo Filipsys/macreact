@@ -28,7 +28,7 @@ export const Safari = () => {
 
   return (
     <div
-      className="absolute left-1/2 top-1/2 flex h-[600px] w-[860px] -translate-x-1/2 -translate-y-1/2 resize-y flex-col rounded-xl backdrop-blur-xl backdrop-brightness-[.38] [box-shadow:0px_0px_0px_1px_rgb(122,_120,_120),0px_0px_0px_2px_rgb(32,_41,_38)]"
+      className="absolute left-1/2 top-1/2 flex h-[600px] w-[860px] -translate-x-1/2 -translate-y-1/2 resize-y flex-col rounded-xl backdrop-blur-xl backdrop-brightness-[.2] [box-shadow:0px_0px_0px_1px_rgb(122,_120,_120),0px_0px_0px_2px_rgb(32,_41,_38)]"
       style={{ display: activeApps.includes("Safari") ? "flex" : "none" }}
       ref={safariRef}
     >

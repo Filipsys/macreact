@@ -10,7 +10,7 @@ export const TopNavigation = (props: {
   setOffset: ({ x, y }: { x: number; y: number }) => void;
   handleMove: (e: React.MouseEvent) => void;
 }) => {
-  let [isClicked, setIsClicked] = useState<boolean>(false);
+  const [isClicked, setIsClicked] = useState<boolean>(false);
 
   return (
     <nav
@@ -52,20 +52,34 @@ export const TopNavigation = (props: {
       <div className="absolute flex h-full w-full justify-center">
         <div className="h-full w-96 p-2">
           <div
-            className="relative flex h-full w-full rounded-md bg-[#302b2a]"
-            onClick={() => setIsClicked(!isClicked)}
+            className="relative flex h-full w-full rounded-md bg-[#302b2a] transition-colors duration-200"
             style={{
-              border: isClicked ? "3px solid #446f96" : "",
+              border: isClicked ? "3px solid #446f96" : "3px solid transparent",
             }}
           >
-            <input type="text" className="peer z-10 w-full bg-transparent outline-none" />
-
-            <div className="absolute left-0 top-0 flex w-full items-center justify-center px-2 peer-focus-within:justify-start">
+            <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center px-2 has-[:focus-within]:justify-start">
               <div className="*:mr-1.5 *:size-3 *:fill-[#999595]">
                 <SearchIcon />
               </div>
 
-              <span className="font-base text-sm text-gray-500">Search or enter website name</span>
+              <div
+                className="grid"
+                style={{
+                  width: isClicked ? "100%" : "",
+                }}
+              >
+                <span style={{ gridArea: "1/1" }} className="text-sm font-light text-gray-500">
+                  Search or enter website name
+                </span>
+
+                <input
+                  type="text"
+                  onClick={() => setIsClicked(true)}
+                  onBlur={() => setIsClicked(false)}
+                  className="z-10 h-full w-full bg-transparent pr-8 text-sm font-light outline-none"
+                  style={{ gridArea: "1/1" }}
+                />
+              </div>
             </div>
           </div>
         </div>

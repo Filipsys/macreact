@@ -8,7 +8,7 @@ const getCurrentTime = () => {
 
   const date = new Date();
   const timeDict = {
-    days: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
   };
 
