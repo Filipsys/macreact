@@ -2,7 +2,7 @@ import "./index.css";
 
 import { TopTaskbar } from "@components/TopTaskbar";
 import { BottomTaskbar } from "@components/bottom-taskbar/BottomTaskbar";
-import { Wallpaper } from "@components/Wallpaper";
+import { Wallpaper } from "@components/wallpaper/Wallpaper";
 import { ContextMenu } from "@components/ContextMenu";
 import { LoadingScreen } from "@components/LoadingScreen";
 import { Safari } from "@components/safari/Safari";

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { mainContext } from "@/main";
+import { CalendarWidget } from "@components/wallpaper/CalendarWidget";
 
 const wallpapers = [
   "./backgrounds/sequoia-light.webp",
@@ -28,12 +29,8 @@ export const Wallpaper = () => {
 
       <div className="absolute left-0 top-0 z-50 mt-6">
         <div className="m-4 grid grid-cols-2 grid-rows-2 gap-4">
-          <div className="flex size-44 flex-col items-center justify-center rounded-3xl p-6 backdrop-blur-xl backdrop-brightness-[.75]">
-            <p className="text-2xl font-bold">
-              <span>Wed</span> <span className="text-gray-300">Nov</span>
-            </p>
-            <p className="text-8xl font-bold">13</p>
-          </div>
+          <CalendarWidget />
+
           <div className="size-44 rounded-3xl backdrop-blur-xl backdrop-brightness-[.75]" />
           <div className="col-span-2 rounded-3xl backdrop-blur-xl backdrop-brightness-[.75]" />
         </div>
