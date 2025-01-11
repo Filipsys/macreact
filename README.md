@@ -12,7 +12,10 @@
 - [ ] Add logic and styling to the Safari search bar
 - [ ] Fix bottom apps navbar popup styling
 - [ ] Fix top navbar background colours
-- [ ] Add a widget grid system
+- [x] Add a widget grid system
+- [ ] Make an option for adding widgets
+- [ ] Widgets select window
+- [ ] Context menu for widgets
 
 ### Low priority
 

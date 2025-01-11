@@ -1,6 +1,14 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { mainContext } from "@/main";
 import { CalendarWidget } from "@components/wallpaper/CalendarWidget";
+import {
+  ContextCategory,
+  ContextContainer,
+  ContextItem,
+  Divider,
+  DropdownItem,
+  ListenerWrapper,
+} from "@components/ContextMenu";
 
 const wallpapers = [
   "./backgrounds/sequoia-light.webp",
@@ -10,10 +18,17 @@ const wallpapers = [
 ];
 
 export const Wallpaper = () => {
-  const { wallpaper } = useContext(mainContext);
+  const { wallpaper, setWallpaper } = useContext(mainContext);
   const widgetsRef = useRef<HTMLDivElement>(null);
-  const [possibleGridSpaces, setPossibleGridSpaces] = useState<[number, number][]>([]);
+  const contextMenuRef = useRef<HTMLDivElement>(null);
+
   const [windowSize, setWindowSize] = useState<[number, number]>([0, 0]);
+  const [possibleGridSpaces, setPossibleGridSpaces] = useState<[number, number][]>([]);
+  const [widgetGridSpaces, setWidgetGridSpaces] = useState<[JSX.Element, [number, number]][]>([]);
+
+  const handleWallpaperChange = () => {
+    setWallpaper(wallpaper < 3 ? wallpaper + 1 : 0);
+  };
 
   useEffect(() => {
     const widgetsDiv = widgetsRef.current;
@@ -65,36 +80,78 @@ export const Wallpaper = () => {
   }, [windowSize]);
 
   return (
-    <div className="absolute left-0 top-0 z-[-10] h-dvh w-full bg-cover bg-center">
-      {wallpapers.map((wallpaper, index) => (
-        <img
-          src={wallpaper}
-          alt="preloaded-img"
-          key={`preloaded-img-${index}`}
-          style={{
-            position: "absolute",
-            width: "0px",
-            height: "0px",
-          }}
-        />
-      ))}
+    <ListenerWrapper contextMenuRef={contextMenuRef}>
+      <ContextContainer contextMenuRef={contextMenuRef}>
+        <ContextCategory>
+          <ContextItem name="New Folder" />
+        </ContextCategory>
+        <Divider />
+        <ContextCategory>
+          <ContextItem name="Get Info" />
+          <ContextItem name="Change Wallpaper..." onClick={handleWallpaperChange} />
+          <ContextItem name="Edit Widgets..." />
+        </ContextCategory>
+        <Divider />
+        <ContextCategory>
+          <ContextItem name="Use Stacks" />
+          <ContextItem>
+            <DropdownItem name="Group Stacks By" />
+          </ContextItem>
+          <ContextItem name="Show View Options" />
+        </ContextCategory>
+        <Divider />
+        <ContextCategory>
+          <ContextItem>
+            <DropdownItem name="Import from iPhone" />
+          </ContextItem>
+        </ContextCategory>
+      </ContextContainer>
 
-      <div className="absolute left-0 top-0 z-50 h-full w-full" ref={widgetsRef}>
-        {possibleGridSpaces.map(([left, top], index) => (
-          <div
+      <div
+        className="z-100 absolute left-10 top-10 bg-white p-2 text-black"
+        onClick={() =>
+          setWidgetGridSpaces([
+            ...widgetGridSpaces,
+            [
+              <CalendarWidget />,
+              [possibleGridSpaces[widgetGridSpaces.length][0], possibleGridSpaces[widgetGridSpaces.length][1]],
+            ],
+          ])
+        }
+      >
+        Add widget
+      </div>
+      <div className="absolute left-0 top-0 z-[-10] h-dvh w-full bg-cover bg-center">
+        {wallpapers.map((wallpaper, index) => (
+          <img
+            src={wallpaper}
+            alt="preloaded-img"
+            key={`preloaded-img-${index}`}
             style={{
               position: "absolute",
-              top: top,
-              left: left,
+              width: "0px",
+              height: "0px",
             }}
-            key={`grid-space-${index}`}
-          >
-            <CalendarWidget />
-          </div>
+          />
         ))}
-      </div>
 
-      <img src={wallpapers[wallpaper]} alt="wallpaper" className="h-full w-full object-cover" />
-    </div>
+        <div className="absolute left-0 top-0 h-full w-full" ref={widgetsRef}>
+          {widgetGridSpaces.map(([Element, [left, top]], index) => (
+            <div
+              style={{
+                position: "absolute",
+                top: top,
+                left: left,
+              }}
+              key={`grid-widget-${index}`}
+            >
+              {Element}
+            </div>
+          ))}
+        </div>
+
+        <img src={wallpapers[wallpaper]} alt="wallpaper" className="h-full w-full object-cover" />
+      </div>
+    </ListenerWrapper>
   );
 };
