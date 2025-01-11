@@ -12,6 +12,7 @@
 - [ ] Add logic and styling to the Safari search bar
 - [ ] Fix bottom apps navbar popup styling
 - [ ] Fix top navbar background colours
+- [ ] Add a widget grid system
 
 ### Low priority
 
