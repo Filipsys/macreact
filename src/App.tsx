@@ -1,6 +1,6 @@
 import "./index.css";
 
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { mainContext } from "@/main";
 import { TopTaskbar } from "@components/TopTaskbar";
 import { BottomTaskbar } from "@components/bottom-taskbar/BottomTaskbar";
@@ -20,6 +20,21 @@ function App() {
     const { width, height } = bodyDiv.getBoundingClientRect();
     setWindowSize([width, height]);
   };
+
+  useEffect(() => {
+    const userAgent = navigator.userAgent.toLowerCase();
+
+    if (["iphone", "ipad", "android", "tablet", "mobile"].some((deviceType) => userAgent.includes(deviceType))) {
+      const bodyDiv = bodyRef.current;
+      if (!bodyDiv) throw new Error("Cannot find body");
+
+      bodyDiv.innerHTML = `
+      <div class="w-full h-full bg-black flex justify-center items-center px-8">
+        <p class="text-4xl text-center">Sorry, this device doesn't isn't supported.</p>
+      </div>
+      `;
+    }
+  }, []);
 
   return (
     <div

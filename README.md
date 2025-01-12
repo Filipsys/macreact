@@ -26,3 +26,4 @@
 - [x] Add date to the wallpaper date widget.
 - [ ] Add disabled state to context buttons and dropdowns.
 - [ ] Add tabs feature into the safari app
+- [x] Add mobile & touchscreen website disable feature
