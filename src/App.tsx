@@ -1,5 +1,7 @@
 import "./index.css";
 
+import { useContext, useRef } from "react";
+import { mainContext } from "@/main";
 import { TopTaskbar } from "@components/TopTaskbar";
 import { BottomTaskbar } from "@components/bottom-taskbar/BottomTaskbar";
 import { Wallpaper } from "@components/wallpaper/Wallpaper";
@@ -8,8 +10,24 @@ import { Safari } from "@components/safari/Safari";
 import { DEBUG_MODE } from "@/utils";
 
 function App() {
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const { setWindowSize } = useContext(mainContext);
+
+  const handleWindowResize = () => {
+    const bodyDiv = bodyRef.current;
+    if (!bodyDiv) throw new Error("How?");
+
+    const { width, height } = bodyDiv.getBoundingClientRect();
+    setWindowSize([width, height]);
+  };
+
   return (
-    <div className="flex h-dvh w-full select-none flex-col tracking-wide text-white">
+    <div
+      ref={bodyRef}
+      className="flex h-dvh w-full select-none flex-col tracking-wide text-white"
+      onLoad={() => handleWindowResize()}
+      onResize={() => handleWindowResize()}
+    >
       {!DEBUG_MODE ? <LoadingScreen /> : null}
 
       <TopTaskbar />

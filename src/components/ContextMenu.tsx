@@ -56,13 +56,13 @@ export const ListenerWrapper = ({
 
       let { clientX, clientY } = e;
       const contextMenu = contextMenuRef.current;
-      contextMenu.style.display = "block";
 
       if (clientX + contextMenu.offsetWidth > window.innerWidth) clientX -= contextMenu.offsetWidth;
       if (clientY + contextMenu.offsetHeight > window.innerHeight) clientY -= contextMenu.offsetHeight;
 
       contextMenu.style.left = `${clientX}px`;
       contextMenu.style.top = `${clientY}px`;
+      contextMenu.style.display = "block";
 
       document.addEventListener("click", () => {
         contextMenu.style.display = "none";

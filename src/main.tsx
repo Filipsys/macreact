@@ -11,6 +11,10 @@ interface MainContext {
   setHiddenApps: (apps: string[]) => void;
   wallpaper: number;
   setWallpaper: (wallpaperNumber: number) => void;
+  windowSize: [number, number];
+  setWindowSize: ([width, height]: [number, number]) => void;
+  widgetGridSpaces: [JSX.Element, [number, number]][];
+  setWidgetGridSpaces: (widgetGridSpaces: [JSX.Element, [number, number]][]) => void;
 }
 
 export const mainContext = createContext<MainContext>({
@@ -20,6 +24,10 @@ export const mainContext = createContext<MainContext>({
   setHiddenApps: () => {},
   wallpaper: 0,
   setWallpaper: () => {},
+  windowSize: [0, 0],
+  setWindowSize: () => {},
+  widgetGridSpaces: [],
+  setWidgetGridSpaces: () => {},
 });
 
 createRoot(document.getElementById("root")!).render(

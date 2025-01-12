@@ -1,4 +1,10 @@
+import { mainContext } from "@/main";
+import { ContextCategory, ContextContainer, ContextItem, Divider, ListenerWrapper } from "@components/ContextMenu";
+import React, { useRef, useContext } from "react";
+
 export const CalendarWidget = () => {
+  const { widgetGridSpaces, setWidgetGridSpaces } = useContext(mainContext);
+  const contextMenuRef = useRef(null);
   const date = new Date();
 
   const timeDict = {
@@ -6,16 +12,47 @@ export const CalendarWidget = () => {
     months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
   };
 
-  return (
-    <div className="size-44 rounded-3xl backdrop-blur-3xl backdrop-brightness-[.85]">
-      <div className="flex h-full w-full flex-col items-center justify-center rounded-3xl bg-[#3f3b36] bg-opacity-25 p-6">
-        <p className="text-2xl font-bold">
-          <span>{timeDict.days[date.getDay()]}</span>{" "}
-          <span className="text-gray-300">{timeDict.months[date.getMonth()]}</span>
-        </p>
+  const getGridPosition = (ref: React.RefObject<HTMLDivElement>) => {
+    const refDiv = ref.current;
+    if (!refDiv) throw new Error("Error in ref");
 
-        <p className="text-8xl font-bold opacity-90">{date.getDate().toString().padStart(2, "0")}</p>
+    const { x, y } = refDiv.getBoundingClientRect();
+    return [x, y];
+  };
+
+  return (
+    <ListenerWrapper contextMenuRef={contextMenuRef}>
+      <ContextContainer contextMenuRef={contextMenuRef}>
+        <ContextCategory>
+          <ContextItem
+            name="Remove Widget"
+            onClick={() =>
+              setWidgetGridSpaces(
+                widgetGridSpaces.filter(
+                  (list) =>
+                    list[1][0] != getGridPosition(contextMenuRef)[0] &&
+                    list[1][1] != getGridPosition(contextMenuRef)[1],
+                ),
+              )
+            }
+          />
+        </ContextCategory>
+        <Divider />
+        <ContextCategory>
+          <ContextItem name="Edit Widgets..." />
+        </ContextCategory>
+      </ContextContainer>
+
+      <div className="size-44 rounded-3xl backdrop-blur-3xl backdrop-brightness-[.85]">
+        <div className="flex h-full w-full flex-col items-center justify-center rounded-3xl bg-[#3f3b36] bg-opacity-25 p-6">
+          <p className="text-2xl font-bold">
+            <span>{timeDict.days[date.getDay()]}</span>{" "}
+            <span className="text-gray-300">{timeDict.months[date.getMonth()]}</span>
+          </p>
+
+          <p className="text-8xl font-bold opacity-90">{date.getDate().toString().padStart(2, "0")}</p>
+        </div>
       </div>
-    </div>
+    </ListenerWrapper>
   );
 };

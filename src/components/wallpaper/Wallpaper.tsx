@@ -18,25 +18,15 @@ const wallpapers = [
 ];
 
 export const Wallpaper = () => {
-  const { wallpaper, setWallpaper } = useContext(mainContext);
-  const widgetsRef = useRef<HTMLDivElement>(null);
+  const { wallpaper, setWallpaper, windowSize, widgetGridSpaces, setWidgetGridSpaces } = useContext(mainContext);
+  // const widgetsRef = useRef<HTMLDivElement>(null);
   const contextMenuRef = useRef<HTMLDivElement>(null);
 
-  const [windowSize, setWindowSize] = useState<[number, number]>([0, 0]);
   const [possibleGridSpaces, setPossibleGridSpaces] = useState<[number, number][]>([]);
-  const [widgetGridSpaces, setWidgetGridSpaces] = useState<[JSX.Element, [number, number]][]>([]);
 
   const handleWallpaperChange = () => {
     setWallpaper(wallpaper < 3 ? wallpaper + 1 : 0);
   };
-
-  useEffect(() => {
-    const widgetsDiv = widgetsRef.current;
-    if (!widgetsDiv) throw new Error("Cannot find ref");
-
-    const window = widgetsDiv.getBoundingClientRect();
-    setWindowSize([window.width, window.height]);
-  }, []);
 
   useEffect(() => {
     const gridWidth = windowSize[0];
@@ -47,7 +37,7 @@ export const Wallpaper = () => {
     const bottomPadding = 80;
     const gridGap = 16;
 
-    const possibleRows = Math.floor(gridWidth / gridElementSize); // TODO: Add grid gap
+    const possibleRows = Math.floor(gridWidth / gridElementSize);
     const possibleColumns = Math.floor(gridHeight / gridElementSize);
 
     const positionsArray: [number, number][] = [];
@@ -80,35 +70,9 @@ export const Wallpaper = () => {
   }, [windowSize]);
 
   return (
-    <ListenerWrapper contextMenuRef={contextMenuRef}>
-      <ContextContainer contextMenuRef={contextMenuRef}>
-        <ContextCategory>
-          <ContextItem name="New Folder" />
-        </ContextCategory>
-        <Divider />
-        <ContextCategory>
-          <ContextItem name="Get Info" />
-          <ContextItem name="Change Wallpaper..." onClick={handleWallpaperChange} />
-          <ContextItem name="Edit Widgets..." />
-        </ContextCategory>
-        <Divider />
-        <ContextCategory>
-          <ContextItem name="Use Stacks" />
-          <ContextItem>
-            <DropdownItem name="Group Stacks By" />
-          </ContextItem>
-          <ContextItem name="Show View Options" />
-        </ContextCategory>
-        <Divider />
-        <ContextCategory>
-          <ContextItem>
-            <DropdownItem name="Import from iPhone" />
-          </ContextItem>
-        </ContextCategory>
-      </ContextContainer>
-
+    <>
       <div
-        className="z-100 absolute left-10 top-10 bg-white p-2 text-black"
+        className="absolute left-10 top-10 z-50 bg-white p-2 text-black"
         onClick={() =>
           setWidgetGridSpaces([
             ...widgetGridSpaces,
@@ -121,7 +85,22 @@ export const Wallpaper = () => {
       >
         Add widget
       </div>
-      <div className="absolute left-0 top-0 z-[-10] h-dvh w-full bg-cover bg-center">
+
+      {widgetGridSpaces.map(([Element, [left, top]], index) => (
+        <div
+          style={{
+            position: "absolute",
+            top: top,
+            left: left,
+            zIndex: 10,
+          }}
+          key={`grid-widget-${index}`}
+        >
+          {Element}
+        </div>
+      ))}
+
+      <div className="absolute left-0 top-0 h-dvh w-full bg-cover bg-center">
         {wallpapers.map((wallpaper, index) => (
           <img
             src={wallpaper}
@@ -135,23 +114,36 @@ export const Wallpaper = () => {
           />
         ))}
 
-        <div className="absolute left-0 top-0 h-full w-full" ref={widgetsRef}>
-          {widgetGridSpaces.map(([Element, [left, top]], index) => (
-            <div
-              style={{
-                position: "absolute",
-                top: top,
-                left: left,
-              }}
-              key={`grid-widget-${index}`}
-            >
-              {Element}
-            </div>
-          ))}
-        </div>
+        <ListenerWrapper contextMenuRef={contextMenuRef}>
+          <ContextContainer contextMenuRef={contextMenuRef}>
+            <ContextCategory>
+              <ContextItem name="New Folder" />
+            </ContextCategory>
+            <Divider />
+            <ContextCategory>
+              <ContextItem name="Get Info" />
+              <ContextItem name="Change Wallpaper..." onClick={handleWallpaperChange} />
+              <ContextItem name="Edit Widgets..." />
+            </ContextCategory>
+            <Divider />
+            <ContextCategory>
+              <ContextItem name="Use Stacks" />
+              <ContextItem>
+                <DropdownItem name="Group Stacks By" />
+              </ContextItem>
+              <ContextItem name="Show View Options" />
+            </ContextCategory>
+            <Divider />
+            <ContextCategory>
+              <ContextItem>
+                <DropdownItem name="Import from iPhone" />
+              </ContextItem>
+            </ContextCategory>
+          </ContextContainer>
 
-        <img src={wallpapers[wallpaper]} alt="wallpaper" className="h-full w-full object-cover" />
+          <img src={wallpapers[wallpaper]} alt="wallpaper" className="absolute -z-50 h-full w-full object-cover" />
+        </ListenerWrapper>
       </div>
-    </ListenerWrapper>
+    </>
   );
 };
