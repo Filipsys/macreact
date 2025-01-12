@@ -30,7 +30,7 @@ function App() {
 
       bodyDiv.innerHTML = `
       <div class="w-full h-full bg-black flex justify-center items-center px-8">
-        <p class="text-4xl text-center">Sorry, this device doesn't isn't supported.</p>
+        <p class="text-4xl text-center">Sorry, this device isn't supported.</p>
       </div>
       `;
     }
