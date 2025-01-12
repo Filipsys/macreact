@@ -9,18 +9,40 @@ export const DropdownItem = (props: { name: string }) => (
   </div>
 );
 
-export const ContextCategory = ({ children }: { children: React.ReactNode }) => (
+export const ContextCategory = ({ children }: { children: React.ReactNode | React.ReactNode[] }) => (
   <ul className="flex flex-col gap-[2px]">{children}</ul>
 );
 
-export const ContextItem = (props: { name?: string; onClick?: () => void; children?: React.ReactNode }) => {
-  return props.name ? (
-    <li className="rounded-[4px] px-4 py-[1px] hover:bg-[#254d8c]" onClick={props.onClick}>
-      {props.name}
-    </li>
-  ) : (
-    <li className="rounded-[4px] py-[1px] pl-4 pr-2 hover:bg-[#254d8c]" onClick={props.onClick}>
-      {props.children}
+export const ContextItem = (props: {
+  name?: string;
+  inset?: boolean;
+  disabled?: boolean;
+  onClick?: () => void;
+  children?: React.ReactNode | React.ReactNode[];
+}) => {
+  let inset: boolean;
+  if (props.inset === undefined) {
+    inset = false;
+  } else {
+    inset = true;
+  }
+
+  let disabled: boolean;
+  if (props.disabled === undefined || props.disabled == false) {
+    disabled = false;
+  } else {
+    disabled = true;
+  }
+
+  return (
+    <li
+      className={`rounded-[4px] py-[2px] pl-4 pr-2 ${disabled ? "!text-gray-500" : "hover:bg-[#5587d6]"}`}
+      onClick={disabled ? undefined : props.onClick}
+      style={{
+        paddingLeft: inset ? "1rem" : "0.5rem",
+      }}
+    >
+      {props.name ? props.name : props.children}
     </li>
   );
 };
@@ -35,7 +57,7 @@ export const ContextContainer = ({
   <div
     style={{ display: "none" }}
     ref={contextMenuRef}
-    className="absolute z-50 w-40 cursor-default rounded-md border border-black/20 p-1 text-xs font-light text-white backdrop-blur-xl backdrop-brightness-[.45]"
+    className="absolute z-50 w-40 cursor-default rounded-[5px] p-1 text-xs font-light text-gray-200 drop-shadow-md backdrop-blur-xl backdrop-brightness-[.5] [box-shadow:_0_0_0_.8px_rgba(255,255,255,0.3),_0_0_0_1.6px_rgba(0,0,0,0.6)]"
   >
     {children}
   </div>

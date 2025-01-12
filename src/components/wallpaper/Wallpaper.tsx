@@ -121,7 +121,7 @@ export const Wallpaper = () => {
             </ContextCategory>
             <Divider />
             <ContextCategory>
-              <ContextItem name="Get Info" />
+              <ContextItem name="Get Info" disabled={true} />
               <ContextItem name="Change Wallpaper..." onClick={handleWallpaperChange} />
               <ContextItem name="Edit Widgets..." />
             </ContextCategory>
