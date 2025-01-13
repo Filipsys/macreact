@@ -3,7 +3,7 @@
 ### High priority
 
 - [x] Add app closing and hiding functionality to `WindowControl.tsx` component (most likely using `useContext()`).
-- [ ] Add SF Pro font
+- [x] Add SF Pro font
 - [ ] Important states store inside local storage
 
 ### Medium priority
@@ -27,3 +27,5 @@
 - [ ] Add disabled state to context buttons and dropdowns.
 - [ ] Add tabs feature into the safari app
 - [x] Add mobile & touchscreen website disable feature
+- [ ] Add icons to Safari bookmarks
+- [ ] Fix window control to show icons on div hover, not circle element hovers
