@@ -11,7 +11,7 @@ export const Safari = () => {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   const safariRef = useRef<HTMLDivElement>(null);
-  const { activeApps } = useContext(mainContext);
+  const { activeApps, setCurrentActiveApp } = useContext(mainContext);
 
   const handleMove = (e: React.MouseEvent) => {
     if (!safariRef.current) return;
@@ -31,6 +31,9 @@ export const Safari = () => {
       className="absolute left-1/2 top-1/2 z-10 flex h-[600px] w-[860px] -translate-x-1/2 -translate-y-1/2 resize-y flex-col rounded-xl backdrop-blur-xl backdrop-brightness-[.2] [box-shadow:0px_0px_0px_1px_rgb(122,_120,_120),0px_0px_0px_2px_rgb(32,_41,_38)]"
       style={{ display: activeApps.includes("Safari") ? "flex" : "none" }}
       ref={safariRef}
+      onClick={() =>
+        setCurrentActiveApp(["Safari", ["File", "Edit", "View", "History", "Bookmarks", "Develop", "Window", "Help"]])
+      }
     >
       <TopNavigation position={position} setDragging={setDragging} setOffset={setOffset} handleMove={handleMove} />
 

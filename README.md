@@ -3,8 +3,8 @@
 ### High priority
 
 - [x] Add app closing and hiding functionality to `WindowControl.tsx` component (most likely using `useContext()`).
-- [x] Add SF Pro font
-- [ ] Important states store inside local storage
+- [x] Add SF Pro font.
+- [ ] Important states store inside local storage.
 
 ### Medium priority
 
@@ -17,6 +17,7 @@
 - [ ] Make an option for adding widgets.
 - [ ] Widgets select window.
 - [ ] Context menu for widgets.
+- [ ] Make top taskbar change upon app focus.
 
 ### Low priority
 
@@ -24,8 +25,11 @@
 - [x] Add `@` aliases to project.
 - [x] Fix date day set to one ahead.
 - [x] Add date to the wallpaper date widget.
-- [ ] Add disabled state to context buttons and dropdowns.
-- [ ] Add tabs feature into the safari app
-- [x] Add mobile & touchscreen website disable feature
-- [ ] Add icons to Safari bookmarks
-- [ ] Fix window control to show icons on div hover, not circle element hovers
+- [x] Add disabled state to context buttons and dropdowns.
+- [ ] Add tabs feature into the safari app.
+- [x] Add mobile & touchscreen website disable feature.
+- [ ] Add icons to Safari bookmarks.
+- [x] Fix window control to show icons on div hover, not circle element hovers.
+- [ ] Make current time change every minute.
+- [ ] Add dropdown icon to the context menu and dropdown functionality.
+- [ ] Make a separate file with all the config data

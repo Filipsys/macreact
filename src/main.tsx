@@ -15,6 +15,8 @@ interface MainContext {
   setWindowSize: ([width, height]: [number, number]) => void;
   widgetGridSpaces: [JSX.Element, [number, number]][];
   setWidgetGridSpaces: (widgetGridSpaces: [JSX.Element, [number, number]][]) => void;
+  currentActiveApp: [string, string[]];
+  setCurrentActiveApp: ([appName, appTabs]: [string, string[]]) => void;
 }
 
 export const mainContext = createContext<MainContext>({
@@ -28,6 +30,8 @@ export const mainContext = createContext<MainContext>({
   setWindowSize: () => {},
   widgetGridSpaces: [],
   setWidgetGridSpaces: () => {},
+  currentActiveApp: ["", []],
+  setCurrentActiveApp: () => {},
 });
 
 createRoot(document.getElementById("root")!).render(

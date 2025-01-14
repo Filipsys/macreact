@@ -1,31 +1,23 @@
 import { AccountIcon, AppleIcon, MenuIcon, SearchIcon, WifiIcon } from "@/assets/navIcons";
+import { mainContext } from "@/main";
+import { CurrentTime } from "@components/CurrentTime";
+import { useContext } from "react";
 
-const getCurrentTime = () => {
-  const changeTo12Hour = (hour: number) => {
-    if (hour > 12) return { hour: hour - 12, pm: true };
-    return { hour, pm: false };
-  };
+const LeftTools = (props: { activeAppName: string; appTabs: string[] }) => (
+  <ul className="flex h-fit cursor-default flex-row items-center gap-[22px] py-1 text-[13px] font-light *:rounded-[4px] *:py-1 *:align-middle">
+    <li className="font-extrabold active:bg-white/[.2]">{props.activeAppName}</li>
 
-  const date = new Date();
-  const timeDict = {
-    days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-    months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-  };
-
-  const time = changeTo12Hour(date.getHours());
-  return (
-    <span className="flex cursor-default gap-[6px]">
-      <span>
-        {timeDict.days[date.getDay()]} {date.getDate()} {timeDict.months[date.getMonth()]}
-      </span>
-      <span>
-        {time.hour.toString().padStart(2, "0")}:{date.getMinutes().toString().padStart(2, "0")} {time.pm ? "PM" : "AM"}
-      </span>
-    </span>
-  );
-};
+    {props.appTabs.map((tab) => (
+      <li key={`topnav-tab-${tab}`} className="active:bg-white/[.2]">
+        {tab}
+      </li>
+    ))}
+  </ul>
+);
 
 export const TopTaskbar = () => {
+  const { currentActiveApp } = useContext(mainContext);
+
   return (
     <nav
       onContextMenu={(e) => e.preventDefault()}
@@ -36,15 +28,7 @@ export const TopTaskbar = () => {
           <AppleIcon />
         </div>
 
-        <ul className="flex h-fit cursor-default flex-row gap-[22px] py-1 text-[13px] font-light *:h-[24px] *:items-center *:rounded-[4px] *:py-1">
-          <li className="font-bold active:bg-white/[.2]">Finder</li>
-          <li className="active:bg-white/[.2]">File</li>
-          <li className="active:bg-white/[.2]">Edit</li>
-          <li className="active:bg-white/[.2]">View</li>
-          <li className="active:bg-white/[.2]">Go</li>
-          <li className="active:bg-white/[.2]">Window</li>
-          <li className="active:bg-white/[.2]">Help</li>
-        </ul>
+        <LeftTools activeAppName={currentActiveApp[0]} appTabs={currentActiveApp[1]} />
       </div>
 
       <div className="flex flex-row">
@@ -64,7 +48,7 @@ export const TopTaskbar = () => {
         </ul>
 
         <div className="px-4 text-center text-[13px] [text-shadow:_0px_0px_5px_rgb(0_0_0_/_30%)]">
-          {getCurrentTime()}
+          <CurrentTime />
         </div>
       </div>
     </nav>

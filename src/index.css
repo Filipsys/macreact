@@ -8,6 +8,6 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url(/src/assets/fonts/SF-Pro.ttf) format("ttf");
+    src: url(/fonts/SF-Pro.ttf) format("truetype");
   }
 }

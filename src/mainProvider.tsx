@@ -8,6 +8,10 @@ export const MainProvider = ({ children }: { children: React.ReactNode }) => {
   const [wallpaper, setWallpaper] = useState<number>(0);
   const [windowSize, setWindowSize] = useState<[number, number]>([0, 0]);
   const [widgetGridSpaces, setWidgetGridSpaces] = useState<[JSX.Element, [number, number]][]>([]);
+  const [currentActiveApp, setCurrentActiveApp] = useState<[string, string[]]>([
+    "Finder",
+    ["File", "Edit", "View", "Go", "Window", "Help"],
+  ]);
 
   return (
     <mainContext.Provider
@@ -22,6 +26,8 @@ export const MainProvider = ({ children }: { children: React.ReactNode }) => {
         setWindowSize,
         widgetGridSpaces,
         setWidgetGridSpaces,
+        currentActiveApp,
+        setCurrentActiveApp,
       }}
     >
       {children}
