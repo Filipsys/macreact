@@ -18,6 +18,8 @@
 - [ ] Widgets select window.
 - [ ] Context menu for widgets.
 - [x] Make top taskbar change upon app focus.
+- [ ] Fix top taskbar tabs active pseudoclass styling.
+- [ ] Add context menus to top taskbar tabs.
 
 ### Low priority
 
@@ -32,6 +34,7 @@
 - [x] Fix window control to show icons on div hover, not circle element hovers.
 - [ ] Make current time change every minute.
 - [ ] Add dropdown icon to the context menu and dropdown functionality.
-- [ ] Make a separate file with all the config data
-- [x] Fix z-index on Safari being under widgets
-- [ ] Fix window control close icon to be more opaque
+- [ ] Make a separate file with all the config data.
+- [x] Fix z-index on Safari being under widgets.
+- [x] Fix window control close icon to be more opaque.
+- [x] Fix disabled buttons in Safari changing background on hover.

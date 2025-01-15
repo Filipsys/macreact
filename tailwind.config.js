@@ -6,7 +6,7 @@ export default {
       fontSize: {
         "sm-base": ["0.938rem", { lineHeight: "1.25rem" }],
       },
-      fontFamily: { SFPro: ["SFPro"] },
+      fontFamily: { SFPro: ["SFPro"], SFProRounded: ["SFProRounded"] },
       keyframes: {
         "jump-up": {
           "0%, 100%": { transform: "translateY(0px)" },

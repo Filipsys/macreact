@@ -10,4 +10,12 @@
     font-display: swap;
     src: url(/fonts/SF-Pro.ttf) format("truetype");
   }
+
+  @font-face {
+    font-family: "SFProRounded";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(/fonts/SF-Pro-Rounded-Regular.otf) format("opentype");
+  }
 }

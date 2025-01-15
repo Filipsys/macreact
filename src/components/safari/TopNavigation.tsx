@@ -37,12 +37,12 @@ export const TopNavigation = (props: {
 
         <div className="z-10 flex gap-1">
           <div
-            className={`rounded-md p-1 px-2 ${navigationButtonsEnabled ? "*:fill-[#bfbab9]" : "*:fill-[#635e5c]"} hover:bg-white/5`}
+            className={`rounded-md p-1 px-2 ${navigationButtonsEnabled ? "*:fill-[#bfbab9]" : "*:fill-[#635e5c]"} ${navigationButtonsEnabled ? "hover:bg-white/5" : ""}`}
           >
             <LeftArrowIcon />
           </div>
           <div
-            className={`rounded-md p-1 px-2 ${navigationButtonsEnabled ? "*:fill-[#bfbab9]" : "*:fill-[#635e5c]"} hover:bg-white/5`}
+            className={`rounded-md p-1 px-2 ${navigationButtonsEnabled ? "*:fill-[#bfbab9]" : "*:fill-[#635e5c]"} ${navigationButtonsEnabled ? "hover:bg-white/5" : ""}`}
           >
             <RightArrowIcon />
           </div>

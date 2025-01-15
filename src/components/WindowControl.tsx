@@ -17,7 +17,7 @@ export const WindowControl = () => {
   };
 
   return (
-    <div className="group z-20 flex gap-[6px] *:z-10 *:*:hidden *:*:size-full *:size-[12px] *:*:items-center *:*:justify-center *:rounded-full *:*:opacity-50">
+    <div className="group z-20 flex gap-[6px] *:z-10 *:*:hidden *:*:size-full *:size-[12px] *:*:items-center *:*:justify-center *:rounded-full *:*:opacity-60">
       <div className="bg-red-600" onClick={() => closeApp("Safari")}>
         <div className="*:size-[7px] group-hover:flex">
           <CloseIcon />
