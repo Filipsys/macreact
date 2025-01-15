@@ -33,3 +33,4 @@
 - [ ] Make current time change every minute.
 - [ ] Add dropdown icon to the context menu and dropdown functionality.
 - [ ] Make a separate file with all the config data
+- [ ] Fix z-index on Safari being under widgets
