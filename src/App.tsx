@@ -39,7 +39,7 @@ function App() {
   return (
     <div
       ref={bodyRef}
-      className="font-SFPro flex h-dvh w-full select-none flex-col tracking-wide text-white"
+      className="flex h-dvh w-full select-none flex-col font-SFPro tracking-wide text-white"
       onLoad={() => handleWindowResize()}
       onResize={() => handleWindowResize()}
     >

@@ -3,6 +3,11 @@ import { mainContext } from "@/main";
 import { CurrentTime } from "@components/CurrentTime";
 import { useContext } from "react";
 
+const appsTabsDict: { [key: string]: string[] } = {
+  Finder: ["File", "Edit", "View", "Go", "Window", "Help"],
+  Safari: ["File", "Edit", "View", "History", "Bookmarks", "Develop", "Window", "Help"],
+};
+
 const LeftTools = (props: { activeAppName: string; appTabs: string[] }) => (
   <ul className="flex h-fit cursor-default flex-row items-center gap-[22px] py-1 text-[13px] font-light *:rounded-[4px] *:py-1 *:align-middle">
     <li className="font-extrabold active:bg-white/[.2]">{props.activeAppName}</li>
@@ -16,7 +21,8 @@ const LeftTools = (props: { activeAppName: string; appTabs: string[] }) => (
 );
 
 export const TopTaskbar = () => {
-  const { currentActiveApp } = useContext(mainContext);
+  const { lastUsedApps } = useContext(mainContext);
+  const lastFromLastUsedApps = lastUsedApps.length - 1;
 
   return (
     <nav
@@ -28,7 +34,10 @@ export const TopTaskbar = () => {
           <AppleIcon />
         </div>
 
-        <LeftTools activeAppName={currentActiveApp[0]} appTabs={currentActiveApp[1]} />
+        <LeftTools
+          activeAppName={lastUsedApps[lastFromLastUsedApps]}
+          appTabs={appsTabsDict[lastUsedApps[lastFromLastUsedApps]]}
+        />
       </div>
 
       <div className="flex flex-row">

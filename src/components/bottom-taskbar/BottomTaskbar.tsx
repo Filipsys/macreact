@@ -23,17 +23,23 @@ const taskbarApps = [
   ["Settings", settings],
 ];
 
+const appsTabsDict: { [key: string]: string[] } = {
+  Finder: ["File", "Edit", "View", "Go", "Window", "Help"],
+  Safari: ["File", "Edit", "View", "History", "Bookmarks", "Develop", "Window", "Help"],
+};
+
 export const BottomTaskbar = () => {
-  const { activeApps, setActiveApps, hiddenApps, setHiddenApps } = useContext(mainContext);
+  const { activeApps, setActiveApps, hiddenApps, setHiddenApps, setCurrentActiveApp, lastUsedApps, setLastUsedApps } =
+    useContext(mainContext);
   const [appsWithNotifications] = useState<[string, number][]>([["Messages", 3]] as [string, number][]);
 
-  // TODO: Morning / afternoon: Get the setCurrentActiveApp and
-  // make a stack list where if you close Safari it goes to the
-  // last one et cetera. Check for hidden apps and active apps.
-  // Possibly name the context variable lastUsedApps, if app gets
-  // hidden, don't remove it but if it gets closed, remove it.
-
   const handleAppChange = (app: string) => {
+    setCurrentActiveApp([app, appsTabsDict[app]]);
+
+    if (!lastUsedApps.includes(app)) {
+      setLastUsedApps([...lastUsedApps, app]);
+    }
+
     if (activeApps.includes(app)) return;
 
     if (hiddenApps.includes(app)) {

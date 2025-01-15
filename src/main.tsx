@@ -17,6 +17,8 @@ interface MainContext {
   setWidgetGridSpaces: (widgetGridSpaces: [JSX.Element, [number, number]][]) => void;
   currentActiveApp: [string, string[]];
   setCurrentActiveApp: ([appName, appTabs]: [string, string[]]) => void;
+  lastUsedApps: string[];
+  setLastUsedApps: (apps: string[]) => void;
 }
 
 export const mainContext = createContext<MainContext>({
@@ -32,6 +34,8 @@ export const mainContext = createContext<MainContext>({
   setWidgetGridSpaces: () => {},
   currentActiveApp: ["", []],
   setCurrentActiveApp: () => {},
+  lastUsedApps: ["Finder"],
+  setLastUsedApps: () => {},
 });
 
 createRoot(document.getElementById("root")!).render(

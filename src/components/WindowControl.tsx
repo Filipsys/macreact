@@ -3,10 +3,12 @@ import { mainContext } from "@/main";
 import { CloseIcon, MinimizeIcon, ExpandIcon } from "@/assets/windowControlIcons";
 
 export const WindowControl = () => {
-  const { activeApps, setActiveApps, hiddenApps, setHiddenApps } = useContext(mainContext);
+  const { activeApps, setActiveApps, hiddenApps, setHiddenApps, lastUsedApps, setLastUsedApps } =
+    useContext(mainContext);
 
   const closeApp = (app: string) => {
     setActiveApps(activeApps.filter((a: string) => a !== app));
+    setLastUsedApps(lastUsedApps.filter((a: string) => a !== app));
   };
 
   const hideApp = (app: string) => {

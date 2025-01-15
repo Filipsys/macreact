@@ -12,6 +12,7 @@ export const MainProvider = ({ children }: { children: React.ReactNode }) => {
     "Finder",
     ["File", "Edit", "View", "Go", "Window", "Help"],
   ]);
+  const [lastUsedApps, setLastUsedApps] = useState<string[]>(["Finder"]);
 
   return (
     <mainContext.Provider
@@ -28,6 +29,8 @@ export const MainProvider = ({ children }: { children: React.ReactNode }) => {
         setWidgetGridSpaces,
         currentActiveApp,
         setCurrentActiveApp,
+        lastUsedApps,
+        setLastUsedApps,
       }}
     >
       {children}

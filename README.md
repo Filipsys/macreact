@@ -17,7 +17,7 @@
 - [ ] Make an option for adding widgets.
 - [ ] Widgets select window.
 - [ ] Context menu for widgets.
-- [ ] Make top taskbar change upon app focus.
+- [x] Make top taskbar change upon app focus.
 
 ### Low priority
 
@@ -33,4 +33,5 @@
 - [ ] Make current time change every minute.
 - [ ] Add dropdown icon to the context menu and dropdown functionality.
 - [ ] Make a separate file with all the config data
-- [ ] Fix z-index on Safari being under widgets
+- [x] Fix z-index on Safari being under widgets
+- [ ] Fix window control close icon to be more opaque
