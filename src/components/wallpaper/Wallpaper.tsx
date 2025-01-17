@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { mainContext } from "@/main";
-import { CalendarWidget } from "@components/wallpaper/CalendarWidget";
+import { CalendarWidget } from "@/components/wallpaper/widget/CalendarWidget";
+import { WidgetChoiceMenu } from "@components/wallpaper/widget/WidgetChoiceMenu";
 import {
   ContextCategory,
   ContextContainer,
@@ -19,13 +20,17 @@ const wallpapers = [
 
 export const Wallpaper = () => {
   const { wallpaper, setWallpaper, windowSize, widgetGridSpaces, setWidgetGridSpaces } = useContext(mainContext);
-  // const widgetsRef = useRef<HTMLDivElement>(null);
   const contextMenuRef = useRef<HTMLDivElement>(null);
+  const [widgetsPopupVisibility, setWidgetsPopupVisibility] = useState<boolean>(false);
 
   const [possibleGridSpaces, setPossibleGridSpaces] = useState<[number, number][]>([]);
 
   const handleWallpaperChange = () => {
     setWallpaper(wallpaper < 3 ? wallpaper + 1 : 0);
+  };
+
+  const handleWidgetsPopup = () => {
+    setWidgetsPopupVisibility(true);
   };
 
   useEffect(() => {
@@ -71,6 +76,8 @@ export const Wallpaper = () => {
 
   return (
     <>
+      {widgetsPopupVisibility ? <WidgetChoiceMenu setWidgetsPopupVisibility={setWidgetsPopupVisibility} /> : null}
+
       <div
         className="absolute left-10 top-10 z-50 bg-white p-2 text-black"
         onClick={() =>
@@ -123,7 +130,7 @@ export const Wallpaper = () => {
             <ContextCategory>
               <ContextItem name="Get Info" disabled={true} />
               <ContextItem name="Change Wallpaper..." onClick={handleWallpaperChange} />
-              <ContextItem name="Edit Widgets..." />
+              <ContextItem name="Edit Widgets..." onClick={handleWidgetsPopup} />
             </ContextCategory>
             <Divider />
             <ContextCategory>

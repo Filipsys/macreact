@@ -12,9 +12,14 @@ export default {
           "0%, 100%": { transform: "translateY(0px)" },
           "50%": { transform: "translateY(-20px)" },
         },
+        "pop-up": {
+          "0%, 80%": { transform: "translateY(100%)" },
+          "100%": { transform: "translateY(0)" },
+        },
       },
       animation: {
         jumpup: "jump-up 1s ease-in-out",
+        popup: "pop-up 1.3s linear",
       },
     },
   },

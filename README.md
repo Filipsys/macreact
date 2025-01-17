@@ -14,8 +14,8 @@
 - [ ] Fix bottom apps navbar popup styling.
 - [ ] Fix top navbar background colours.
 - [x] Add a widget grid system.
-- [ ] Make an option for adding widgets.
-- [ ] Widgets select window.
+- [x] Make an option for adding widgets.
+- [x] Widgets select window.
 - [ ] Context menu for widgets.
 - [x] Make top taskbar change upon app focus.
 - [ ] Fix top taskbar tabs active pseudoclass styling.
@@ -33,7 +33,7 @@
 - [ ] Add icons to Safari bookmarks.
 - [x] Fix window control to show icons on div hover, not circle element hovers.
 - [ ] Make current time change every minute.
-- [ ] Add dropdown icon to the context menu and dropdown functionality.
+- [x] Add dropdown icon to the context menu. ~~and dropdown functionality~~
 - [ ] Make a separate file with all the config data.
 - [x] Fix z-index on Safari being under widgets.
 - [x] Fix window control close icon to be more opaque.
