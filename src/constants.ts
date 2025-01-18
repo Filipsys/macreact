@@ -45,3 +45,10 @@ export const bookmarks = [
   "Netflix",
   "YouTube",
 ];
+
+export const wallpapers = [
+  "./backgrounds/sequoia-light.webp",
+  "./backgrounds/sonoma4k.webp",
+  "./backgrounds/wallpaper2.webp",
+  "./backgrounds/sequoia-dark.webp",
+];

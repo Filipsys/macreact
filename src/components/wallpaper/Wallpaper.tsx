@@ -9,13 +9,7 @@ import {
   ListenerWrapper,
 } from "@components/ContextMenu";
 import { mainContext } from "@/main";
-
-const wallpapers = [
-  "./public/backgrounds/sequoia-light.webp",
-  "./public/backgrounds/sonoma4k.webp",
-  "./public/backgrounds/wallpaper2.webp",
-  "./public/backgrounds/sequoia-dark.webp",
-];
+import { wallpapers } from "@/constants";
 
 export const Wallpaper = () => {
   const { wallpaper, setWallpaper, windowSize, widgetGridSpaces } = useContext(mainContext);
