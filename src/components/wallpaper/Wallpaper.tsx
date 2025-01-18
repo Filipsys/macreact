@@ -74,21 +74,6 @@ export const Wallpaper = () => {
         />
       ) : null}
 
-      <div
-        className="absolute left-10 top-10 z-50 bg-white p-2 text-black"
-        onClick={() =>
-          setWidgetGridSpaces([
-            ...widgetGridSpaces,
-            [
-              <CalendarWidget />,
-              [possibleGridSpaces[widgetGridSpaces.length][0], possibleGridSpaces[widgetGridSpaces.length][1]],
-            ],
-          ])
-        }
-      >
-        Add widget
-      </div>
-
       {widgetGridSpaces.map(([Element, [left, top]], index) => (
         <div
           style={{

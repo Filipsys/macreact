@@ -1,10 +1,12 @@
 import { Widget } from "@/constants";
 
 const SingleWidget = (props: Widget) => {
+  const sizes = ["size-24", "aspect-[2/1] h-24", "aspect-square size-48"];
+
   return props.component === undefined ? (
     <div>
       <div
-        className={`${props.size == "small" ? "size-24" : props.size == "medium" ? "aspect-[2/1] h-24" : "aspect-square size-48"} rounded-xl bg-black/30`}
+        className={`${props.size == "small" ? sizes[0] : props.size == "medium" ? sizes[1] : sizes[2]} rounded-xl bg-black/30`}
       />
       <div className="flex flex-col items-center px-6 pt-5">
         <p className="font-bold">{props.widgetName}</p>
