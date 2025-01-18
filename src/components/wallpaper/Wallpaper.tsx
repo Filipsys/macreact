@@ -1,5 +1,4 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { CalendarWidget } from "@/components/wallpaper/widget/CalendarWidget";
 import { WidgetChoiceMenu } from "@components/wallpaper/widget/WidgetChoiceMenu";
 import {
   ContextCategory,
@@ -13,7 +12,7 @@ import { mainContext } from "@/main";
 import { wallpapers } from "@/constants";
 
 export const Wallpaper = () => {
-  const { wallpaper, setWallpaper, windowSize, widgetGridSpaces, setWidgetGridSpaces } = useContext(mainContext);
+  const { wallpaper, setWallpaper, windowSize, widgetGridSpaces } = useContext(mainContext);
   const [widgetsPopupVisibility, setWidgetsPopupVisibility] = useState<boolean>(false);
   const [possibleGridSpaces, setPossibleGridSpaces] = useState<[number, number][]>([]);
   const contextMenuRef = useRef<HTMLDivElement>(null);
