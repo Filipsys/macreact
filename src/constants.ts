@@ -32,13 +32,6 @@ export const timeDict = {
   months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 };
 
-export const wallpapers = [
-  "./public/backgrounds/sequoia-light.webp",
-  "./public/backgrounds/sonoma4k.webp",
-  "./public/backgrounds/wallpaper2.webp",
-  "./public/backgrounds/sequoia-dark.webp",
-];
-
 export const widgetCategoryList = ["All Widgets", "Batteries", "Calendar", "Clock", "Contacts", "Find My", "GitHub"];
 
 export const bookmarks = [
