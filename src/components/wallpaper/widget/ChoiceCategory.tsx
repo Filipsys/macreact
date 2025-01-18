@@ -2,14 +2,27 @@ interface Widget {
   widgetName: string;
   widgetDescription: string;
   size: "small" | "medium" | "large";
+  component?: JSX.Element;
 }
 
 const SingleWidget = (props: Widget) => {
-  return (
+  return props.component === undefined ? (
     <div>
       <div
-        className={`${props.size == "small" ? "size-28" : props.size == "medium" ? "aspect-[2/1] h-28" : "aspect-square size-56"} rounded-xl bg-black/30`}
+        className={`${props.size == "small" ? "size-24" : props.size == "medium" ? "aspect-[2/1] h-24" : "aspect-square size-48"} rounded-xl bg-black/30`}
       />
+      <div className="flex flex-col items-center px-6 pt-5">
+        <p className="font-bold">{props.widgetName}</p>
+        <p className="text-white/80">{props.widgetDescription}</p>
+      </div>
+    </div>
+  ) : (
+    <div>
+      <div
+        className={`${props.size == "small" ? "size-24" : props.size == "medium" ? "aspect-[2/1] h-24" : "aspect-square size-48"} rounded-xl`}
+      >
+        {props.component}
+      </div>
       <div className="flex flex-col items-center px-6 pt-5">
         <p className="font-bold">{props.widgetName}</p>
         <p className="text-white/80">{props.widgetDescription}</p>
@@ -32,6 +45,7 @@ export const ChoiceCategory = (props: { categoryName: string; isFromPhone?: bool
             widgetName={widget.widgetName}
             widgetDescription={widget.widgetDescription}
             size={widget.size}
+            component={widget.component}
             key={`single-widget-${widget.widgetName}-${index}`}
           />
         ))}

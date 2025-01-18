@@ -1,12 +1,49 @@
 import { SearchIcon } from "@/assets/navIcons";
+import { useContext, useState } from "react";
+import { AddWidgetIcon } from "@/assets/windowControlIcons";
+import { mainContext } from "@/main";
 import { ChoiceCategory } from "./ChoiceCategory";
-import { useState } from "react";
+import { CalendarWidget } from "./CalendarWidget";
 // import { SuggestionsCategory } from "./SuggestionsCategory";
 
 const widgetCategoryList = ["All Widgets", "Batteries", "Calendar", "Clock", "Contacts", "Find My", "GitHub"];
 
-export const WidgetChoiceMenu = (props: { setWidgetsPopupVisibility: (value: boolean) => void }) => {
+const timeDict = {
+  days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+};
+
+const AddWidgetComponent = () => (
+  <div className="absolute -left-1 -top-1 flex size-4 items-center justify-center rounded-full bg-[#6bd45f] opacity-0 transition-opacity group-hover:opacity-100">
+    <AddWidgetIcon />
+  </div>
+);
+
+export const WidgetChoiceMenu = (props: {
+  setWidgetsPopupVisibility: (value: boolean) => void;
+  possibleGridSpaces: [number, number][];
+  setPossibleGridSpaces: (value: [number, number][]) => void;
+}) => {
   const [currentActiveCategory, setCurrentActiveCategory] = useState<number>(0);
+  const { widgetGridSpaces, setWidgetGridSpaces } = useContext(mainContext);
+  const date = new Date();
+
+  const nextPossibleWidgetPosition = () => {
+    const currentPossiblePositions = [...props.possibleGridSpaces];
+
+    if (currentPossiblePositions.length === widgetGridSpaces.length) throw new Error("Can't hold more widgets");
+
+    const filteredPositions = currentPossiblePositions.filter((position, index) => {
+      if (!widgetGridSpaces[index]) return true;
+
+      const [x1, y1] = widgetGridSpaces[index][1];
+      const [x2, y2] = position;
+
+      return !(x1 === x2 && y1 === y2);
+    });
+
+    return filteredPositions[0];
+  };
 
   return (
     <div className="pointer-events-none z-30 flex h-full w-full items-end justify-center overflow-hidden">
@@ -56,6 +93,39 @@ export const WidgetChoiceMenu = (props: { setWidgetsPopupVisibility: (value: boo
                   widgetName: "Status",
                   widgetDescription: "View the status of your Mac and connected Bluetooth accessories.",
                   size: "small",
+                },
+              ]}
+            />
+
+            <ChoiceCategory
+              categoryName="Calendar"
+              widgets={[
+                {
+                  widgetName: "Date",
+                  widgetDescription: "Track the current date.",
+                  size: "small",
+                  component: (
+                    <div
+                      className="group flex size-24 flex-col items-center justify-center rounded-xl bg-[#2e2e2e] drop-shadow-md"
+                      onClick={() =>
+                        setWidgetGridSpaces([
+                          ...widgetGridSpaces,
+                          [<CalendarWidget />, [nextPossibleWidgetPosition()[0], nextPossibleWidgetPosition()[1]]],
+                        ])
+                      }
+                    >
+                      <AddWidgetComponent />
+
+                      <p className="text-[0.9rem] font-bold">
+                        <span className="text-[#ff453a]">{timeDict.days[date.getDay()]}</span>{" "}
+                        <span className="text-[#a1a1a1]">{timeDict.months[date.getMonth()]}</span>
+                      </p>
+
+                      <p className="font-SFProRounded text-[3.6rem] font-bold text-[#dfdfdf] [line-height:1]">
+                        {date.getDate().toString().padStart(2, "0")}
+                      </p>
+                    </div>
+                  ),
                 },
               ]}
             />

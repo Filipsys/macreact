@@ -16,10 +16,15 @@ export default {
           "0%, 80%": { transform: "translateY(100%)" },
           "100%": { transform: "translateY(0)" },
         },
+        "fade-in": {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        },
       },
       animation: {
         jumpup: "jump-up 1s ease-in-out",
         popup: "pop-up 1.3s linear",
+        fadein: "fade-in 0.3s ease-in-out",
       },
     },
   },

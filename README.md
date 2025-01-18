@@ -38,3 +38,4 @@
 - [x] Fix z-index on Safari being under widgets.
 - [x] Fix window control close icon to be more opaque.
 - [x] Fix disabled buttons in Safari changing background on hover.
+- [ ] Animate widgets window on exit

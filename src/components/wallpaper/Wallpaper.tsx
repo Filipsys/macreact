@@ -76,7 +76,13 @@ export const Wallpaper = () => {
 
   return (
     <>
-      {widgetsPopupVisibility ? <WidgetChoiceMenu setWidgetsPopupVisibility={setWidgetsPopupVisibility} /> : null}
+      {widgetsPopupVisibility ? (
+        <WidgetChoiceMenu
+          setWidgetsPopupVisibility={setWidgetsPopupVisibility}
+          possibleGridSpaces={possibleGridSpaces}
+          setPossibleGridSpaces={setPossibleGridSpaces}
+        />
+      ) : null}
 
       <div
         className="absolute left-10 top-10 z-50 bg-white p-2 text-black"
