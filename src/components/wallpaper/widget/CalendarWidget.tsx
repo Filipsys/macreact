@@ -2,13 +2,12 @@ import { mainContext } from "@/main";
 import { ContextCategory, ContextContainer, ContextItem, Divider, ListenerWrapper } from "@components/ContextMenu";
 import React, { useRef, useContext } from "react";
 
-export const CalendarWidget = (props: { size?: number }) => {
+export const CalendarWidget = (props: { sizeREM?: number }) => {
   const { widgetGridSpaces, setWidgetGridSpaces } = useContext(mainContext);
   const contextMenuRef = useRef(null);
   const date = new Date();
 
-  const widgetSize = !props.size ? 44 : props.size;
-  const widgetText = `size-${widgetSize}`;
+  const widgetSize = !props.sizeREM ? 11 : props.sizeREM;
 
   const timeDict = {
     days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
@@ -46,7 +45,13 @@ export const CalendarWidget = (props: { size?: number }) => {
         </ContextCategory>
       </ContextContainer>
 
-      <div className={`${widgetText} rounded-3xl backdrop-blur-3xl backdrop-brightness-[.85]`}>
+      <div
+        className={`rounded-3xl backdrop-blur-3xl backdrop-brightness-[.85]`}
+        style={{
+          width: `${widgetSize}rem`,
+          height: `${widgetSize}rem`,
+        }}
+      >
         <div className="flex h-full w-full flex-col items-center justify-center rounded-3xl bg-[#3f3b36] bg-opacity-25">
           <p className="text-3xl font-bold">
             <span>{timeDict.days[date.getDay()]}</span>{" "}

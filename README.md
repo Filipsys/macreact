@@ -5,6 +5,7 @@
 - [x] Add app closing and hiding functionality to `WindowControl.tsx` component (most likely using `useContext()`).
 - [x] Add SF Pro font.
 - [ ] Important states store inside local storage.
+- [ ] Try adding react compiler to the project.
 
 ### Medium priority
 
@@ -20,6 +21,8 @@
 - [x] Make top taskbar change upon app focus.
 - [ ] Fix top taskbar tabs active pseudoclass styling.
 - [ ] Add context menus to top taskbar tabs.
+- [ ] Fix dynamically added tailwind classes.
+- [ ] Create a battery widget using the battery API.
 
 ### Low priority
 

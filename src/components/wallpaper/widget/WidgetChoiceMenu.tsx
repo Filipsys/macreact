@@ -126,7 +126,10 @@ export const WidgetChoiceMenu = (props: {
         <div className="flex w-full items-center justify-between border-t-[1px] border-white/20 p-4">
           <p className="text-sm">Drag a widget to place it on the desktop or the Notification Centre...</p>
 
-          <div className="rounded-md bg-blue-500 px-5 py-1.5" onClick={() => props.setWidgetsPopupVisibility(false)}>
+          <div
+            className="rounded-md bg-gradient-to-b from-[#578ccd] to-[#277dd9] px-5 py-1.5 drop-shadow-sm"
+            onClick={() => props.setWidgetsPopupVisibility(false)}
+          >
             <p className="text-sm">Done</p>
           </div>
         </div>
