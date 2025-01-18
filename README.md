@@ -34,7 +34,7 @@
 - [x] Fix window control to show icons on div hover, not circle element hovers.
 - [ ] Make current time change every minute.
 - [x] Add dropdown icon to the context menu. ~~and dropdown functionality~~
-- [ ] Make a separate file with all the config data.
+- [x] Make a separate file with all the config data.
 - [x] Fix z-index on Safari being under widgets.
 - [x] Fix window control close icon to be more opaque.
 - [x] Fix disabled buttons in Safari changing background on hover.

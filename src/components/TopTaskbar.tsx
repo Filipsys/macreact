@@ -1,12 +1,8 @@
 import { AccountIcon, AppleIcon, MenuIcon, SearchIcon, WifiIcon } from "@/assets/navIcons";
 import { mainContext } from "@/main";
 import { CurrentTime } from "@components/CurrentTime";
+import { appsTabsDict } from "@/constants";
 import { useContext } from "react";
-
-const appsTabsDict: { [key: string]: string[] } = {
-  Finder: ["File", "Edit", "View", "Go", "Window", "Help"],
-  Safari: ["File", "Edit", "View", "History", "Bookmarks", "Develop", "Window", "Help"],
-};
 
 const LeftTools = (props: { activeAppName: string; appTabs: string[] }) => (
   <ul className="flex h-fit cursor-default flex-row items-center gap-[22px] py-1 text-[13px] font-light *:rounded-[4px] *:py-1 *:align-middle">

@@ -1,9 +1,4 @@
-interface Widget {
-  widgetName: string;
-  widgetDescription: string;
-  size: "small" | "medium" | "large";
-  component?: JSX.Element;
-}
+import { Widget } from "@/constants";
 
 const SingleWidget = (props: Widget) => {
   return props.component === undefined ? (

@@ -8,6 +8,7 @@ export default defineConfig({
     alias: {
       "@": "/src",
       "@components": "/src/components",
+      "@public": "/public",
     },
   },
   plugins: [react()],

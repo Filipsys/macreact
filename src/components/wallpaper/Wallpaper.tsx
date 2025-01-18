@@ -1,5 +1,4 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { mainContext } from "@/main";
 import { CalendarWidget } from "@/components/wallpaper/widget/CalendarWidget";
 import { WidgetChoiceMenu } from "@components/wallpaper/widget/WidgetChoiceMenu";
 import {
@@ -10,37 +9,28 @@ import {
   DropdownItem,
   ListenerWrapper,
 } from "@components/ContextMenu";
-
-const wallpapers = [
-  "./backgrounds/sequoia-light.webp",
-  "./backgrounds/sonoma4k.webp",
-  "./backgrounds/wallpaper2.webp",
-  "./backgrounds/sequoia-dark.webp",
-];
+import { mainContext } from "@/main";
+import { wallpapers } from "@/constants";
 
 export const Wallpaper = () => {
   const { wallpaper, setWallpaper, windowSize, widgetGridSpaces, setWidgetGridSpaces } = useContext(mainContext);
-  const contextMenuRef = useRef<HTMLDivElement>(null);
   const [widgetsPopupVisibility, setWidgetsPopupVisibility] = useState<boolean>(false);
-
   const [possibleGridSpaces, setPossibleGridSpaces] = useState<[number, number][]>([]);
+  const contextMenuRef = useRef<HTMLDivElement>(null);
+
+  const gridElementSize = 176;
+  const topPadding = 44;
+  const leftPadding = 16;
+  const bottomPadding = 80;
+  const gridGap = 16;
 
   const handleWallpaperChange = () => {
     setWallpaper(wallpaper < 3 ? wallpaper + 1 : 0);
   };
 
-  const handleWidgetsPopup = () => {
-    setWidgetsPopupVisibility(true);
-  };
-
   useEffect(() => {
     const gridWidth = windowSize[0];
     const gridHeight = windowSize[1];
-    const gridElementSize = 176;
-    const topPadding = 44;
-    const leftPadding = 16;
-    const bottomPadding = 80;
-    const gridGap = 16;
 
     const possibleRows = Math.floor(gridWidth / gridElementSize);
     const possibleColumns = Math.floor(gridHeight / gridElementSize);
@@ -136,7 +126,7 @@ export const Wallpaper = () => {
             <ContextCategory>
               <ContextItem name="Get Info" disabled={true} />
               <ContextItem name="Change Wallpaper..." onClick={handleWallpaperChange} />
-              <ContextItem name="Edit Widgets..." onClick={handleWidgetsPopup} />
+              <ContextItem name="Edit Widgets..." onClick={() => setWidgetsPopupVisibility(true)} />
             </ContextCategory>
             <Divider />
             <ContextCategory>

@@ -1,17 +1,10 @@
 import { SearchIcon } from "@/assets/navIcons";
 import { useContext, useState } from "react";
 import { AddWidgetIcon } from "@/assets/windowControlIcons";
+import { ChoiceCategory } from "@components/wallpaper/widget/ChoiceCategory";
+import { CalendarWidget } from "@components/wallpaper/widget/CalendarWidget";
+import { timeDict, widgetCategoryList } from "@/constants";
 import { mainContext } from "@/main";
-import { ChoiceCategory } from "./ChoiceCategory";
-import { CalendarWidget } from "./CalendarWidget";
-// import { SuggestionsCategory } from "./SuggestionsCategory";
-
-const widgetCategoryList = ["All Widgets", "Batteries", "Calendar", "Clock", "Contacts", "Find My", "GitHub"];
-
-const timeDict = {
-  days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-  months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-};
 
 const AddWidgetComponent = () => (
   <div className="absolute -left-1 -top-1 flex size-4 items-center justify-center rounded-full bg-[#6bd45f] opacity-0 transition-opacity group-hover:opacity-100">
@@ -74,8 +67,6 @@ export const WidgetChoiceMenu = (props: {
           </div>
 
           <div className="h-full flex-grow p-4">
-            {/* <SuggestionsCategory /> */}
-
             <ChoiceCategory
               categoryName="Batteries"
               widgets={[

@@ -2,8 +2,7 @@ import { mainContext } from "@/main";
 import { TopNavigation } from "@components/safari/TopNavigation";
 import { Bookmark } from "@components/safari/Bookmark";
 import React, { useContext, useRef, useState } from "react";
-
-const bookmarks = ["Apple", "iCloud", "Google", "Facebook", "Twitter", "Instagram", "Spotify", "Netflix", "YouTube"];
+import { bookmarks } from "@/constants";
 
 export const Safari = () => {
   const [dragging, setDragging] = useState(false);

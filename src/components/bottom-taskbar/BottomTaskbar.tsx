@@ -2,8 +2,8 @@ import { DockSeperatorIcon } from "@/assets/navIcons";
 import { useContext, useState } from "react";
 import { mainContext } from "@/main";
 import { TaskbarApp } from "@components/bottom-taskbar/TaskbarApp";
+import { appsTabsDict } from "@/constants";
 
-// Icons
 import finder from "@/assets/icons/finder.webp";
 import apps from "@/assets/icons/apps.webp";
 import safari from "@/assets/icons/safari.webp";
@@ -22,11 +22,6 @@ const taskbarApps = [
   ["Messages", messages],
   ["Settings", settings],
 ];
-
-const appsTabsDict: { [key: string]: string[] } = {
-  Finder: ["File", "Edit", "View", "Go", "Window", "Help"],
-  Safari: ["File", "Edit", "View", "History", "Bookmarks", "Develop", "Window", "Help"],
-};
 
 export const BottomTaskbar = () => {
   const { activeApps, setActiveApps, hiddenApps, setHiddenApps, setCurrentActiveApp, lastUsedApps, setLastUsedApps } =
