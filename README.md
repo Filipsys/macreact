@@ -5,7 +5,8 @@
 - [x] Add app closing and hiding functionality to `WindowControl.tsx` component (most likely using `useContext()`).
 - [x] Add SF Pro font.
 - [ ] Important states store inside local storage.
-- [ ] Try adding react compiler to the project.
+- [x] Try adding react compiler to the project.
+- [ ] Clear out linting errors from RC, mostly refs. Switch out refs for ternary operators where possible.
 
 ### Medium priority
 

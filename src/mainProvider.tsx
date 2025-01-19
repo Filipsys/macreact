@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 import { mainContext } from "@/main";
-import React from "react";
+import { JSX } from "react/jsx-runtime";
 
-export const MainProvider = ({ children }: { children: React.ReactNode }) => {
+export const MainProvider = ({ children }: { children: ReactNode }) => {
   const [activeApps, setActiveApps] = useState<string[]>([]);
   const [hiddenApps, setHiddenApps] = useState<string[]>([]);
   const [wallpaper, setWallpaper] = useState<number>(0);

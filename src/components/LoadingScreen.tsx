@@ -1,37 +1,39 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { AppleIcon } from "@/assets/navIcons";
 
 export const LoadingScreen = () => {
   const loadingScreenRef = useRef<HTMLDivElement>(null);
   const loadingRef = useRef<HTMLDivElement>(null);
 
-  setTimeout(() => {
-    if (!loadingScreenRef.current) return;
-    if (!loadingRef.current) return;
-
-    loadingRef.current.style.transition = "width 1.5s";
-    loadingRef.current.style.width = "70%";
-
+  useEffect(() => {
     setTimeout(() => {
+      if (!loadingScreenRef.current) return;
       if (!loadingRef.current) return;
 
-      loadingRef.current.style.transition = "width 2s";
-      loadingRef.current.style.width = "100%";
+      loadingRef.current.style.transition = "width 1.5s";
+      loadingRef.current.style.width = "70%";
 
       setTimeout(() => {
-        if (!loadingScreenRef.current) return;
+        if (!loadingRef.current) return;
 
-        loadingScreenRef.current.style.transition = "opacity 200ms";
-        loadingScreenRef.current.style.opacity = "0";
+        loadingRef.current.style.transition = "width 2s";
+        loadingRef.current.style.width = "100%";
 
         setTimeout(() => {
           if (!loadingScreenRef.current) return;
 
-          loadingScreenRef.current.style.display = "none";
-        }, 200);
-      }, 2000);
+          loadingScreenRef.current.style.transition = "opacity 200ms";
+          loadingScreenRef.current.style.opacity = "0";
+
+          setTimeout(() => {
+            if (!loadingScreenRef.current) return;
+
+            loadingScreenRef.current.style.display = "none";
+          }, 200);
+        }, 2000);
+      }, 1000);
     }, 1000);
-  }, 1000);
+  }, []);
 
   return (
     <div

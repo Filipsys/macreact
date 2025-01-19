@@ -1,8 +1,10 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-// import path from "path";
 
-// https://vitejs.dev/config/
+const ReactCompilerConfig = {
+  /* ... */
+};
+
 export default defineConfig({
   resolve: {
     alias: {
@@ -11,5 +13,11 @@ export default defineConfig({
       "@public": "/public",
     },
   },
-  plugins: [react()],
+  plugins: [
+    react({
+      babel: {
+        plugins: [["babel-plugin-react-compiler", ReactCompilerConfig]],
+      },
+    }),
+  ],
 });

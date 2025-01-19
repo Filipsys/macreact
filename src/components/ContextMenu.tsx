@@ -54,51 +54,15 @@ export const ContextItem = (props: {
   );
 };
 
-export const ContextContainer = ({
-  contextMenuRef,
-  children,
-}: {
-  contextMenuRef: React.RefObject<HTMLDivElement>;
+export const ContextContainer = (props: {
+  width: number;
+  height: number;
   children: React.ReactNode | React.ReactNode[];
 }) => (
   <div
-    style={{ display: "none" }}
-    ref={contextMenuRef}
+    style={{ width: props.width, height: props.height }}
     className="absolute z-50 w-40 cursor-default rounded-[5px] p-1 text-xs font-light text-gray-200 backdrop-blur-xl backdrop-brightness-[.5] [box-shadow:_0_0_0_.8px_rgba(255,255,255,0.3),_0_0_0_1.6px_rgba(0,0,0,0.6),0px_25px_75px_-20px_rgba(0,0,0,0.85)]"
   >
-    {children}
-  </div>
-);
-
-export const ListenerWrapper = ({
-  contextMenuRef,
-  children,
-}: {
-  contextMenuRef: React.RefObject<HTMLDivElement>;
-  children: React.ReactNode | React.ReactNode[];
-}) => (
-  <div
-    className="h-full w-full"
-    onContextMenu={(e) => {
-      if (!contextMenuRef.current) return;
-      e.preventDefault();
-
-      let { clientX, clientY } = e;
-      const contextMenu = contextMenuRef.current;
-
-      if (clientX + contextMenu.offsetWidth > window.innerWidth) clientX -= contextMenu.offsetWidth;
-      if (clientY + contextMenu.offsetHeight > window.innerHeight) clientY -= contextMenu.offsetHeight;
-
-      contextMenu.style.left = `${clientX}px`;
-      contextMenu.style.top = `${clientY}px`;
-      contextMenu.style.display = "block";
-
-      document.addEventListener("click", () => {
-        contextMenu.style.display = "none";
-        document.removeEventListener("click", () => {});
-      });
-    }}
-  >
-    {children}
+    {props.children}
   </div>
 );

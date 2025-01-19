@@ -1,10 +1,12 @@
-import { mainContext } from "@/main";
-import { ContextCategory, ContextContainer, ContextItem, Divider, ListenerWrapper } from "@components/ContextMenu";
-import React, { useRef, useContext } from "react";
+import { ContextCategory, ContextContainer, ContextItem, Divider } from "@components/ContextMenu";
+import { /* useContext, */ useState } from "react";
+// import { mainContext } from "@/main";
+import { useGetWindowDimensions } from "@/utils";
 
 export const CalendarWidget = (props: { sizeREM?: number }) => {
-  const { widgetGridSpaces, setWidgetGridSpaces } = useContext(mainContext);
-  const contextMenuRef = useRef(null);
+  const [contextMenuState, setContextMenuState] = useState({ visible: false, width: 0, height: 0 });
+  // const { widgetGridSpaces, setWidgetGridSpaces } = useContext(mainContext);
+  const { width, height } = useGetWindowDimensions();
   const date = new Date();
 
   const widgetSize = !props.sizeREM ? 11 : props.sizeREM;
@@ -14,39 +16,42 @@ export const CalendarWidget = (props: { sizeREM?: number }) => {
     months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
   };
 
-  const getGridPosition = (ref: React.RefObject<HTMLDivElement>) => {
-    const refDiv = ref.current;
-    if (!refDiv) throw new Error("Error in ref");
+  // const getGridPosition = (ref: RefObject<HTMLDivElement>) => {
+  //   const refDiv = ref.current;
+  //   if (!refDiv) throw new Error("Error in ref");
 
-    const { x, y } = refDiv.getBoundingClientRect();
-    return [x, y];
-  };
+  //   const { x, y } = refDiv.getBoundingClientRect();
+  //   return [x, y];
+  // };
 
   return (
-    <ListenerWrapper contextMenuRef={contextMenuRef}>
-      <ContextContainer contextMenuRef={contextMenuRef}>
-        <ContextCategory>
-          <ContextItem
-            name="Remove Widget"
-            onClick={() =>
-              setWidgetGridSpaces(
-                widgetGridSpaces.filter(
-                  (list) =>
-                    list[1][0] != getGridPosition(contextMenuRef)[0] &&
-                    list[1][1] != getGridPosition(contextMenuRef)[1],
-                ),
-              )
-            }
-          />
-        </ContextCategory>
-        <Divider />
-        <ContextCategory>
-          <ContextItem name="Edit Widgets..." />
-        </ContextCategory>
-      </ContextContainer>
+    <>
+      {contextMenuState.visible ? (
+        <ContextContainer width={contextMenuState.width} height={contextMenuState.height}>
+          <ContextCategory>
+            <ContextItem
+              name="Remove Widget"
+              // onClick={() =>
+              //   setWidgetGridSpaces(
+              //     (list) => list[1][0] != getGridPosition()[0] && list[1][1] != getGridPosition()[1],
+              //     widgetGridSpaces.filter(),
+              //   )
+              // }
+            />
+          </ContextCategory>
+          <Divider />
+          <ContextCategory>
+            <ContextItem name="Edit Widgets..." />
+          </ContextCategory>
+        </ContextContainer>
+      ) : null}
 
       <div
         className={`rounded-3xl backdrop-blur-3xl backdrop-brightness-[.85]`}
+        onContextMenu={(e) => {
+          e.preventDefault();
+          setContextMenuState({ visible: true, width: width, height: height });
+        }}
         style={{
           width: `${widgetSize}rem`,
           height: `${widgetSize}rem`,
@@ -63,6 +68,6 @@ export const CalendarWidget = (props: { sizeREM?: number }) => {
           </p>
         </div>
       </div>
-    </ListenerWrapper>
+    </>
   );
 };

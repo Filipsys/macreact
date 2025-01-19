@@ -1,3 +1,5 @@
+import { JSX } from "react/jsx-runtime";
+
 export interface MainContext {
   activeApps: string[];
   setActiveApps: (apps: string[]) => void;
@@ -52,3 +54,11 @@ export const wallpapers = [
   "./backgrounds/wallpaper2.webp",
   "./backgrounds/sequoia-dark.webp",
 ];
+
+export const gridData = {
+  gridElementSize: 176,
+  topPadding: 44,
+  leftPadding: 16,
+  bottomPadding: 80,
+  gridGap: 16,
+};
