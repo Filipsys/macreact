@@ -13,17 +13,23 @@ export const changeTo12Hour = (hour: number) => {
   return { hour, pm: false };
 };
 
-export const useGetWindowDimensions = () => {
-  const [windowDimensions, setWindowDimensions] = useState({ width: window.innerWidth, height: window.innerHeight });
+export function useWindowDimensions() {
+  const [windowSize, setWindowSize] = useState({
+    windowWidth: window.innerWidth,
+    windowHeight: window.innerHeight,
+  });
 
   useEffect(() => {
-    const handleResize = () => {
-      setWindowDimensions({ width: window.innerWidth, height: window.innerHeight });
-    };
+    function handleResize() {
+      setWindowSize({
+        windowWidth: window.innerWidth,
+        windowHeight: window.innerHeight,
+      });
+    }
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return windowDimensions;
-};
+  return windowSize;
+}

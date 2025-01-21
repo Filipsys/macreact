@@ -3,15 +3,14 @@ import { WidgetChoiceMenu } from "@components/wallpaper/widget/WidgetChoiceMenu"
 import { ContextCategory, ContextContainer, ContextItem, Divider, DropdownItem } from "@components/ContextMenu";
 import { mainContext } from "@/main";
 import { wallpapers, gridData } from "@/constants";
+import { useWindowDimensions } from "@/utils";
 
 export const Wallpaper = () => {
   const { wallpaper, setWallpaper, windowSize, widgetGridSpaces } = useContext(mainContext);
-  const [contextMenuState, setContextMenuState] = useState({ visible: false, width: 0, height: 0 });
+  const [contextMenuState, setContextMenuState] = useState({ visible: false, width: 0, height: 0, x: 0, y: 0 });
   const [widgetsPopupVisibility, setWidgetsPopupVisibility] = useState<boolean>(false);
   const [possibleGridSpaces, setPossibleGridSpaces] = useState<[number, number][]>([]);
-
-  const width = 10;
-  const height = 10;
+  const { windowWidth, windowHeight } = useWindowDimensions();
 
   const handleWallpaperChange = () => {
     setWallpaper(wallpaper < 3 ? wallpaper + 1 : 0);
@@ -89,10 +88,22 @@ export const Wallpaper = () => {
 
       <div
         className="absolute left-0 top-0 h-dvh w-full bg-cover bg-center"
+        onClick={() => setContextMenuState({ ...contextMenuState, visible: false })}
         onContextMenu={(e) => {
           e.preventDefault();
-          console.log(width, height);
-          setContextMenuState({ visible: true, width: width, height: height });
+
+          const posX =
+            e.clientX + contextMenuState.width < windowWidth ? e.clientX : e.clientX - contextMenuState.width;
+          const posY =
+            e.clientY + contextMenuState.height < windowHeight ? e.clientY : e.clientY - contextMenuState.height;
+
+          setContextMenuState({
+            visible: true,
+            x: posX,
+            y: posY,
+            width: contextMenuState.width,
+            height: contextMenuState.height,
+          });
         }}
       >
         {wallpapers.map((wallpaper, index) => (
@@ -109,7 +120,11 @@ export const Wallpaper = () => {
         ))}
 
         {contextMenuState.visible ? (
-          <ContextContainer width={width} height={height}>
+          <ContextContainer
+            width={contextMenuState.x}
+            height={contextMenuState.y}
+            setContextMenuState={() => setContextMenuState}
+          >
             <ContextCategory>
               <ContextItem name="New Folder" />
             </ContextCategory>

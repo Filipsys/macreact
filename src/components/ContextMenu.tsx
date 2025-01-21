@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactNode, useRef, useEffect } from "react";
 
 export const Divider = () => <div className="mx-1 my-1 border-b border-gray-300 opacity-15"></div>;
 
@@ -16,7 +16,7 @@ export const DropdownItem = (props: { name: string }) => (
   </div>
 );
 
-export const ContextCategory = ({ children }: { children: React.ReactNode | React.ReactNode[] }) => (
+export const ContextCategory = ({ children }: { children: ReactNode | ReactNode[] }) => (
   <ul className="flex flex-col gap-[2px]">{children}</ul>
 );
 
@@ -25,7 +25,7 @@ export const ContextItem = (props: {
   inset?: boolean;
   disabled?: boolean;
   onClick?: () => void;
-  children?: React.ReactNode | React.ReactNode[];
+  children?: ReactNode | ReactNode[];
 }) => {
   let inset: boolean;
   if (props.inset === undefined) {
@@ -57,12 +57,31 @@ export const ContextItem = (props: {
 export const ContextContainer = (props: {
   width: number;
   height: number;
-  children: React.ReactNode | React.ReactNode[];
-}) => (
-  <div
-    style={{ width: props.width, height: props.height }}
-    className="absolute z-50 w-40 cursor-default rounded-[5px] p-1 text-xs font-light text-gray-200 backdrop-blur-xl backdrop-brightness-[.5] [box-shadow:_0_0_0_.8px_rgba(255,255,255,0.3),_0_0_0_1.6px_rgba(0,0,0,0.6),0px_25px_75px_-20px_rgba(0,0,0,0.85)]"
-  >
-    {props.children}
-  </div>
-);
+  setContextMenuState: (info: { visible: boolean; width: number; height: number; left: number; top: number }) => void;
+  children: ReactNode | ReactNode[];
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const { offsetWidth, offsetHeight, offsetLeft, offsetTop } = containerRef.current;
+    props.setContextMenuState({
+      visible: true,
+      width: offsetWidth,
+      height: offsetHeight,
+      left: offsetLeft,
+      top: offsetTop,
+    });
+  }, [props]);
+
+  return (
+    <div
+      ref={containerRef}
+      style={{ left: props.width, top: props.height }}
+      className="absolute z-50 w-40 cursor-default rounded-[5px] p-1 text-xs font-light text-gray-200 backdrop-blur-xl backdrop-brightness-[.5] [box-shadow:_0_0_0_.8px_rgba(255,255,255,0.3),_0_0_0_1.6px_rgba(0,0,0,0.6),0px_25px_75px_-20px_rgba(0,0,0,0.85)]"
+    >
+      {props.children}
+    </div>
+  );
+};

@@ -1,13 +1,12 @@
 import { ContextCategory, ContextContainer, ContextItem, Divider } from "@components/ContextMenu";
 import { /* useContext, */ useState } from "react";
 // import { mainContext } from "@/main";
-import { useGetWindowDimensions } from "@/utils";
 
 export const CalendarWidget = (props: { sizeREM?: number }) => {
-  const [contextMenuState, setContextMenuState] = useState({ visible: false, width: 0, height: 0 });
   // const { widgetGridSpaces, setWidgetGridSpaces } = useContext(mainContext);
-  const { width, height } = useGetWindowDimensions();
   const date = new Date();
+
+  const [contextMenuInfo, setContextMenuInfo] = useState({ visible: false, width: 0, height: 0, left: 0, top: 0 });
 
   const widgetSize = !props.sizeREM ? 11 : props.sizeREM;
 
@@ -26,8 +25,12 @@ export const CalendarWidget = (props: { sizeREM?: number }) => {
 
   return (
     <>
-      {contextMenuState.visible ? (
-        <ContextContainer width={contextMenuState.width} height={contextMenuState.height}>
+      {contextMenuInfo.visible ? (
+        <ContextContainer
+          width={contextMenuInfo.left}
+          height={contextMenuInfo.top}
+          setContextMenuState={() => setContextMenuInfo}
+        >
           <ContextCategory>
             <ContextItem
               name="Remove Widget"
@@ -50,7 +53,6 @@ export const CalendarWidget = (props: { sizeREM?: number }) => {
         className={`rounded-3xl backdrop-blur-3xl backdrop-brightness-[.85]`}
         onContextMenu={(e) => {
           e.preventDefault();
-          setContextMenuState({ visible: true, width: width, height: height });
         }}
         style={{
           width: `${widgetSize}rem`,
