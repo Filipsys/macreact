@@ -6,7 +6,7 @@
 - [x] Add SF Pro font.
 - [ ] Important states store inside local storage.
 - [x] Try adding react compiler to the project.
-- [ ] Clear out linting errors from RC, mostly refs. Switch out refs for ternary operators where possible.
+- [x] Clear out linting errors from RC, mostly refs. Switch out refs for ternary operators where possible.
 
 ### Medium priority
 
@@ -24,6 +24,7 @@
 - [ ] Add context menus to top taskbar tabs.
 - [ ] Fix dynamically added tailwind classes.
 - [ ] Create a battery widget using the battery API.
+- [x] Make only one context menu open on the screen. (Currently only works by clicking off, on the element it was instanciated on)
 
 ### Low priority
 
@@ -42,4 +43,5 @@
 - [x] Fix z-index on Safari being under widgets.
 - [x] Fix window control close icon to be more opaque.
 - [x] Fix disabled buttons in Safari changing background on hover.
-- [ ] Animate widgets window on exit
+- [ ] Animate widgets window on exit.
+- [ ] Fix "Delete widget" button & context menu position.

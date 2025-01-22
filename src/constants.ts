@@ -15,6 +15,8 @@ export interface MainContext {
   setCurrentActiveApp: ([appName, appTabs]: [string, string[]]) => void;
   lastUsedApps: string[];
   setLastUsedApps: (apps: string[]) => void;
+  contextMenuIsOpen: boolean;
+  setContextMenuIsOpen: (value: boolean) => void;
 }
 
 export interface Widget {

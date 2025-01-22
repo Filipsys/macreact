@@ -20,6 +20,8 @@ export const mainContext = createContext<MainContext>({
   setCurrentActiveApp: () => {},
   lastUsedApps: ["Finder"],
   setLastUsedApps: () => {},
+  contextMenuIsOpen: false,
+  setContextMenuIsOpen: () => {},
 });
 
 createRoot(document.getElementById("root")!).render(

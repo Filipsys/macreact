@@ -1,12 +1,14 @@
 import { ContextCategory, ContextContainer, ContextItem, Divider } from "@components/ContextMenu";
-import { /* useContext, */ useState } from "react";
-// import { mainContext } from "@/main";
+import { useContext, useState /* , RefObject */ } from "react";
+import { useWindowDimensions } from "@/utils";
+import { mainContext } from "@/main";
 
 export const CalendarWidget = (props: { sizeREM?: number }) => {
-  // const { widgetGridSpaces, setWidgetGridSpaces } = useContext(mainContext);
+  const { /* widgetGridSpaces, setWidgetGridSpaces, */ contextMenuIsOpen, setContextMenuIsOpen } =
+    useContext(mainContext);
+  const [contextMenuState, setContextMenuState] = useState({ visible: false, width: 0, height: 0, x: 0, y: 0 });
+  const { windowWidth, windowHeight } = useWindowDimensions();
   const date = new Date();
-
-  const [contextMenuInfo, setContextMenuInfo] = useState({ visible: false, width: 0, height: 0, left: 0, top: 0 });
 
   const widgetSize = !props.sizeREM ? 11 : props.sizeREM;
 
@@ -25,20 +27,20 @@ export const CalendarWidget = (props: { sizeREM?: number }) => {
 
   return (
     <>
-      {contextMenuInfo.visible ? (
+      {contextMenuState.visible ? (
         <ContextContainer
-          width={contextMenuInfo.left}
-          height={contextMenuInfo.top}
-          setContextMenuState={() => setContextMenuInfo}
+          width={contextMenuState.x}
+          height={contextMenuState.y}
+          setContextMenuState={() => setContextMenuState}
         >
           <ContextCategory>
             <ContextItem
               name="Remove Widget"
               // onClick={() =>
-              //   setWidgetGridSpaces(
-              //     (list) => list[1][0] != getGridPosition()[0] && list[1][1] != getGridPosition()[1],
-              //     widgetGridSpaces.filter(),
-              //   )
+              // setWidgetGridSpaces(
+              //   (list) => list[1][0] != getGridPosition()[0] && list[1][1] != getGridPosition()[1],
+              //   widgetGridSpaces.filter(),
+              // )
               // }
             />
           </ContextCategory>
@@ -51,8 +53,31 @@ export const CalendarWidget = (props: { sizeREM?: number }) => {
 
       <div
         className={`rounded-3xl backdrop-blur-3xl backdrop-brightness-[.85]`}
+        onClick={() => {
+          setContextMenuState({ ...contextMenuState, visible: false });
+          setContextMenuIsOpen(false);
+        }}
         onContextMenu={(e) => {
           e.preventDefault();
+
+          if (contextMenuIsOpen) {
+            setContextMenuState({ ...contextMenuState, visible: false });
+            return;
+          }
+          setContextMenuIsOpen(true);
+
+          const posX =
+            e.clientX + contextMenuState.width < windowWidth ? e.clientX : e.clientX - contextMenuState.width;
+          const posY =
+            e.clientY + contextMenuState.height < windowHeight ? e.clientY : e.clientY - contextMenuState.height;
+
+          setContextMenuState({
+            visible: true,
+            x: posX,
+            y: posY,
+            width: contextMenuState.width,
+            height: contextMenuState.height,
+          });
         }}
         style={{
           width: `${widgetSize}rem`,
