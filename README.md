@@ -7,6 +7,7 @@
 - [ ] Important states store inside local storage.
 - [x] Try adding react compiler to the project.
 - [x] Clear out linting errors from RC, mostly refs. Switch out refs for ternary operators where possible.
+- [ ] Migrate to Tailwind v4 (Shouldn't be that hard).
 
 ### Medium priority
 
@@ -45,3 +46,4 @@
 - [x] Fix disabled buttons in Safari changing background on hover.
 - [ ] Animate widgets window on exit.
 - [ ] Fix "Delete widget" button & context menu position.
+- [ ] Fix open context menu state to listen on topmost div.

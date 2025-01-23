@@ -2,6 +2,7 @@ import { SearchIcon } from "@/assets/navIcons";
 import { useContext, useState } from "react";
 import { AddWidgetIcon } from "@/assets/windowControlIcons";
 import { ChoiceCategory } from "@components/wallpaper/widget/ChoiceCategory";
+import { BatteryWidget } from "@components/wallpaper/widget/BatteryWidget";
 import { CalendarWidget } from "@components/wallpaper/widget/CalendarWidget";
 import { timeDict, widgetCategoryList } from "@/constants";
 import { mainContext } from "@/main";
@@ -40,7 +41,7 @@ export const WidgetChoiceMenu = (props: {
 
   return (
     <div className="pointer-events-none z-30 flex h-full w-full items-end justify-center overflow-hidden">
-      <div className="animate-popup pointer-events-auto flex h-2/3 w-3/4 flex-col rounded-t-3xl border border-black/20 backdrop-blur-xl backdrop-brightness-[.70]">
+      <div className="pointer-events-auto flex h-2/3 w-3/4 animate-popup flex-col rounded-t-3xl border border-black/20 backdrop-blur-xl backdrop-brightness-[.70]">
         <div className="flex w-full flex-grow">
           <div className="h-full w-1/3 border-r-[1px] border-white/20 p-4">
             <div className="pb-4">
@@ -67,7 +68,7 @@ export const WidgetChoiceMenu = (props: {
           </div>
 
           <div className="h-full flex-grow p-4">
-            <ChoiceCategory
+            {/* <ChoiceCategory
               categoryName="Batteries"
               widgets={[
                 {
@@ -86,7 +87,7 @@ export const WidgetChoiceMenu = (props: {
                   size: "small",
                 },
               ]}
-            />
+            /> */}
 
             <ChoiceCategory
               categoryName="Calendar"
@@ -115,6 +116,61 @@ export const WidgetChoiceMenu = (props: {
                       <p className="font-SFProRounded text-[3.6rem] font-bold text-[#dfdfdf] [line-height:1]">
                         {date.getDate().toString().padStart(2, "0")}
                       </p>
+                    </div>
+                  ),
+                },
+              ]}
+            />
+
+            <ChoiceCategory
+              categoryName="Batteries"
+              widgets={[
+                {
+                  widgetName: "Status",
+                  widgetDescription: "View the status of your Mac and connected Bluetooth accessories.",
+                  size: "small",
+                  component: (
+                    <div
+                      className="group flex size-24 flex-col items-center justify-center rounded-xl bg-[#2e2e2e] drop-shadow-md"
+                      onClick={() =>
+                        setWidgetGridSpaces([
+                          ...widgetGridSpaces,
+                          [<BatteryWidget />, [nextPossibleWidgetPosition()[0], nextPossibleWidgetPosition()[1]]],
+                        ])
+                      }
+                    >
+                      <AddWidgetComponent />
+
+                      <div className="grid h-full w-full grid-cols-2 grid-rows-2 p-1 *:p-0.5">
+                        <div>
+                          <div className="size-full rounded-full bg-green-500 p-1">
+                            <div className="flex size-full items-center justify-center rounded-full bg-[#2e2e2e]">
+                              <div className="size-3 bg-white" />
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="size-full rounded-full bg-green-500 p-1">
+                            <div className="flex size-full items-center justify-center rounded-full bg-[#2e2e2e]">
+                              <div className="size-3 bg-white" />
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="size-full rounded-full bg-green-500 p-1">
+                            <div className="flex size-full items-center justify-center rounded-full bg-[#2e2e2e]">
+                              <div className="size-3 bg-white" />
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="size-full rounded-full bg-green-500 p-1">
+                            <div className="flex size-full items-center justify-center rounded-full bg-[#2e2e2e]">
+                              <div className="size-3 bg-white" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   ),
                 },
