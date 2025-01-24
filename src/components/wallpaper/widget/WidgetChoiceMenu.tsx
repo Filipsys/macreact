@@ -6,6 +6,8 @@ import { BatteryWidget } from "@components/wallpaper/widget/BatteryWidget";
 import { CalendarWidget } from "@components/wallpaper/widget/CalendarWidget";
 import { timeDict, widgetCategoryList } from "@/constants";
 import { mainContext } from "@/main";
+import { BatteryCircleSVG } from "@/assets/batteryCircleSVG";
+// import { LaptopIcon } from "@/assets/largeIcons";
 
 const AddWidgetComponent = () => (
   <div className="absolute -left-1 -top-1 flex size-4 items-center justify-center rounded-full bg-[#6bd45f] opacity-0 transition-opacity group-hover:opacity-100">
@@ -142,33 +144,18 @@ export const WidgetChoiceMenu = (props: {
                       <AddWidgetComponent />
 
                       <div className="grid h-full w-full grid-cols-2 grid-rows-2 p-1 *:p-0.5">
-                        <div>
-                          <div className="size-full rounded-full bg-green-500 p-1">
-                            <div className="flex size-full items-center justify-center rounded-full bg-[#2e2e2e]">
-                              <div className="size-3 bg-white" />
-                            </div>
-                          </div>
+                        <div className="relative size-full p-1 *:size-full">
+                          <BatteryCircleSVG percentFilled={80} />
+                          {/* <LaptopIcon laptopColor="#dfdfdf" screenColor="#c2c2c2" /> */}
                         </div>
-                        <div>
-                          <div className="size-full rounded-full bg-green-500 p-1">
-                            <div className="flex size-full items-center justify-center rounded-full bg-[#2e2e2e]">
-                              <div className="size-3 bg-white" />
-                            </div>
-                          </div>
+                        <div className="relative size-full p-1 *:size-full">
+                          <BatteryCircleSVG percentFilled={50} />
                         </div>
-                        <div>
-                          <div className="size-full rounded-full bg-green-500 p-1">
-                            <div className="flex size-full items-center justify-center rounded-full bg-[#2e2e2e]">
-                              <div className="size-3 bg-white" />
-                            </div>
-                          </div>
+                        <div className="relative size-full p-1 *:size-full">
+                          <BatteryCircleSVG percentFilled={0} />
                         </div>
-                        <div>
-                          <div className="size-full rounded-full bg-green-500 p-1">
-                            <div className="flex size-full items-center justify-center rounded-full bg-[#2e2e2e]">
-                              <div className="size-3 bg-white" />
-                            </div>
-                          </div>
+                        <div className="relative size-full p-1 *:size-full">
+                          <BatteryCircleSVG percentFilled={0} />
                         </div>
                       </div>
                     </div>
