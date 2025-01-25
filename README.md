@@ -47,3 +47,4 @@
 - [ ] Animate widgets window on exit.
 - [ ] Fix "Delete widget" button & context menu position.
 - [ ] Fix open context menu state to listen on topmost div.
+- [ ] Add battery widget icons (aka laptop and headphones icons)
