@@ -2,6 +2,7 @@ import { ContextCategory, ContextContainer, ContextItem, Divider } from "@compon
 import { useContext, useEffect, useState } from "react";
 import { useWindowDimensions } from "@/utils";
 import { mainContext } from "@/main";
+import { LaptopIcon } from "@/assets/largeIcons";
 
 export const BatteryWidget = (props: { sizeREM?: number }) => {
   const { contextMenuIsOpen, setContextMenuIsOpen } = useContext(mainContext);
@@ -78,12 +79,34 @@ export const BatteryWidget = (props: { sizeREM?: number }) => {
           height: `${widgetSize}rem`,
         }}
       >
-        <div className="flex h-full w-full flex-col items-center justify-center rounded-3xl bg-[#3f3b36] bg-opacity-25">
-          <div className="grid h-full w-full grid-cols-2 grid-rows-2">
-            <div className="bg-blue-500">{batteryPercentage}</div>
-            <div className="bg-blue-500"></div>
-            <div className="bg-blue-500"></div>
-            <div className="bg-blue-500"></div>
+        <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-1 p-2 *:p-0.5">
+          <div>
+            <div className="size-full rounded-full bg-green-500 p-1.5">
+              <div className="flex size-full items-center justify-center rounded-full bg-[#2e2e2e]">
+                <LaptopIcon laptopColor="#ffffff" screenColor="#f0f0f0" />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="size-full rounded-full bg-green-500 p-1.5">
+              <div className="flex size-full items-center justify-center rounded-full bg-[#2e2e2e]">
+                <div className="size-3 bg-white" />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="size-full rounded-full bg-green-500 p-1.5">
+              <div className="flex size-full items-center justify-center rounded-full bg-[#2e2e2e]">
+                <div className="size-3 bg-white" />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="size-full rounded-full bg-green-500 p-1.5">
+              <div className="flex size-full items-center justify-center rounded-full bg-[#2e2e2e]">
+                <div className="size-3 bg-white" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
