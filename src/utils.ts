@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { db } from "@/db";
 
 export const DEBUG_MODE = true;
 
@@ -33,3 +34,16 @@ export function useWindowDimensions() {
 
   return windowSize;
 }
+
+export const storeInDatabase = async () => {
+  const requestID = await db.values.add({
+    key: "first-key",
+    value: { somethingCool: "123 apple" },
+  });
+
+  return { response: 201, text: `Successfully stored request of ID ${requestID}` };
+};
+
+export const getFromDatabase = async () => {
+  return db.values.toArray();
+};
