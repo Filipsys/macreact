@@ -48,3 +48,4 @@
 - [ ] Fix "Delete widget" button & context menu position.
 - [ ] Fix open context menu state to listen on topmost div.
 - [x] Disable context menu buttons which don't yet have a behaviour hooked to them.
+- [ ] Add battery widget icons (aka laptop and headphones icons)
