@@ -136,25 +136,25 @@ export const Wallpaper = () => {
             setContextMenuState={() => setContextMenuState}
           >
             <ContextCategory>
-              <ContextItem name="New Folder" />
+              <ContextItem name="New Folder" disabled />
             </ContextCategory>
             <Divider />
             <ContextCategory>
-              <ContextItem name="Get Info" disabled={true} />
+              <ContextItem name="Get Info" disabled />
               <ContextItem name="Change Wallpaper..." onClick={handleWallpaperChange} />
               <ContextItem name="Edit Widgets..." onClick={() => setWidgetsPopupVisibility(true)} />
             </ContextCategory>
             <Divider />
             <ContextCategory>
-              <ContextItem name="Use Stacks" />
-              <ContextItem>
+              <ContextItem name="Use Stacks" disabled />
+              <ContextItem disabled>
                 <DropdownItem name="Group Stacks By" />
               </ContextItem>
-              <ContextItem name="Show View Options" />
+              <ContextItem name="Show View Options" disabled />
             </ContextCategory>
             <Divider />
             <ContextCategory>
-              <ContextItem>
+              <ContextItem disabled>
                 <DropdownItem name="Import from iPhone" />
               </ContextItem>
             </ContextCategory>

@@ -4,7 +4,7 @@
 
 - [x] Add app closing and hiding functionality to `WindowControl.tsx` component (most likely using `useContext()`).
 - [x] Add SF Pro font.
-- [ ] Important states store inside local storage.
+- [ ] Important states store inside ~~local storage.~~ [Dexie](https://dexie.org), a lightweight indexedDB wrapper that seems good for my use case.
 - [x] Try adding react compiler to the project.
 - [x] Clear out linting errors from RC, mostly refs. Switch out refs for ternary operators where possible.
 - [ ] Migrate to Tailwind v4 (Shouldn't be that hard).
@@ -47,4 +47,4 @@
 - [ ] Animate widgets window on exit.
 - [ ] Fix "Delete widget" button & context menu position.
 - [ ] Fix open context menu state to listen on topmost div.
-- [ ] Disable context menu buttons which don't yet have a behaviour hooked to them.
+- [x] Disable context menu buttons which don't yet have a behaviour hooked to them.
