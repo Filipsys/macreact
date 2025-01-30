@@ -91,6 +91,7 @@ export const BatteryWidget = (props: { sizeREM?: number }) => {
             <div className="size-full rounded-full bg-green-500 p-1.5">
               <div className="flex size-full items-center justify-center rounded-full bg-[#2e2e2e]">
                 <div className="size-3 bg-white" />
+                {batteryPercentage}
               </div>
             </div>
           </div>

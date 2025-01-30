@@ -3,10 +3,15 @@ import { db } from "@/db";
 
 export const DEBUG_MODE = true;
 
-export const debug = (message: string) => {
+export const debug = (message: string, isError?: boolean) => {
   if (!DEBUG_MODE) return;
+  isError ||= false;
 
-  console.log(`%c[ DEBUG ]`, "color: white; background:green; padding: 1px 3px", `\n${message}`);
+  if (isError) {
+    console.log(`%c[ ERROR ]`, "color: white; background:red; padding: 1px 3px", `\n${message}`);
+  } else {
+    console.log(`%c[ DEBUG ]`, "color: white; background:green; padding: 1px 3px", `\n${message}`);
+  }
 };
 
 export const changeTo12Hour = (hour: number) => {
@@ -35,15 +40,23 @@ export function useWindowDimensions() {
   return windowSize;
 }
 
-export const storeInDatabase = async () => {
+export const storeInStore = async (props: { key: string; value: object }) => {
   const requestID = await db.values.add({
-    key: "first-key",
-    value: { somethingCool: "123 apple" },
+    key: props.key,
+    value: props.value,
   });
 
   return { response: 201, text: `Successfully stored request of ID ${requestID}` };
 };
 
-export const getFromDatabase = async () => {
+export const getFromStore = async () => {
   return db.values.toArray();
+};
+
+export const clearStore = async () => {
+  return db.values.clear();
+};
+
+export const checkForValueInStore = async () => {
+  return db.values.where("key") ? true : false;
 };

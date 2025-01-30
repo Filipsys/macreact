@@ -7,11 +7,25 @@ import { BottomTaskbar } from "@components/bottom-taskbar/BottomTaskbar";
 import { Wallpaper } from "@components/wallpaper/Wallpaper";
 import { LoadingScreen } from "@components/LoadingScreen";
 import { Safari } from "@components/safari/Safari";
-import { DEBUG_MODE } from "@/utils";
+import { DEBUG_MODE, debug, storeInStore, getFromStore, clearStore } from "@/utils";
 
 function App() {
   const bodyRef = useRef<HTMLDivElement>(null);
   const { setWindowSize } = useContext(mainContext);
+
+  useEffect(() => {
+    clearStore()
+      .then(() => debug("Store cleared"))
+      .catch((reason) => debug(`Error: ${reason}`, true));
+
+    storeInStore({
+      key: "key1",
+      value: ["value1"],
+    }).then((response) => debug(response.text));
+    getFromStore().then((response) => debug(JSON.stringify(response)));
+
+    // checkForValueInStore("")
+  }, []);
 
   const handleWindowResize = () => {
     const bodyDiv = bodyRef.current;
