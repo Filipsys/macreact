@@ -57,6 +57,6 @@ export const clearStore = async () => {
   return db.values.clear();
 };
 
-export const checkForValueInStore = async () => {
-  return db.values.where("key") ? true : false;
+export const checkForValueInStore = async (key: string) => {
+  return db.values.where(key) ? true : false;
 };
