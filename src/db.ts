@@ -1,8 +1,8 @@
 import Dexie, { type EntityTable } from "dexie";
 
 interface savedValues {
-  key: string;
-  value: object;
+  [key: string]: string | number | boolean | object;
+  value: string;
 }
 
 const db = new Dexie("ValuesDatabase") as Dexie & {

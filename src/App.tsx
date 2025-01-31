@@ -1,34 +1,42 @@
 import "./index.css";
 
-import { useContext, useEffect, useRef } from "react";
+import { useCallback, useContext, useEffect, useRef } from "react";
 import { mainContext } from "@/main";
 import { TopTaskbar } from "@components/TopTaskbar";
 import { BottomTaskbar } from "@components/bottom-taskbar/BottomTaskbar";
 import { Wallpaper } from "@components/wallpaper/Wallpaper";
 import { LoadingScreen } from "@components/LoadingScreen";
 import { Safari } from "@components/safari/Safari";
-import { DEBUG_MODE, debug, storeInStore, getFromStore, clearStore, checkForValueInStore } from "@/utils";
-
-const initializeGlobals = async () => {
-  if (!(await checkForValueInStore("wallpaper"))) {
-    await storeInStore({ key: "wallpaper", value: ["url_to_wallpaper"] });
-
-    debug("Stored wallpaper value in database");
-  } else {
-    debug("Value already in database");
-  }
-
-  debug(JSON.stringify(await getFromStore()));
-};
+import { DEBUG_MODE, debug, storeInStore, getFromStore, clearStore } from "@/utils";
 
 function App() {
   const bodyRef = useRef<HTMLDivElement>(null);
-  const { setWindowSize } = useContext(mainContext);
+  const storeInitialized = useRef<boolean>(false);
+  const { setWindowSize, activeApps, hiddenApps, currentActiveApp, windowSize, contextMenuIsOpen } =
+    useContext(mainContext);
 
-  useEffect(() => {
+  const initializeGlobals = useCallback(async () => {
+    const globalVariablesDict = {
+      wallpaperIndex: 0,
+      activeApps: activeApps,
+      hiddenApps: hiddenApps,
+      currentActiveApp: currentActiveApp,
+      windowSize: windowSize,
+      contextMenuIsOpen: contextMenuIsOpen,
+    };
+
     clearStore()
       .then(() => debug("Store cleared"))
-      .catch((reason) => debug(`Error: ${reason}`, true));
+      .catch((reason: string) => debug(`Error: ${reason}`, true));
+
+    for (const [key, value] of Object.entries(globalVariablesDict)) {
+      await storeInStore({ key: key, value: value });
+    }
+
+    debug(JSON.stringify(await getFromStore()));
+  }, [activeApps, hiddenApps, currentActiveApp, windowSize, contextMenuIsOpen]);
+
+  useEffect(() => {
     // storeInStore({
     //   key: "key1",
     //   value: ["value1"],
@@ -41,9 +49,13 @@ function App() {
     // );
 
     (async () => {
-      await initializeGlobals();
+      if (!storeInitialized.current) {
+        storeInitialized.current = true;
+
+        await initializeGlobals();
+      }
     })();
-  }, []);
+  }, [initializeGlobals]);
 
   const handleWindowResize = () => {
     const bodyDiv = bodyRef.current;
