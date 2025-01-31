@@ -58,5 +58,7 @@ export const clearStore = async () => {
 };
 
 export const checkForValueInStore = async (key: string) => {
-  return db.values.where(key) ? true : false;
+  const query = await db.values.where("key").equals(key).toArray();
+
+  return query.length > 0 ? true : false;
 };

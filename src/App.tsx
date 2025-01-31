@@ -9,6 +9,18 @@ import { LoadingScreen } from "@components/LoadingScreen";
 import { Safari } from "@components/safari/Safari";
 import { DEBUG_MODE, debug, storeInStore, getFromStore, clearStore, checkForValueInStore } from "@/utils";
 
+const initializeGlobals = async () => {
+  if (!(await checkForValueInStore("wallpaper"))) {
+    await storeInStore({ key: "wallpaper", value: ["url_to_wallpaper"] });
+
+    debug("Stored wallpaper value in database");
+  } else {
+    debug("Value already in database");
+  }
+
+  debug(JSON.stringify(await getFromStore()));
+};
+
 function App() {
   const bodyRef = useRef<HTMLDivElement>(null);
   const { setWindowSize } = useContext(mainContext);
@@ -17,13 +29,20 @@ function App() {
     clearStore()
       .then(() => debug("Store cleared"))
       .catch((reason) => debug(`Error: ${reason}`, true));
-    storeInStore({
-      key: "key1",
-      value: ["value1"],
-    }).then((response) => debug(response.text));
-    getFromStore().then((response) => debug(JSON.stringify(response)));
+    // storeInStore({
+    //   key: "key1",
+    //   value: ["value1"],
+    // }).then((response) => debug(response.text));
+    // getFromStore().then((response) => debug(JSON.stringify(response)));
 
-    checkForValueInStore("key1").then((response) => debug(`Found in store. Response: ${response.toString()}`));
+    // checkForValueInStore("key1").then(() => debug("Value found in store"));
+    // checkForValueInStore("key2").then((response) =>
+    //   response ? debug(`Found in store. Response: ${response.toString()}`) : debug("Value not found in store", true),
+    // );
+
+    (async () => {
+      await initializeGlobals();
+    })();
   }, []);
 
   const handleWindowResize = () => {
