@@ -38,7 +38,7 @@
 - [x] Add mobile & touchscreen website disable feature.
 - [ ] Add icons to Safari bookmarks.
 - [x] Fix window control to show icons on div hover, not circle element hovers.
-- [ ] Make current time change every minute.
+- [x] Make current time change every minute.
 - [x] Add dropdown icon to the context menu. ~~and dropdown functionality~~
 - [x] Make a separate file with all the config data.
 - [x] Fix z-index on Safari being under widgets.

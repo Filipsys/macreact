@@ -1,18 +1,52 @@
 import { timeDict } from "@/constants";
 import { changeTo12Hour } from "@/utils";
+import { useEffect, useState } from "react";
 
 export const CurrentTime = () => {
   const date = new Date();
-  const time = changeTo12Hour(date.getHours());
+  const [time, setTime] = useState(() => new Date());
+  const is12HourTime = true;
+
+  useEffect(() => {
+    let timeoutID: ReturnType<typeof setTimeout>;
+
+    const updateTime = () => {
+      const timeNow = new Date();
+      setTime(timeNow);
+
+      const millisecondsTillNextSecond = 1000 - (timeNow.getMilliseconds() % 1000);
+      timeoutID = setTimeout(updateTime, millisecondsTillNextSecond);
+    };
+
+    const millisecondsTillNextSecond = 1000 - (new Date().getMilliseconds() % 1000);
+    timeoutID = setTimeout(updateTime, millisecondsTillNextSecond);
+
+    return () => clearTimeout(timeoutID);
+  }, []);
+
+  const FormattedTime = (props: { day: string; dayNumber: number; month: string; hours: string; minutes: string }) => {
+    return (
+      <>
+        <span>
+          {props.day} {props.dayNumber} {props.month}
+        </span>
+        <span>
+          {is12HourTime ? changeTo12Hour(Number(props.hours)).hour : props.hours}:{props.minutes}{" "}
+          {is12HourTime ? "PM" : "AM"}
+        </span>
+      </>
+    );
+  };
 
   return (
     <span className="flex cursor-default gap-[6px]">
-      <span>
-        {timeDict.days[date.getDay()]} {date.getDate()} {timeDict.months[date.getMonth()]}
-      </span>
-      <span>
-        {time.hour.toString().padStart(2, "0")}:{date.getMinutes().toString().padStart(2, "0")} {time.pm ? "PM" : "AM"}
-      </span>
+      <FormattedTime
+        day={timeDict.days[date.getDay()]}
+        dayNumber={date.getDate()}
+        month={timeDict.months[date.getMonth()]}
+        hours={time.getHours().toString().padStart(2, "0")}
+        minutes={date.getMinutes().toString().padStart(2, "0")}
+      />
     </span>
   );
 };
