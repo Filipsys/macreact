@@ -7,7 +7,7 @@ import { BottomTaskbar } from "@components/bottom-taskbar/BottomTaskbar";
 import { Wallpaper } from "@components/wallpaper/Wallpaper";
 import { LoadingScreen } from "@components/LoadingScreen";
 import { Safari } from "@components/safari/Safari";
-import { DEBUG_MODE, debug, storeInStore, getFromStore, clearStore } from "@/utils";
+import { DEBUG_MODE, debug, storeInStore, getFromStore, clearStore, getValueFromStore } from "@/utils";
 
 function App() {
   const bodyRef = useRef<HTMLDivElement>(null);
@@ -34,6 +34,8 @@ function App() {
     }
 
     debug(JSON.stringify(await getFromStore()));
+
+    getValueFromStore("wallpaperIndex").then((response) => console.log(response));
   }, [activeApps, hiddenApps, currentActiveApp, windowSize, contextMenuIsOpen]);
 
   useEffect(() => {

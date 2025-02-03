@@ -1,12 +1,13 @@
 import Dexie, { type EntityTable } from "dexie";
 
 interface savedValues {
-  [key: string]: string | number | boolean | object;
-  value: string;
+  id: number;
+  key: string;
+  value: string | string[] | number | number[] | boolean | object;
 }
 
 const db = new Dexie("ValuesDatabase") as Dexie & {
-  values: EntityTable<savedValues>;
+  values: EntityTable<savedValues, "id">;
 };
 
 db.version(1).stores({

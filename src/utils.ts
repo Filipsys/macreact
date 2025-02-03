@@ -40,8 +40,11 @@ export function useWindowDimensions() {
   return windowSize;
 }
 
-export const storeInStore = async (props: { key: string; value: object | string | number | boolean }) => {
-  const requestID = await db.values.add({ [props.key]: props.value });
+export const storeInStore = async (props: {
+  key: string;
+  value: string | string[] | number | number[] | boolean | object;
+}) => {
+  const requestID = await db.values.add({ key: props.key, value: props.value });
 
   return { response: 201, text: `Successfully stored request of ID ${requestID}` };
 };
@@ -62,8 +65,7 @@ export const checkForValueInStore = async (key: string) => {
 
 export const getValueFromStore = async (key: string) => {
   const query = await db.values.where("key").equals(key).first();
-  console.log(query);
-  if (!query) return Error("Temp");
+  if (!query) return Error("Key not found in store");
 
-  return query as unknown as typeof query;
+  return query.value;
 };
