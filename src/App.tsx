@@ -7,36 +7,27 @@ import { BottomTaskbar } from "@components/bottom-taskbar/BottomTaskbar";
 import { Wallpaper } from "@components/wallpaper/Wallpaper";
 import { LoadingScreen } from "@components/LoadingScreen";
 import { Safari } from "@components/safari/Safari";
-import { DEBUG_MODE, debug, storeInStore, getFromStore, clearStore, getValueFromStore } from "@/utils";
+import { DEBUG_MODE, debug, getFromStore, getValueFromStore, storeInStore } from "@/utils";
+import { globalVariableDefaults } from "./constants";
 
 function App() {
   const bodyRef = useRef<HTMLDivElement>(null);
   const storeInitialized = useRef<boolean>(false);
-  const { setWindowSize, activeApps, hiddenApps, currentActiveApp, windowSize, contextMenuIsOpen } =
-    useContext(mainContext);
+  const { setWindowSize } = useContext(mainContext);
 
   const initializeGlobals = useCallback(async () => {
-    const globalVariablesDict = {
-      wallpaperIndex: 0,
-      activeApps: activeApps,
-      hiddenApps: hiddenApps,
-      currentActiveApp: currentActiveApp,
-      windowSize: windowSize,
-      contextMenuIsOpen: contextMenuIsOpen,
-    };
-
-    clearStore()
-      .then(() => debug("Store cleared"))
-      .catch((reason: string) => debug(`Error: ${reason}`, true));
-
-    for (const [key, value] of Object.entries(globalVariablesDict)) {
-      await storeInStore({ key: key, value: value });
-    }
-
     debug(JSON.stringify(await getFromStore()));
 
     getValueFromStore("wallpaperIndex").then((response) => console.log(response));
-  }, [activeApps, hiddenApps, currentActiveApp, windowSize, contextMenuIsOpen]);
+
+    for (const key of Object.keys(globalVariableDefaults)) {
+      try {
+        getValueFromStore(key).then(() => {});
+      } catch {
+        storeInStore({ key: key, value: globalVariableDefaults[key as keyof typeof globalVariableDefaults] });
+      }
+    }
+  }, []);
 
   useEffect(() => {
     // storeInStore({
@@ -54,6 +45,7 @@ function App() {
       if (!storeInitialized.current) {
         storeInitialized.current = true;
 
+        // await resetStore();
         await initializeGlobals();
       }
     })();

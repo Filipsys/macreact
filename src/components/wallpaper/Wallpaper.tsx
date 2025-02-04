@@ -3,18 +3,30 @@ import { WidgetChoiceMenu } from "@components/wallpaper/widget/WidgetChoiceMenu"
 import { ContextCategory, ContextContainer, ContextItem, Divider, DropdownItem } from "@components/ContextMenu";
 import { mainContext } from "@/main";
 import { wallpapers, gridData } from "@/constants";
-import { useWindowDimensions } from "@/utils";
+import { editValueInStore, getValueFromStore, useWindowDimensions } from "@/utils";
 
 export const Wallpaper = () => {
-  const { wallpaper, setWallpaper, windowSize, widgetGridSpaces, contextMenuIsOpen, setContextMenuIsOpen } =
+  const { setWallpaper, windowSize, widgetGridSpaces, contextMenuIsOpen, setContextMenuIsOpen } =
     useContext(mainContext);
   const [contextMenuState, setContextMenuState] = useState({ visible: false, width: 0, height: 0, x: 0, y: 0 });
   const [widgetsPopupVisibility, setWidgetsPopupVisibility] = useState<boolean>(false);
   const [possibleGridSpaces, setPossibleGridSpaces] = useState<[number, number][]>([]);
   const { windowWidth, windowHeight } = useWindowDimensions();
+  const [wallpaper, setTheWallpaper] = useState<number>(0);
 
+  useEffect(() => {
+    getValueFromStore("wallpaperIndex").then((response) => {
+      setTheWallpaper(Number(response));
+    });
+  }, []);
+
+  // TODO: I really don't like how I did this. I'll have to rework this pretty soon.
   const handleWallpaperChange = () => {
-    setWallpaper(wallpaper < 3 ? wallpaper + 1 : 0);
+    const newWallpaperValue = wallpaper < 3 ? wallpaper + 1 : 0;
+    setWallpaper(newWallpaperValue);
+    setTheWallpaper(newWallpaperValue);
+
+    editValueInStore({ key: "wallpaperIndex", value: newWallpaperValue });
   };
 
   useEffect(() => {

@@ -64,3 +64,22 @@ export const gridData = {
   bottomPadding: 80,
   gridGap: 16,
 };
+
+export const globalVariablesList = [
+  "wallpaperIndex",
+  "activeApps",
+  "hiddenApps",
+  "currentActiveApp",
+  "windowSize",
+  "contextMenuIsOpen",
+];
+
+export const globalVariableDefaults = {
+  wallpaperIndex: 0,
+  windowSize: [0, 0],
+  activeApps: [],
+  hiddenApps: [],
+  lastUsedApps: ["Finder"],
+  currentActiveApp: ["Finder", ["File", "Edit", "View", "Go", "Window", "Help"]],
+  contextMenuIsOpen: false,
+};

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { db } from "@/db";
+import { globalVariableDefaults, globalVariablesList } from "./constants";
 
 export const DEBUG_MODE = true;
 
@@ -68,4 +69,43 @@ export const getValueFromStore = async (key: string) => {
   if (!query) return Error("Key not found in store");
 
   return query.value;
+};
+
+export const validateAllStoreValues = () => {
+  const query = db.values.toArray();
+
+  query.then((response) => {
+    response.forEach((element) => {
+      if (!Object.keys(globalVariableDefaults).includes(element.key)) {
+        return Error("Cannot find key in global keys");
+      }
+      if (globalVariablesList.includes(element.key)) return;
+
+      // TODO: What the hell is this? keyof typeof blah blah what even is that?!
+      storeInStore({
+        key: element.key,
+        value: globalVariableDefaults[element.key as keyof typeof globalVariableDefaults],
+      });
+    });
+  });
+};
+
+export const resetStore = async () => {
+  clearStore()
+    .then(() => debug("Store cleared"))
+    .catch((reason: string) => debug(`Error: ${reason}`, true));
+
+  for (const [key, value] of Object.entries(globalVariableDefaults)) {
+    await storeInStore({ key: key, value: value });
+  }
+};
+
+export const editValueInStore = async (props: {
+  key: string;
+  value: string | string[] | number | number[] | boolean | object;
+}) => {
+  const record = await db.values.where("key").equals(props.key).first();
+  if (!record) return Error("Cannot find key in store");
+
+  await db.values.update(record.id, { value: props.value });
 };
