@@ -66,7 +66,7 @@ export const checkForValueInStore = async (key: string) => {
 
 export const getValueFromStore = async (key: string) => {
   const query = await db.values.where("key").equals(key).first();
-  if (!query) return Error("Key not found in store");
+  if (query === undefined) return undefined;
 
   return query.value;
 };
