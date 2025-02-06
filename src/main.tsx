@@ -2,8 +2,12 @@ import { createContext, StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { MainProvider } from "@/mainProvider";
 import { MainContext } from "@/constants";
+import { scan } from "react-scan";
 import App from "@/App";
 import "@/index.css";
+
+// Check for prod version to disable react-scan
+if (typeof window !== "undefined" && !import.meta.env.PROD) scan();
 
 export const mainContext = createContext<MainContext>({
   activeApps: [],

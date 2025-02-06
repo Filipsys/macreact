@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { db } from "@/db";
 import { globalVariableDefaults, globalVariablesList } from "./constants";
 
-export const DEBUG_MODE = false;
+export const DEBUG_MODE = import.meta.env.DEV;
 
 export const debug = (message: string, isError?: boolean) => {
   if (!DEBUG_MODE) return;

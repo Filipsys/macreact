@@ -26,6 +26,8 @@
 - [ ] Fix dynamically added tailwind classes.
 - [ ] Create a battery widget using the battery API.
 - [x] Make only one context menu open on the screen. (Currently only works by clicking off, on the element it was instanciated on)
+- [x] Add a feature for automatic page load in prod
+- [x] Migrate React Scan to a dev dependency or disable it in production.
 
 ### Low priority
 
