@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { db } from "@/db";
 import { globalVariableDefaults, globalVariablesList } from "./constants";
 
-export const DEBUG_MODE = true;
+export const DEBUG_MODE = false;
 
 export const debug = (message: string, isError?: boolean) => {
   if (!DEBUG_MODE) return;
@@ -66,9 +66,8 @@ export const checkForValueInStore = async (key: string) => {
 
 export const getValueFromStore = async (key: string) => {
   const query = await db.values.where("key").equals(key).first();
-  if (query === undefined) return undefined;
 
-  return query.value;
+  return query?.value;
 };
 
 export const validateAllStoreValues = () => {

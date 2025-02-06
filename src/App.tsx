@@ -7,7 +7,7 @@ import { BottomTaskbar } from "@components/bottom-taskbar/BottomTaskbar";
 import { Wallpaper } from "@components/wallpaper/Wallpaper";
 import { LoadingScreen } from "@components/LoadingScreen";
 import { Safari } from "@components/safari/Safari";
-import { DEBUG_MODE, debug, getFromStore, getValueFromStore, storeInStore, resetStore } from "@/utils";
+import { DEBUG_MODE, debug, getFromStore, getValueFromStore, storeInStore } from "@/utils";
 import { globalVariableDefaults } from "./constants";
 
 function App() {
@@ -19,10 +19,10 @@ function App() {
     // getValueFromStore("wallpaperIndex").then((response) => console.log(response));
 
     for (const key of Object.keys(globalVariableDefaults)) {
-      getValueFromStore(key).then(async (response) => {
-        if (response === undefined) return;
-
-        storeInStore({ key: key, value: globalVariableDefaults[key as keyof typeof globalVariableDefaults] });
+      await getValueFromStore(key).then(async (response) => {
+        if (response !== undefined) return;
+        
+        await storeInStore({ key: key, value: globalVariableDefaults[key as keyof typeof globalVariableDefaults] });
       });
     }
 
@@ -45,9 +45,9 @@ function App() {
       if (!storeInitialized.current) {
         storeInitialized.current = true;
 
-        resetStore().then(async () => {
+        // resetStore().then(async () => {
           await initializeGlobals();
-        });
+        // });
       }
     })();
   }, [initializeGlobals]);
