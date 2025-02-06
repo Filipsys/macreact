@@ -17,6 +17,8 @@ export interface MainContext {
   setLastUsedApps: (apps: string[]) => void;
   contextMenuIsOpen: boolean;
   setContextMenuIsOpen: (value: boolean) => void;
+  dbLoaded: boolean;
+  setDbLoaded: (value: boolean) => void;
 }
 
 export interface Widget {

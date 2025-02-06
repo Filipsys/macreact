@@ -14,6 +14,7 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
   ]);
   const [lastUsedApps, setLastUsedApps] = useState<string[]>(["Finder"]);
   const [contextMenuIsOpen, setContextMenuIsOpen] = useState(false);
+  const [dbLoaded, setDbLoaded] = useState(false);
 
   return (
     <mainContext.Provider
@@ -34,6 +35,8 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
         setLastUsedApps,
         contextMenuIsOpen,
         setContextMenuIsOpen,
+        dbLoaded,
+        setDbLoaded,
       }}
     >
       {children}

@@ -13,7 +13,7 @@ import { globalVariableDefaults } from "./constants";
 function App() {
   const bodyRef = useRef<HTMLDivElement>(null);
   const storeInitialized = useRef<boolean>(false);
-  const { setWindowSize } = useContext(mainContext);
+  const { setWindowSize, setDbLoaded } = useContext(mainContext);
 
   const initializeGlobals = useCallback(async () => {
     // getValueFromStore("wallpaperIndex").then((response) => console.log(response));
@@ -21,13 +21,14 @@ function App() {
     for (const key of Object.keys(globalVariableDefaults)) {
       await getValueFromStore(key).then(async (response) => {
         if (response !== undefined) return;
-        
+
         await storeInStore({ key: key, value: globalVariableDefaults[key as keyof typeof globalVariableDefaults] });
       });
     }
 
+    setDbLoaded(true);
     debug(JSON.stringify(await getFromStore()));
-  }, []);
+  }, [setDbLoaded]);
 
   useEffect(() => {
     // storeInStore({
@@ -46,7 +47,7 @@ function App() {
         storeInitialized.current = true;
 
         // resetStore().then(async () => {
-          await initializeGlobals();
+        await initializeGlobals();
         // });
       }
     })();

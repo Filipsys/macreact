@@ -26,7 +26,7 @@
 - [ ] Fix dynamically added tailwind classes.
 - [ ] Create a battery widget using the battery API.
 - [x] Make only one context menu open on the screen. (Currently only works by clicking off, on the element it was instanciated on)
-- [x] Add a feature for automatic page load in prod
+- [x] Add a feature for automatic page load in prod.
 - [x] Migrate React Scan to a dev dependency or disable it in production.
 
 ### Low priority
@@ -53,4 +53,5 @@
 - [ ] Add battery widget icons (aka laptop and headphones icons).
 - [x] Added errors to debug command.
 - [ ] Check out the [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API) which could possibly save device resources while website while hidden.
-- [ ] Fix context menu re-appearing on left click
+- [ ] Fix context menu re-appearing on left click.
+- [ ] Change top navbar time to re-render every minute instead of seconds.

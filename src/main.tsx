@@ -26,6 +26,8 @@ export const mainContext = createContext<MainContext>({
   setLastUsedApps: () => {},
   contextMenuIsOpen: false,
   setContextMenuIsOpen: () => {},
+  dbLoaded: false,
+  setDbLoaded: () => {},
 });
 
 createRoot(document.getElementById("root")!).render(
