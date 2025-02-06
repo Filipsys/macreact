@@ -54,4 +54,4 @@
 - [x] Added errors to debug command.
 - [ ] Check out the [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API) which could possibly save device resources while website while hidden.
 - [ ] Fix context menu re-appearing on left click.
-- [ ] Change top navbar time to re-render every minute instead of seconds.
+- [x] Change top navbar time to re-render every minute instead of seconds.

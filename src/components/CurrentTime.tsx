@@ -14,12 +14,13 @@ export const CurrentTime = () => {
       const timeNow = new Date();
       setTime(timeNow);
 
-      const millisecondsTillNextSecond = 1000 - (timeNow.getMilliseconds() % 1000);
-      timeoutID = setTimeout(updateTime, millisecondsTillNextSecond);
+      const millisecondsTillNextMinute = (60 - timeNow.getSeconds()) * 1000 - timeNow.getMilliseconds();
+      timeoutID = setTimeout(updateTime, millisecondsTillNextMinute);
     };
 
-    const millisecondsTillNextSecond = 1000 - (new Date().getMilliseconds() % 1000);
-    timeoutID = setTimeout(updateTime, millisecondsTillNextSecond);
+    const newDate = new Date();
+    const millisecondsTillNextMinute = (60 - newDate.getSeconds()) * 1000 - newDate.getMilliseconds();
+    timeoutID = setTimeout(updateTime, millisecondsTillNextMinute);
 
     return () => clearTimeout(timeoutID);
   }, []);
