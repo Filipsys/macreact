@@ -1,5 +1,23 @@
 import { JSX } from "react/jsx-runtime";
 
+import finder from "@/assets/icons/finder.webp";
+import apps from "@/assets/icons/apps.webp";
+import safari from "@/assets/icons/safari.webp";
+import mail from "@/assets/icons/mail.webp";
+import maps from "@/assets/icons/maps.webp";
+import messages from "@/assets/icons/messages.webp";
+import settings from "@/assets/icons/settings.webp";
+
+export const taskbarApps = [
+  ["Finder", finder],
+  ["Apps", apps],
+  ["Safari", safari],
+  ["Mail", mail],
+  ["Maps", maps],
+  ["Messages", messages],
+  ["Settings", settings],
+];
+
 export interface MainContext {
   activeApps: string[];
   setActiveApps: (apps: string[]) => void;

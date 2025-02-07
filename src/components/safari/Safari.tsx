@@ -1,8 +1,8 @@
-import { mainContext } from "@/main";
+import React, { useContext, useRef, useState } from "react";
 import { TopNavigation } from "@components/safari/TopNavigation";
 import { Bookmark } from "@components/safari/Bookmark";
-import React, { useContext, useRef, useState } from "react";
 import { bookmarks } from "@/constants";
+import { mainContext } from "@/main";
 
 export const Safari = () => {
   const [dragging, setDragging] = useState(false);
