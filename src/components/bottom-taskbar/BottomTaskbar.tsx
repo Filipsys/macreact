@@ -8,8 +8,16 @@ import { editValueInStore, getValueFromStore } from "@/utils";
 import darkFullBin from "@/assets/icons/full-bin-dark.png";
 
 export const BottomTaskbar = () => {
-  const { activeApps, setActiveApps, hiddenApps, setHiddenApps, setCurrentActiveApp, lastUsedApps, setLastUsedApps, dbLoaded } =
-    useContext(mainContext);
+  const {
+    activeApps,
+    setActiveApps,
+    hiddenApps,
+    setHiddenApps,
+    setCurrentActiveApp,
+    lastUsedApps,
+    setLastUsedApps,
+    dbLoaded,
+  } = useContext(mainContext);
   const [appsWithNotifications] = useState<[string, number][]>([["Messages", 3]] as [string, number][]);
 
   useEffect(() => {
@@ -19,7 +27,7 @@ export const BottomTaskbar = () => {
       await getValueFromStore("activeApps").then((response) => setActiveApps(response as string[]));
       await getValueFromStore("hiddenApps").then((response) => setHiddenApps(response as string[])); // This should also work
     })();
-  }, [dbLoaded]);
+  }, [dbLoaded, setActiveApps, setHiddenApps]);
 
   const handleAppChange = (app: string) => {
     setCurrentActiveApp([app, appsTabsDict[app]]);

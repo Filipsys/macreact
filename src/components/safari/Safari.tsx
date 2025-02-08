@@ -8,7 +8,6 @@ export const Safari = () => {
   const [dragging, setDragging] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-
   const safariRef = useRef<HTMLDivElement>(null);
   const { activeApps, setCurrentActiveApp } = useContext(mainContext);
 

@@ -1,19 +1,26 @@
 import { useContext } from "react";
 import { mainContext } from "@/main";
 import { CloseIcon, MinimizeIcon, ExpandIcon } from "@/assets/windowControlIcons";
+import { editValueInStore } from "@/utils";
 
 export const WindowControl = () => {
   const { activeApps, setActiveApps, hiddenApps, setHiddenApps, lastUsedApps, setLastUsedApps } =
     useContext(mainContext);
 
-  const closeApp = (app: string) => {
+  const closeApp = async (app: string) => {
     setActiveApps(activeApps.filter((a: string) => a !== app));
     setLastUsedApps(lastUsedApps.filter((a: string) => a !== app));
+
+    editValueInStore({ key: "activeApps", value: activeApps.filter((a: string) => a !== app) });
+    editValueInStore({ key: "lastUsedApps", value: lastUsedApps.filter((a: string) => a !== app) });
   };
 
   const hideApp = (app: string) => {
     setHiddenApps([...hiddenApps, app]);
     setActiveApps(activeApps.filter((a: string) => a !== app));
+
+    editValueInStore({ key: "hiddenApps", value: [...hiddenApps, app] });
+    editValueInStore({ key: "activeApps", value: activeApps.filter((a: string) => a !== app) });
   };
 
   return (
