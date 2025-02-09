@@ -1,8 +1,9 @@
 import { AccountIcon, AppleIcon, MenuIcon, SearchIcon, WifiIcon } from "@/assets/navIcons";
+import { ContextCategory, ContextContainer, ContextItem, Divider } from "@components/ContextMenu";
 import { mainContext } from "@/main";
 import { CurrentTime } from "@components/CurrentTime";
-import { appsTabsDict } from "@/constants";
-import { useContext } from "react";
+import { appsTabsDict, appTabDropdownValues } from "@/constants";
+import { useContext, useState } from "react";
 
 const LeftTools = (props: { activeAppName: string; appTabs: string[] }) => (
   <ul className="flex h-fit cursor-default flex-row items-center gap-[22px] py-1 text-[13px] font-light *:rounded-[4px] *:py-1 *:align-middle">
@@ -17,7 +18,10 @@ const LeftTools = (props: { activeAppName: string; appTabs: string[] }) => (
 );
 
 export const TopTaskbar = () => {
+  const [contextMenuState, setContextMenuState] = useState({ visible: false, width: 0, height: 0, x: 0, y: 0 });
+  const [activeTaskbarTab] = useState<number>(0);
   const { lastUsedApps } = useContext(mainContext);
+
   const lastFromLastUsedApps = lastUsedApps.length - 1;
 
   return (
@@ -56,6 +60,20 @@ export const TopTaskbar = () => {
           <CurrentTime />
         </div>
       </div>
+
+      {contextMenuState.visible ? (
+        <ContextContainer width={300} height={500} setContextMenuState={() => setContextMenuState}>
+          {Object.values(Object.values(appTabDropdownValues)[0])[activeTaskbarTab].map((values, index) => (
+            <ContextCategory>
+              {values.map((value) => (
+                <ContextItem name={value} />
+              ))}
+
+              {index < Object.values(Object.values(appTabDropdownValues)[0]).length ? <Divider /> : null}
+            </ContextCategory>
+          ))}
+        </ContextContainer>
+      ) : null}
     </nav>
   );
 };
