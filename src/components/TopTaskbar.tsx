@@ -5,24 +5,54 @@ import { CurrentTime } from "@components/CurrentTime";
 import { appsTabsDict, appTabDropdownValues } from "@/constants";
 import { useContext, useState } from "react";
 
-const LeftTools = (props: { activeAppName: string; appTabs: string[] }) => (
-  <ul className="flex h-fit cursor-default flex-row items-center gap-[22px] py-1 text-[13px] font-light *:rounded-[4px] *:py-1 *:align-middle">
-    <li className="font-extrabold active:bg-white/[.2]">{props.activeAppName}</li>
-
-    {props.appTabs.map((tab) => (
-      <li key={`topnav-tab-${tab}`} className="active:bg-white/[.2]">
-        {tab}
-      </li>
-    ))}
-  </ul>
-);
-
 export const TopTaskbar = () => {
   const [contextMenuState, setContextMenuState] = useState({ visible: false, width: 0, height: 0, x: 0, y: 0 });
-  const [activeTaskbarTab] = useState<number>(0);
+  const [activeTaskbarTab, setActiveTaskbarTab] = useState<number>(1);
   const { lastUsedApps } = useContext(mainContext);
-
   const lastFromLastUsedApps = lastUsedApps.length - 1;
+
+  const LeftTools = (props: { activeAppName: string; appTabs: string[] }) => {
+    return (
+      <ul className="flex h-fit cursor-default flex-row items-center gap-[22px] py-1 text-[13px] font-light *:rounded-[4px] *:py-1 *:align-middle">
+        <li
+          className="font-extrabold active:bg-white/[.2]"
+          onClick={(event) => {
+            const textDiv = event.currentTarget.getBoundingClientRect();
+
+            setActiveTaskbarTab(0);
+            setContextMenuState({
+              ...contextMenuState,
+              visible: true,
+              x: textDiv.left,
+              y: textDiv.top + textDiv.height,
+            });
+          }}
+        >
+          {props.activeAppName}
+        </li>
+
+        {props.appTabs.map((tab, index) => (
+          <li
+            key={`topnav-tab-${tab}`}
+            className="active:bg-white/[.2]"
+            onClick={(event) => {
+              const textDiv = event.currentTarget.getBoundingClientRect();
+
+              setActiveTaskbarTab(index + 1);
+              setContextMenuState({
+                ...contextMenuState,
+                visible: true,
+                x: textDiv.left,
+                y: textDiv.top + textDiv.height,
+              });
+            }}
+          >
+            {tab}
+          </li>
+        ))}
+      </ul>
+    );
+  };
 
   return (
     <nav
@@ -62,14 +92,19 @@ export const TopTaskbar = () => {
       </div>
 
       {contextMenuState.visible ? (
-        <ContextContainer width={300} height={500} setContextMenuState={() => setContextMenuState}>
+        <ContextContainer
+          width={contextMenuState.x}
+          height={contextMenuState.y}
+          setContextMenuState={() => setContextMenuState}
+        >
           {Object.values(Object.values(appTabDropdownValues)[0])[activeTaskbarTab].map((values, index) => (
             <ContextCategory>
               {values.map((value) => (
-                <ContextItem name={value} />
+                <ContextItem name={value} disabled />
               ))}
-
-              {index < Object.values(Object.values(appTabDropdownValues)[0]).length ? <Divider /> : null}
+              {index !== Object.values(Object.values(appTabDropdownValues)[0])[activeTaskbarTab].length - 1 ? (
+                <Divider />
+              ) : null}
             </ContextCategory>
           ))}
         </ContextContainer>

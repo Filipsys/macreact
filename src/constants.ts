@@ -62,7 +62,13 @@ export const appleButtonDropdownValues = [
 
 export const appTabDropdownValues = {
   Finder: {
-    Finder: [["About Finder", "Settings...", "Empty Bin..."], ["Services"], ["Hide Finder", "Hide Other", "Show All"]],
+    Finder: [
+      ["About Finder"],
+      ["Settings..."],
+      ["Empty Bin..."],
+      ["Services"],
+      ["Hide Finder", "Hide Other", "Show All"],
+    ],
     File: [
       [
         "New Finder Window",
