@@ -9,8 +9,16 @@ export const TopTaskbar = () => {
   const [contextMenuState, setContextMenuState] = useState({ visible: false, width: 0, height: 0, x: 0, y: 0 });
   const [activeTaskbarTab, setActiveTaskbarTab] = useState<number>(1);
   const [tabIsActive, setTabIsActive] = useState(false);
-  const { lastUsedApps } = useContext(mainContext);
+  const { lastUsedApps /* , isUnfocused, setIsUnfocused */ } = useContext(mainContext);
   const lastFromLastUsedApps = lastUsedApps.length - 1;
+
+  // useEffect(() => {
+  //   if (isUnfocused)
+  //     setContextMenuState({
+  //       ...contextMenuState,
+  //       visible: false,
+  //     });
+  // }, [contextMenuState, isUnfocused]);
 
   const LeftTools = (props: { activeAppName: string; appTabs: string[] }) => {
     return (
@@ -35,18 +43,17 @@ export const TopTaskbar = () => {
 
         {props.appTabs.map((tab, index) => (
           <div
+            key={`topnav-tab-${tab}`}
             className={`${tabIsActive && activeTaskbarTab === index + 1 ? "before:bg-white/20" : ""} grid h-full grid-cols-1 grid-rows-1 items-center before:block before:h-full before:w-full before:rounded-[4px] before:[grid-area:1/1]`}
           >
             <div
-              key={`topnav-tab-${tab}`}
               className="px-2.5 [grid-area:1/1]"
               onMouseOver={(event) => {
                 if (tabIsActive && activeTaskbarTab !== index + 1) {
-                  setActiveTaskbarTab(index + 1);
-
                   const textDiv = event.currentTarget.parentElement?.getBoundingClientRect();
                   if (!textDiv) return;
 
+                  setActiveTaskbarTab(index + 1);
                   setContextMenuState({
                     ...contextMenuState,
                     visible: true,

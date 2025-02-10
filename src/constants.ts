@@ -37,6 +37,8 @@ export interface MainContext {
   setContextMenuIsOpen: (value: boolean) => void;
   dbLoaded: boolean;
   setDbLoaded: (value: boolean) => void;
+  isUnfocused: boolean;
+  setIsUnfocused: (value: boolean) => void;
 }
 
 export interface Widget {

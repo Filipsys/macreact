@@ -6,8 +6,16 @@ import { wallpapers, gridData } from "@/constants";
 import { editValueInStore, getValueFromStore, useWindowDimensions } from "@/utils";
 
 export const Wallpaper = () => {
-  const { wallpaper, setWallpaper, windowSize, widgetGridSpaces, contextMenuIsOpen, setContextMenuIsOpen, dbLoaded } =
-    useContext(mainContext);
+  const {
+    wallpaper,
+    setWallpaper,
+    windowSize,
+    widgetGridSpaces,
+    contextMenuIsOpen,
+    setContextMenuIsOpen,
+    dbLoaded,
+    setIsUnfocused,
+  } = useContext(mainContext);
   const [contextMenuState, setContextMenuState] = useState({ visible: false, width: 0, height: 0, x: 0, y: 0 });
   const [widgetsPopupVisibility, setWidgetsPopupVisibility] = useState<boolean>(false);
   const [possibleGridSpaces, setPossibleGridSpaces] = useState<[number, number][]>([]);
@@ -101,6 +109,8 @@ export const Wallpaper = () => {
       <div
         className="absolute left-0 top-0 h-dvh w-full bg-cover bg-center"
         onClick={() => {
+          setIsUnfocused(true);
+
           setContextMenuState({ ...contextMenuState, visible: false });
           setContextMenuIsOpen(false);
         }}
@@ -112,6 +122,7 @@ export const Wallpaper = () => {
             return;
           }
           setContextMenuIsOpen(true);
+          setIsUnfocused(false);
 
           const posX =
             e.clientX + contextMenuState.width < windowWidth ? e.clientX : e.clientX - contextMenuState.width;

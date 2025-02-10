@@ -28,6 +28,8 @@ export const mainContext = createContext<MainContext>({
   setContextMenuIsOpen: () => {},
   dbLoaded: false,
   setDbLoaded: () => {},
+  isUnfocused: false,
+  setIsUnfocused: () => {},
 });
 
 createRoot(document.getElementById("root")!).render(
