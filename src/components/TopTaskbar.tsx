@@ -8,16 +8,18 @@ import { useContext, useState } from "react";
 export const TopTaskbar = () => {
   const [contextMenuState, setContextMenuState] = useState({ visible: false, width: 0, height: 0, x: 0, y: 0 });
   const [activeTaskbarTab, setActiveTaskbarTab] = useState<number>(1);
+  const [tabIsActive, setTabIsActive] = useState(false);
   const { lastUsedApps } = useContext(mainContext);
   const lastFromLastUsedApps = lastUsedApps.length - 1;
 
   const LeftTools = (props: { activeAppName: string; appTabs: string[] }) => {
     return (
-      <ul className="flex h-fit cursor-default flex-row items-center gap-[22px] py-1 text-[13px] font-light *:rounded-[4px] *:py-1 *:align-middle">
-        <li
-          className="font-extrabold active:bg-white/[.2]"
+      <div className="flex h-full cursor-default flex-row items-center text-[13px] font-light *:rounded-[4px]">
+        <div
+          className="pr-2.5 font-extrabold active:bg-white/[.2]"
           onClick={(event) => {
-            const textDiv = event.currentTarget.getBoundingClientRect();
+            const textDiv = event.currentTarget.parentElement?.getBoundingClientRect();
+            if (!textDiv) return;
 
             setActiveTaskbarTab(0);
             setContextMenuState({
@@ -29,28 +31,59 @@ export const TopTaskbar = () => {
           }}
         >
           {props.activeAppName}
-        </li>
+        </div>
 
         {props.appTabs.map((tab, index) => (
-          <li
-            key={`topnav-tab-${tab}`}
-            className="active:bg-white/[.2]"
-            onClick={(event) => {
-              const textDiv = event.currentTarget.getBoundingClientRect();
-
-              setActiveTaskbarTab(index + 1);
-              setContextMenuState({
-                ...contextMenuState,
-                visible: true,
-                x: textDiv.left,
-                y: textDiv.top + textDiv.height,
-              });
-            }}
+          <div
+            className={`${tabIsActive && activeTaskbarTab === index + 1 ? "before:bg-white/20" : ""} grid h-full grid-cols-1 grid-rows-1 items-center before:block before:h-full before:w-full before:rounded-[4px] before:[grid-area:1/1]`}
           >
-            {tab}
-          </li>
+            <div
+              key={`topnav-tab-${tab}`}
+              className="px-2.5 [grid-area:1/1]"
+              onMouseOver={(event) => {
+                if (tabIsActive && activeTaskbarTab !== index + 1) {
+                  setActiveTaskbarTab(index + 1);
+
+                  const textDiv = event.currentTarget.parentElement?.getBoundingClientRect();
+                  if (!textDiv) return;
+
+                  setContextMenuState({
+                    ...contextMenuState,
+                    visible: true,
+                    x: textDiv.left,
+                    y: textDiv.top + textDiv.height,
+                  });
+                }
+              }}
+              onClick={(event) => {
+                if (tabIsActive) {
+                  setTabIsActive(false);
+                  setContextMenuState({
+                    ...contextMenuState,
+                    visible: false,
+                  });
+
+                  return;
+                }
+
+                setTabIsActive(true);
+                const textDiv = event.currentTarget.parentElement?.getBoundingClientRect();
+                if (!textDiv) return;
+
+                setActiveTaskbarTab(index + 1);
+                setContextMenuState({
+                  ...contextMenuState,
+                  visible: true,
+                  x: textDiv.left,
+                  y: textDiv.top + textDiv.height,
+                });
+              }}
+            >
+              {tab}
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     );
   };
 
@@ -71,7 +104,7 @@ export const TopTaskbar = () => {
       </div>
 
       <div className="flex flex-row">
-        <ul className="flex h-5 w-fit flex-row items-center justify-center gap-1.5 *:rounded-sm *:p-1 *:px-2">
+        <ul className="flex h-5 w-fit flex-row items-center justify-center gap-1.5 *:rounded-sm *:px-2">
           <li className="active:bg-white/[.2]">
             <WifiIcon />
           </li>
