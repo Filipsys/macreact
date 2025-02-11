@@ -21,7 +21,7 @@
 - [x] Widgets select window.
 - [ ] Context menu for widgets.
 - [x] Make top taskbar change upon app focus.
-- [ ] Fix top taskbar tabs active pseudoclass styling.
+- [x] Fix top taskbar tabs active pseudoclass styling.
 - [ ] Add context menus to top taskbar tabs.
 - [ ] Fix dynamically added tailwind classes.
 - [ ] Create a battery widget using the battery API.
@@ -55,3 +55,4 @@
 - [ ] Check out the [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API) which could possibly save device resources while website while hidden.
 - [ ] Fix context menu re-appearing on left click.
 - [x] Change top navbar time to re-render every minute instead of seconds.
+- [ ] Fix bottom taskbar icons animating on website open.

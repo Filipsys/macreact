@@ -34,7 +34,7 @@ export const TopTaskbar = () => {
               ...contextMenuState,
               visible: true,
               x: textDiv.left,
-              y: textDiv.top + textDiv.height,
+              y: textDiv.top + 2 + textDiv.height, // + 2 is accounting for the small gap between the context menu and the taskbar
             });
           }}
         >
@@ -44,10 +44,10 @@ export const TopTaskbar = () => {
         {props.appTabs.map((tab, index) => (
           <div
             key={`topnav-tab-${tab}`}
-            className={`${tabIsActive && activeTaskbarTab === index + 1 ? "before:bg-white/20" : ""} grid h-full grid-cols-1 grid-rows-1 items-center before:block before:h-full before:w-full before:rounded-[4px] before:[grid-area:1/1]`}
+            className={`${tabIsActive && activeTaskbarTab === index + 1 ? "before:bg-white/20" : ""} relative flex h-full items-center before:absolute before:-z-10 before:block before:h-full before:-translate-x-[5px] before:rounded-[4px] before:[width:calc(100%+10px)]`}
           >
             <div
-              className="px-2.5 [grid-area:1/1]"
+              className="px-2.5"
               onMouseOver={(event) => {
                 if (tabIsActive && activeTaskbarTab !== index + 1) {
                   const textDiv = event.currentTarget.parentElement?.getBoundingClientRect();
@@ -58,7 +58,7 @@ export const TopTaskbar = () => {
                     ...contextMenuState,
                     visible: true,
                     x: textDiv.left,
-                    y: textDiv.top + textDiv.height,
+                    y: textDiv.top + 2 + textDiv.height,
                   });
                 }
               }}
@@ -82,7 +82,7 @@ export const TopTaskbar = () => {
                   ...contextMenuState,
                   visible: true,
                   x: textDiv.left,
-                  y: textDiv.top + textDiv.height,
+                  y: textDiv.top + 2 + textDiv.height,
                 });
               }}
             >
@@ -97,7 +97,7 @@ export const TopTaskbar = () => {
   return (
     <nav
       onContextMenu={(e) => e.preventDefault()}
-      className="z-10 flex h-7 w-full flex-row items-center justify-between bg-gradient-to-r from-[#363b87] via-[#3952a7] to-[#3058b6] font-[500] shadow-sm [text-shadow:_0px_0px_5px_rgb(0_0_0_/_30%)]"
+      className="z-10 flex h-[24px] w-full flex-row items-center justify-between bg-gradient-to-r from-[#363b87] via-[#3952a7] to-[#3058b6] font-[500] shadow-sm [text-shadow:_0px_0px_5px_rgb(0_0_0_/_30%)]"
     >
       <div className="flex h-full flex-row items-center">
         <div className="px-5">
