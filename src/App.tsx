@@ -66,13 +66,20 @@ function App() {
   useEffect(() => {
     const userAgent = navigator.userAgent.toLowerCase();
 
+    // Check for mobile devices
     if (["iphone", "ipad", "android", "tablet", "mobile"].some((deviceType) => userAgent.includes(deviceType))) {
-      const bodyDiv = bodyRef.current;
-      if (!bodyDiv) throw new Error("Cannot find body");
-
-      bodyDiv.innerHTML = `
-      <div class="w-full h-full bg-black flex justify-center items-center px-8">
+      document.body.innerHTML = `
+      <div class="w-full h-dvh bg-black text-white flex justify-center items-center px-8">
         <p class="text-4xl text-center">Sorry, this device isn't supported.</p>
+      </div>
+      `;
+    }
+
+    // Check for Firefox
+    if (userAgent.includes("firefox")) {
+      document.body.innerHTML = `
+      <div class="w-full h-dvh bg-black text-white flex justify-center items-center px-8">
+        <p class="text-4xl text-center">Sorry, this browser isn't supported.</p>
       </div>
       `;
     }

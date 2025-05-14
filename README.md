@@ -29,7 +29,7 @@
 - [x] Add a feature for automatic page load in prod.
 - [x] Migrate React Scan to a dev dependency or disable it in production.
 - [x] Implement the [Fullscreen API](https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API) to start the website in fullscreen.
-- [ ] Disable website on Firefox due to a couple of features not available, making the experience worse.
+- [x] Disable website on Firefox due to a couple of features not available, making the experience worse.
 - [ ] Implement the [Keyboard API](https://developer.mozilla.org/en-US/docs/Web/API/Keyboard_API) to create custom keybinds for the website including many like `cmd + h` for hiding the window, `cmd + w` for closing the window, `cmd + q` for quitting the window.
 - [ ] Implement the [Idle Detection API](https://developer.mozilla.org/en-US/docs/Web/API/Idle_Detection_API) to detect idle behaviour and switch on screen saver mode in the website.
 
