@@ -1,6 +1,6 @@
 import "./index.css";
 
-import { useCallback, useContext, useEffect, useRef } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { mainContext } from "@/main";
 import { TopTaskbar } from "@components/TopTaskbar";
 import { BottomTaskbar } from "@components/bottom-taskbar/BottomTaskbar";
@@ -9,11 +9,13 @@ import { LoadingScreen } from "@components/LoadingScreen";
 import { Safari } from "@components/safari/Safari";
 import { DEBUG_MODE, debug, getFromStore, getValueFromStore, storeInStore } from "@/utils";
 import { globalVariableDefaults } from "./constants";
+import { FullscreenPrompt } from "./components/FullscreenPrompt";
 
 function App() {
   const bodyRef = useRef<HTMLDivElement>(null);
   const storeInitialized = useRef<boolean>(false);
   const { setWindowSize, setDbLoaded } = useContext(mainContext);
+  const [isFullscreen, setIsFullscreen] = useState<boolean | null>(null);
 
   const initializeGlobals = useCallback(async () => {
     // getValueFromStore("wallpaperIndex").then((response) => console.log(response));
@@ -76,7 +78,9 @@ function App() {
     }
   }, []);
 
-  return (
+  return isFullscreen === null ? (
+    <FullscreenPrompt setIsFullscreen={setIsFullscreen} />
+  ) : (
     <div
       ref={bodyRef}
       className="flex h-dvh w-full select-none flex-col font-SFPro tracking-wide text-white"

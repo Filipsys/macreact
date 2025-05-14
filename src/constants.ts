@@ -1,5 +1,3 @@
-import { JSX } from "react/jsx-runtime";
-
 import finder from "@/assets/icons/finder.webp";
 import apps from "@/assets/icons/apps.webp";
 import safari from "@/assets/icons/safari.webp";
@@ -7,6 +5,8 @@ import mail from "@/assets/icons/mail.webp";
 import maps from "@/assets/icons/maps.webp";
 import messages from "@/assets/icons/messages.webp";
 import settings from "@/assets/icons/settings.webp";
+
+import type { JSX } from "react/jsx-runtime";
 
 export const taskbarApps = [
   ["Finder", finder],
