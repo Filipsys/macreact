@@ -4,7 +4,7 @@ export const FullscreenPrompt = (props: { setIsFullscreen: Dispatch<SetStateActi
   <div className="flex h-dvh w-full flex-col items-center justify-center gap-4 bg-black">
     <p className="text-white">Would you like to enter fullscreen? (recommended)</p>
 
-    <div className="flex gap-4 *:border-[1px] *:px-3 *:py-1">
+    <div className="flex gap-4 *:border *:px-3 *:py-1">
       <button
         type="button"
         className="border-white/20 bg-white text-black"

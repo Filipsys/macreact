@@ -14,7 +14,7 @@ export const SuggestionsCategory = () => (
     </div>
 
     <div className="p-2 px-4">
-      <div className="h-[1px] w-full bg-white" />
+      <div className="h-px w-full bg-white" />
     </div>
   </div>
 );

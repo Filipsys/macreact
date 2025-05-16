@@ -144,7 +144,15 @@ export const timeDict = {
   months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 };
 
-export const widgetCategoryList = ["All Widgets", "Batteries", "Calendar", "Clock", "Contacts", "Find My", "GitHub"];
+export const widgetCategoryList = [
+  ["All Widgets", 0],
+  ["Batteries", 1],
+  ["Calendar", 2],
+  ["Clock", 3],
+  ["Contacts", 4],
+  ["Find My", 5],
+  ["GitHub", 6],
+] as [string, number][];
 
 export const bookmarks = [
   "Apple",

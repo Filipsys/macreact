@@ -1,20 +1,21 @@
 import { SidebarIcon, LeftArrowIcon, RightArrowIcon, UploadIcon, SearchIcon } from "@/assets/safariIcons";
 import { WindowControl } from "@components/WindowControl";
-import React, { useState } from "react";
+import { useState } from "react";
+import type { MouseEvent } from "react";
 
 const navigationButtonsEnabled = false;
 
 export const TopNavigation = (props: {
   position: { x: number; y: number };
   setDragging: (arg: boolean) => void;
+  handleMove: (e: MouseEvent) => void;
   setOffset: ({ x, y }: { x: number; y: number }) => void;
-  handleMove: (e: React.MouseEvent) => void;
 }) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   return (
     <nav
-      className="relative flex h-12 w-full items-center justify-between rounded-t-xl bg-[#403938] shadow-sm"
+      className="relative flex h-12 w-full items-center justify-between rounded-t-xl bg-[#403938] shadow-xs"
       onMouseDown={(e) => {
         props.setDragging(true);
         props.setOffset({
@@ -27,7 +28,7 @@ export const TopNavigation = (props: {
       onMouseMove={(e) => props.handleMove(e)}
     >
       <div className="absolute left-0 flex items-center px-4">
-        <WindowControl />
+        <WindowControl windowName="Safari" />
 
         <div className="z-10 px-[12px]">
           <div className="rounded-md p-1 px-2 *:fill-[#bfbab9] hover:bg-white/5">
@@ -57,7 +58,7 @@ export const TopNavigation = (props: {
               border: isClicked ? "3px solid #446f96" : "3px solid transparent",
             }}
           >
-            <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center px-2">
+            <div className="absolute top-0 left-0 flex h-full w-full items-center justify-center px-2">
               <div className="*:mr-1.5 *:size-3 *:fill-[#999595]">
                 <SearchIcon />
               </div>
@@ -67,7 +68,7 @@ export const TopNavigation = (props: {
                 type="text"
                 onClick={() => setIsClicked(true)}
                 onBlur={(e) => {
-                  if (e.target.value == "") {
+                  if (e.target.value === "") {
                     e.target.style.width = "55%";
                   } else {
                     e.target.style.width = "100%";
@@ -76,7 +77,7 @@ export const TopNavigation = (props: {
                   setIsClicked(false);
                 }}
                 placeholder="Search or enter website name"
-                className="font-base z-10 h-min w-[55%] bg-transparent text-[12px] text-white outline-none [field-sizing:content] [transition:width_0.3s] placeholder:text-[#6f6c6c] focus-within:w-full"
+                className="font-base z-10 field-sizing-content h-min w-[55%] bg-transparent text-[12px] text-white outline-hidden [transition:width_0.3s] placeholder:text-[#6f6c6c] focus-within:w-full"
               />
             </div>
           </div>

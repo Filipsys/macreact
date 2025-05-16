@@ -45,8 +45,8 @@ export const LoadingScreen = () => {
       </div>
 
       <div className="relative w-44">
-        <div className="absolute h-1 w-44 rounded-sm bg-[#494949]" />
-        <div className="absolute h-1 w-0 rounded-sm bg-white" ref={loadingRef} />
+        <div className="absolute h-1 w-44 rounded-xs bg-[#494949]" />
+        <div className="absolute h-1 w-0 rounded-xs bg-white" ref={loadingRef} />
       </div>
     </div>
   );

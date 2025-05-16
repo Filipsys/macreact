@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { mainContext } from "@/main";
-import { CloseIcon, MinimizeIcon, ExpandIcon } from "@/assets/windowControlIcons";
 import { editValueInStore } from "@/utils";
+import { CloseIcon, MinimizeIcon, ExpandIcon } from "@/assets/windowControlIcons";
 
-export const WindowControl = () => {
+export const WindowControl = (props: { windowName: string }) => {
   const { activeApps, setActiveApps, hiddenApps, setHiddenApps, lastUsedApps, setLastUsedApps } =
     useContext(mainContext);
 
@@ -24,19 +24,23 @@ export const WindowControl = () => {
   };
 
   return (
-    <div className="group z-20 flex gap-[6px] *:z-10 *:*:hidden *:*:size-full *:size-[12px] *:*:items-center *:*:justify-center *:rounded-full *:*:opacity-60">
-      <div className="bg-red-600" onClick={() => closeApp("Safari")}>
-        <div className="*:size-[7px] group-hover:flex">
+    <div className="group z-20 flex gap-[6px] *:z-10 *:*:hidden *:*:size-full *:size-[12px] *:rounded-full *:*:opacity-60">
+      <div className="bg-red-600" onClick={() => closeApp(props.windowName)} onKeyUp={() => closeApp(props.windowName)}>
+        <div className="size-[7px] items-center justify-center group-hover:flex">
           <CloseIcon />
         </div>
       </div>
-      <div className="bg-yellow-600" onClick={() => hideApp("Safari")}>
-        <div className="*:w-[8px] group-hover:flex">
+      <div
+        className="bg-yellow-600"
+        onClick={() => hideApp(props.windowName)}
+        onKeyUp={() => closeApp(props.windowName)}
+      >
+        <div className="w-[8px] items-center justify-center group-hover:flex">
           <MinimizeIcon />
         </div>
       </div>
       <div className="bg-green-500">
-        <div className="*:size-[6px] group-hover:flex">
+        <div className="size-[6px] items-center justify-center group-hover:flex">
           <ExpandIcon />
         </div>
       </div>

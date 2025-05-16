@@ -26,7 +26,7 @@ export const Safari = () => {
 
   return (
     <div
-      className="absolute left-1/2 top-1/2 z-20 flex h-[600px] w-[860px] -translate-x-1/2 -translate-y-1/2 resize-y flex-col rounded-xl backdrop-blur-xl backdrop-brightness-[.4] [box-shadow:0px_0px_0px_1px_rgb(122,_120,_120),0px_0px_0px_2px_rgb(32,_41,_38)]"
+      className="absolute left-1/2 top-1/2 z-20 flex h-[600px] w-[860px] -translate-x-1/2 -translate-y-1/2 resize-y flex-col rounded-xl backdrop-blur-xl backdrop-brightness-[.4] [box-shadow:0px_0px_0px_1px_rgb(122,120,120),0px_0px_0px_2px_rgb(32,41,38)]"
       style={{ display: activeApps.includes("Safari") ? "flex" : "none" }}
       ref={safariRef}
       onClick={() =>
@@ -35,7 +35,7 @@ export const Safari = () => {
     >
       <TopNavigation position={position} setDragging={setDragging} setOffset={setOffset} handleMove={handleMove} />
 
-      <div className="flex h-full w-full items-center justify-center rounded-b-xl border-[1px] border-t-0 border-[#bbbbbb]/[.09] bg-[#4A4A4A]/[.39] p-2">
+      <div className="flex h-full w-full items-center justify-center rounded-b-xl border border-t-0 border-[#bbbbbb]/[.09] bg-[#4A4A4A]/[.39] p-2">
         <div className="flex w-4/5 flex-col gap-2 px-16">
           <div className="text-xl font-bold">Favourites</div>
 

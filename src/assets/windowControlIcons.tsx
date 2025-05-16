@@ -34,7 +34,7 @@ export const AddWidgetIcon = () => (
     width="9"
     height="9"
     viewBox="0 0 19 19"
-    className="drop-shadow-sm"
+    className="drop-shadow-xs"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >

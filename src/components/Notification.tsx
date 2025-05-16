@@ -9,9 +9,9 @@ export const Notification = () => {
       className="pointer-events-none absolute left-0 top-0 flex h-fit w-screen items-center justify-center pt-12 text-[#252525]"
       style={{ display: notificationIsActive ? "block" : "none" }}
     >
-      <div className="flex w-[344px] gap-2 rounded-2xl bg-[#f6f6f6] p-3 drop-shadow-[0px_0px_10px_rgb(0_0_0_/_30%)]">
+      <div className="flex w-[344px] gap-2 rounded-2xl bg-[#f6f6f6] p-3 drop-shadow-[0px_0px_10px_rgb(0_0_0/30%)]">
         <div className="flex min-w-10 items-center justify-center">
-          <img src={safari} alt="settings-icon" className="size-10 drop-shadow-sm" />
+          <img src={safari} alt="settings-icon" className="size-10 drop-shadow-xs" />
         </div>
         <div className="w-fit text-xs">
           <p className="font-bold">Title goes here</p>

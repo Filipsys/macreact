@@ -44,7 +44,7 @@ export const TopTaskbar = () => {
         {props.appTabs.map((tab, index) => (
           <div
             key={`topnav-tab-${tab}`}
-            className={`${tabIsActive && activeTaskbarTab === index + 1 ? "before:bg-white/20" : ""} relative flex h-full items-center before:absolute before:-z-10 before:block before:h-full before:-translate-x-[5px] before:rounded-[4px] before:[width:calc(100%+10px)]`}
+            className={`${tabIsActive && activeTaskbarTab === index + 1 ? "before:bg-white/20" : ""} relative flex h-full items-center before:absolute before:-z-10 before:block before:h-full before:-translate-x-[5px] before:rounded-[4px] before:w-[calc(100%+10px)]`}
           >
             <div
               className="px-2.5"
@@ -97,7 +97,7 @@ export const TopTaskbar = () => {
   return (
     <nav
       onContextMenu={(e) => e.preventDefault()}
-      className="z-10 flex h-[24px] w-full flex-row items-center justify-between bg-gradient-to-r from-[#363b87] via-[#3952a7] to-[#3058b6] font-[500] shadow-sm [text-shadow:_0px_0px_5px_rgb(0_0_0_/_30%)]"
+      className="z-10 flex h-[24px] w-full flex-row items-center justify-between bg-linear-to-r from-[#363b87] via-[#3952a7] to-[#3058b6] font-medium shadow-xs [text-shadow:0px_0px_5px_rgb(0_0_0/30%)]"
     >
       <div className="flex h-full flex-row items-center">
         <div className="px-5">
@@ -111,7 +111,7 @@ export const TopTaskbar = () => {
       </div>
 
       <div className="flex flex-row">
-        <ul className="flex h-5 w-fit flex-row items-center justify-center gap-1.5 *:rounded-sm *:px-2">
+        <ul className="flex h-5 w-fit flex-row items-center justify-center gap-1.5 *:rounded-xs *:px-2">
           <li className="active:bg-white/[.2]">
             <WifiIcon />
           </li>
@@ -126,7 +126,7 @@ export const TopTaskbar = () => {
           </li>
         </ul>
 
-        <div className="px-4 text-center text-[13px] [text-shadow:_0px_0px_5px_rgb(0_0_0_/_30%)]">
+        <div className="px-4 text-center text-[13px] [text-shadow:0px_0px_5px_rgb(0_0_0/30%)]">
           <CurrentTime />
         </div>
       </div>

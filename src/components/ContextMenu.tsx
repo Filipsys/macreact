@@ -43,7 +43,7 @@ export const ContextItem = (props: {
 
   return (
     <li
-      className={`rounded-[4px] py-[2px] pl-4 pr-2 ${disabled ? "!text-gray-500" : "hover:bg-[#5587d6]"}`}
+      className={`rounded-[4px] py-[2px] pl-4 pr-2 ${disabled ? "text-gray-500!" : "hover:bg-[#5587d6]"}`}
       onClick={disabled ? undefined : props.onClick}
       style={{
         paddingLeft: inset ? "1rem" : "0.5rem",
@@ -79,7 +79,7 @@ export const ContextContainer = (props: {
     <div
       ref={containerRef}
       style={{ left: props.width, top: props.height }}
-      className="absolute z-50 w-40 cursor-default rounded-[5px] p-1.5 text-xs font-light text-gray-200 backdrop-blur-xl backdrop-brightness-[.5] [box-shadow:_0_0_0_.8px_rgba(255,255,255,0.3),_0_0_0_1.6px_rgba(0,0,0,0.6),0px_25px_75px_-20px_rgba(0,0,0,0.85)]"
+      className="absolute z-50 w-40 cursor-default rounded-[5px] p-1.5 text-xs font-light text-gray-200 backdrop-blur-xl backdrop-brightness-[.5] [box-shadow:0_0_0_.8px_rgba(255,255,255,0.3),0_0_0_1.6px_rgba(0,0,0,0.6),0px_25px_75px_-20px_rgba(0,0,0,0.85)]"
     >
       {props.children}
     </div>

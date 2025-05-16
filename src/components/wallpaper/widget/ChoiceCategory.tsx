@@ -1,7 +1,7 @@
 import { Widget } from "@/constants";
 
 const SingleWidget = (props: Widget) => {
-  const sizes = ["size-24", "aspect-[2/1] h-24", "aspect-square size-48"];
+  const sizes = ["size-24", "aspect-2/1 h-24", "aspect-square size-48"];
 
   return props.component === undefined ? (
     <div>
@@ -16,7 +16,7 @@ const SingleWidget = (props: Widget) => {
   ) : (
     <div>
       <div
-        className={`${props.size == "small" ? "size-24" : props.size == "medium" ? "aspect-[2/1] h-24" : "aspect-square size-48"} rounded-xl`}
+        className={`${props.size == "small" ? "size-24" : props.size == "medium" ? "aspect-2/1 h-24" : "aspect-square size-48"} rounded-xl`}
       >
         {props.component}
       </div>
@@ -49,7 +49,7 @@ export const ChoiceCategory = (props: { categoryName: string; isFromPhone?: bool
       </div>
 
       <div className="p-2">
-        <div className="h-[1px] w-full bg-white/20" />
+        <div className="h-px w-full bg-white/20" />
       </div>
     </div>
   );

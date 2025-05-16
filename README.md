@@ -7,7 +7,7 @@
 - [x] Important states store inside ~~local storage.~~ [Dexie](https://dexie.org), a lightweight indexedDB wrapper that seems good for my use case.
 - [x] Try adding react compiler to the project.
 - [x] Clear out linting errors from RC, mostly refs. Switch out refs for ternary operators where possible.
-- [ ] Migrate to Tailwind v4 (Shouldn't be that hard).
+- [x] Migrate to Tailwind v4 (Shouldn't be that hard).
 
 ### Medium priority
 
