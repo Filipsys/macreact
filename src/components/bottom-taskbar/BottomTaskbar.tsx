@@ -57,32 +57,27 @@ export const BottomTaskbar = () => {
   return (
     <div className="absolute bottom-0 left-0 flex h-fit w-screen items-center justify-center pb-1">
       <div className="h-[65px] w-fit rounded-2xl border border-black/20 backdrop-blur-xl backdrop-brightness-[.70]">
-        <ul className="flex flex-row justify-between gap-[2px] px-1 pt-1">
+        <div className="flex flex-row justify-between gap-[2px] px-1 pt-1">
           {taskbarApps.map(([name, icon]) => (
-            <li key={`taskbar-app-${name}`}>
-              <TaskbarApp
-                name={name}
-                icon={icon}
-                activeApps={activeApps}
-                hiddenApps={hiddenApps}
-                appsWithNotifications={appsWithNotifications}
-                handleAppChange={handleAppChange}
-              />
-            </li>
+            <TaskbarApp
+              name={name}
+              icon={icon}
+              activeApps={activeApps}
+              hiddenApps={hiddenApps}
+              appsWithNotifications={appsWithNotifications}
+              handleAppChange={handleAppChange}
+              key={`taskbar-app-${name}`}
+            />
           ))}
 
-          <li>
-            <div className="flex h-full items-center justify-center px-[6px] *:mb-2 *:opacity-40">
-              <DockSeperatorIcon />
-            </div>
-          </li>
+          <div className="flex h-full items-center justify-center px-[6px] *:mb-2 *:opacity-40">
+            <DockSeperatorIcon />
+          </div>
 
-          <li>
-            <div className="h-[60px] pr-1 *:h-[50px]">
-              <img src={darkFullBin} alt="bin" className="w-[50px]" />
-            </div>
-          </li>
-        </ul>
+          <div className="h-[60px] pr-1 *:h-[50px]">
+            <img src={darkFullBin} alt="bin" className="w-[50px]" />
+          </div>
+        </div>
       </div>
     </div>
   );
