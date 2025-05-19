@@ -21,6 +21,13 @@ export const Wallpaper = () => {
   const [possibleGridSpaces, setPossibleGridSpaces] = useState<[number, number][]>([]);
   const { windowWidth, windowHeight } = useWindowDimensions();
 
+  const handleUnfocus = () => {
+    setIsUnfocused(true);
+
+    setContextMenuState({ ...contextMenuState, visible: false });
+    setContextMenuIsOpen(false);
+  };
+
   useEffect(() => {
     (async () => {
       if (!dbLoaded) return;
@@ -107,13 +114,9 @@ export const Wallpaper = () => {
       ))}
 
       <div
-        className="absolute left-0 top-0 h-dvh w-full bg-cover bg-center"
-        onClick={() => {
-          setIsUnfocused(true);
-
-          setContextMenuState({ ...contextMenuState, visible: false });
-          setContextMenuIsOpen(false);
-        }}
+        className="absolute top-0 left-0 h-dvh w-full bg-cover bg-center"
+        onClick={() => handleUnfocus}
+        onKeyUp={() => handleUnfocus}
         onContextMenu={(e) => {
           e.preventDefault();
 

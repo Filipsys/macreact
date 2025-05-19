@@ -26,10 +26,13 @@ export const Safari = () => {
 
   return (
     <div
-      className="absolute left-1/2 top-1/2 z-20 flex h-[600px] w-[860px] -translate-x-1/2 -translate-y-1/2 resize-y flex-col rounded-xl backdrop-blur-xl backdrop-brightness-[.4] [box-shadow:0px_0px_0px_1px_rgb(122,120,120),0px_0px_0px_2px_rgb(32,41,38)]"
+      className="absolute top-1/2 left-1/2 z-20 flex h-[600px] w-[860px] -translate-x-1/2 -translate-y-1/2 resize-y flex-col rounded-xl [box-shadow:0px_0px_0px_1px_rgb(122,120,120),0px_0px_0px_2px_rgb(32,41,38)] backdrop-blur-xl backdrop-brightness-[.4]"
       style={{ display: activeApps.includes("Safari") ? "flex" : "none" }}
       ref={safariRef}
       onClick={() =>
+        setCurrentActiveApp(["Safari", ["File", "Edit", "View", "History", "Bookmarks", "Develop", "Window", "Help"]])
+      }
+      onKeyUp={() =>
         setCurrentActiveApp(["Safari", ["File", "Edit", "View", "History", "Bookmarks", "Develop", "Window", "Help"]])
       }
     >
