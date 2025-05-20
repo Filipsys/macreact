@@ -99,7 +99,7 @@ export const Wallpaper = () => {
         />
       ) : null}
 
-      {widgetGridSpaces.map(([Element, [left, top]], index) => (
+      {widgetGridSpaces.map(([Element, [left, top]]) => (
         <div
           style={{
             position: "absolute",
@@ -107,7 +107,7 @@ export const Wallpaper = () => {
             left: left,
             zIndex: 10,
           }}
-          key={`grid-widget-${index}`}
+          key={`grid-widget-${left}-${top}`}
         >
           {Element}
         </div>
@@ -141,11 +141,11 @@ export const Wallpaper = () => {
           });
         }}
       >
-        {wallpapers.map((wallpaper, index) => (
+        {wallpapers.map((wallpaper) => (
           <img
             src={wallpaper}
             alt="preloaded-img"
-            key={`preloaded-img-${index}`}
+            key={`preloaded-img-${wallpaper}`}
             style={{
               position: "absolute",
               width: "0px",

@@ -29,23 +29,12 @@ export const ContextItem = (props: {
   onClick?: () => void;
   children?: ReactNode | ReactNode[];
 }) => {
-  let inset: boolean;
-  if (props.inset === undefined) {
-    inset = false;
-  } else {
-    inset = true;
-  }
-
-  let disabled: boolean;
-  if (props.disabled === undefined || props.disabled === false) {
-    disabled = false;
-  } else {
-    disabled = true;
-  }
+  const inset = props.inset !== undefined;
+  const disabled = props.disabled !== undefined && props.disabled !== false;
 
   return (
     <li
-      className={`rounded-[4px] py-[2px] pr-2 pl-4 ${disabled ? "text-gray-500!" : "hover:bg-[#5587d6]"}`}
+      className={`rounded-[4px] py-[2px] pr-2 pl-4 ${disabled ? "text-zinc-500!" : "hover:bg-[#5587d6]"}`}
       onClick={disabled ? undefined : props.onClick}
       onKeyUp={disabled ? undefined : props.onClick}
       style={{
@@ -82,7 +71,7 @@ export const ContextContainer = (props: {
     <div
       ref={containerRef}
       style={{ left: props.width, top: props.height }}
-      className="absolute z-50 w-40 cursor-default rounded-[5px] p-1.5 text-xs font-light text-gray-200 [box-shadow:0_0_0_.8px_rgba(255,255,255,0.3),0_0_0_1.6px_rgba(0,0,0,0.6),0px_25px_75px_-20px_rgba(0,0,0,0.85)] backdrop-blur-xl backdrop-brightness-[.5]"
+      className="absolute z-50 w-40 cursor-default rounded-[5px] p-1.5 text-xs font-light text-gray-200 bg-blend-luminosity [box-shadow:0_0_0_.8px_rgba(255,255,255,0.3),0_0_0_1.6px_rgba(0,0,0,0.6),0px_25px_75px_-20px_rgba(0,0,0,0.85)] backdrop-blur-xl backdrop-brightness-50"
     >
       {props.children}
     </div>

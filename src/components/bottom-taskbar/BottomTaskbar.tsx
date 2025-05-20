@@ -56,8 +56,8 @@ export const BottomTaskbar = () => {
 
   return (
     <div className="absolute bottom-0 left-0 flex h-fit w-screen items-center justify-center pb-1">
-      <div className="h-[65px] w-fit rounded-2xl border border-black/20 backdrop-blur-xl backdrop-brightness-[.70]">
-        <div className="flex flex-row justify-between gap-[2px] px-1 pt-1">
+      <div className="h-[65px] w-fit rounded-2xl border border-black/20 bg-blend-luminosity backdrop-blur-xl backdrop-brightness-75">
+        <div className="flex flex-row items-center justify-between gap-[2px] px-1 pt-1">
           {taskbarApps.map(([name, icon]) => (
             <TaskbarApp
               name={name}
