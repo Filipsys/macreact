@@ -21,7 +21,7 @@ export const Wallpaper = () => {
   const [possibleGridSpaces, setPossibleGridSpaces] = useState<[number, number][]>([]);
   const { windowWidth, windowHeight } = useWindowDimensions();
 
-  const handleUnfocus = () => {
+  const handleUnfocus = (): void => {
     setIsUnfocused(true);
 
     setContextMenuState({ ...contextMenuState, visible: false });
@@ -36,7 +36,7 @@ export const Wallpaper = () => {
     })();
   }, [dbLoaded, setWallpaper]);
 
-  const handleWallpaperChange = () => {
+  const handleWallpaperChange = (): void => {
     const newWallpaperValue = wallpaper < 3 ? wallpaper + 1 : 0;
     setWallpaper(newWallpaperValue);
 

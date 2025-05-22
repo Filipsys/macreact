@@ -7,7 +7,7 @@ export const WindowControl = (props: { windowName: string }) => {
   const { activeApps, setActiveApps, hiddenApps, setHiddenApps, lastUsedApps, setLastUsedApps } =
     useContext(mainContext);
 
-  const closeApp = async (app: string) => {
+  const closeApp = async (app: string): Promise<void> => {
     setActiveApps(activeApps.filter((a: string) => a !== app));
     setLastUsedApps(lastUsedApps.filter((a: string) => a !== app));
 
@@ -15,7 +15,7 @@ export const WindowControl = (props: { windowName: string }) => {
     editValueInStore({ key: "lastUsedApps", value: lastUsedApps.filter((a: string) => a !== app) });
   };
 
-  const hideApp = (app: string) => {
+  const hideApp = async (app: string): Promise<void> => {
     setHiddenApps([...hiddenApps, app]);
     setActiveApps(activeApps.filter((a: string) => a !== app));
 

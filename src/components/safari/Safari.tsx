@@ -1,17 +1,20 @@
-import React, { useContext, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { TopNavigation } from "@components/safari/TopNavigation";
 import { Bookmark } from "@components/safari/Bookmark";
-import { bookmarks } from "@/constants";
+import { appsTabsDict, bookmarks } from "@/constants";
 import { mainContext } from "@/main";
+
+import type { MouseEvent } from "react";
 
 export const Safari = () => {
   const [dragging, setDragging] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const safariRef = useRef<HTMLDivElement>(null);
-  const { activeApps, setCurrentActiveApp } = useContext(mainContext);
 
-  const handleMove = (e: React.MouseEvent) => {
+  const { activeApps, setCurrentActiveApp } = useContext(mainContext);
+  const safariRef = useRef<HTMLDivElement>(null);
+
+  const handleMove = (e: MouseEvent): void => {
     if (!safariRef.current) return;
     if (!dragging) return;
 
@@ -29,9 +32,7 @@ export const Safari = () => {
       className="absolute top-1/2 left-1/2 z-20 flex h-[600px] w-[860px] -translate-x-1/2 -translate-y-1/2 resize-y flex-col rounded-xl [box-shadow:0px_0px_0px_1px_rgb(122,120,120),0px_0px_0px_2px_rgb(32,41,38)] backdrop-blur-xl backdrop-brightness-[.4]"
       style={{ display: activeApps.includes("Safari") ? "flex" : "none" }}
       ref={safariRef}
-      onClick={() =>
-        setCurrentActiveApp(["Safari", ["File", "Edit", "View", "History", "Bookmarks", "Develop", "Window", "Help"]])
-      }
+      onClick={() => setCurrentActiveApp(["Safari", appsTabsDict.Safari])}
       onKeyUp={() =>
         setCurrentActiveApp(["Safari", ["File", "Edit", "View", "History", "Bookmarks", "Develop", "Window", "Help"]])
       }
@@ -44,7 +45,7 @@ export const Safari = () => {
 
           <div className="mb-8 flex flex-wrap gap-4">
             {bookmarks.map((name, index) => (
-              <Bookmark name={name} index={index.toString()} key={`bookmark-nr-${index}`} />
+              <Bookmark name={name} index={index} key={`bookmark-${name}`} />
             ))}
           </div>
 

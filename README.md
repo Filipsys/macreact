@@ -60,3 +60,4 @@
 - [ ] Fix context menu re-appearing on left click.
 - [x] Change top navbar time to re-render every minute instead of seconds.
 - [ ] Fix bottom taskbar icons animating on website open.
+- [ ] Refactor the React startup animation for a pure CSS animation.

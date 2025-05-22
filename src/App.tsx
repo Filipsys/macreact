@@ -21,7 +21,7 @@ function App() {
     // getValueFromStore("wallpaperIndex").then((response) => console.log(response));
 
     for (const key of Object.keys(globalVariableDefaults)) {
-      await getValueFromStore(key).then(async (response) => {
+      await getValueFromStore(key).then(async (response): Promise<void> => {
         if (response !== undefined) return;
 
         await storeInStore({ key: key, value: globalVariableDefaults[key as keyof typeof globalVariableDefaults] });
@@ -55,7 +55,7 @@ function App() {
     })();
   }, [initializeGlobals]);
 
-  const handleWindowResize = () => {
+  const handleWindowResize = (): void => {
     const bodyDiv = bodyRef.current;
     if (!bodyDiv) throw new Error("How?");
 
@@ -85,12 +85,13 @@ function App() {
     }
   }, []);
 
-  return isFullscreen === null ? (
+  // Added import.meta.env.PROD for easier debugging (I don't have to constantly see the menu)
+  return isFullscreen === null && import.meta.env.PROD ? (
     <FullscreenPrompt setIsFullscreen={setIsFullscreen} />
   ) : (
     <div
       ref={bodyRef}
-      className="flex h-dvh w-full select-none flex-col font-SFPro tracking-wide text-white"
+      className="font-SFPro flex h-dvh w-full flex-col tracking-wide text-white select-none"
       onLoad={() => handleWindowResize()}
       onResize={() => handleWindowResize()}
     >

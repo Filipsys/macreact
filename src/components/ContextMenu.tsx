@@ -4,14 +4,15 @@ import type { ReactNode } from "react";
 
 export const Divider = () => <div className="mx-1 my-1 border-b border-gray-300 opacity-15" />;
 
-export const DropdownItem = (props: { name: string }) => (
+export const DropdownItem = (props: { name: string; disabled?: boolean }) => (
   <div className="flex flex-row justify-between">
     <p>{props.name}</p>
+
     <div className="flex items-center justify-center">
       <svg aria-hidden="true" width="6" height="8" viewBox="0 0 18 29" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M0.907749 24.1748L10.63 15.3363C10.8657 15.1221 11 14.8184 11 14.5C11 14.1816 10.8657 13.8779 10.63 13.6637L0.907748 4.82523C0.329604 4.29964 0 3.55455 0 2.77321C0 1.24161 1.24161 0 2.77321 0H2.87214C3.5971 0 4.29524 0.274154 4.82649 0.767454L16.9008 11.9793C17.6017 12.6302 18 13.5435 18 14.5C18 15.4565 17.6017 16.3698 16.9008 17.0207L4.82649 28.2325C4.29524 28.7258 3.5971 29 2.87214 29H2.77321C1.24161 29 0 27.7584 0 26.2268C0 25.4454 0.329605 24.7004 0.907749 24.1748Z"
-          fill="white"
+          fill={`${props.disabled === undefined || props.disabled === true ? "#71717b" : "white"}`}
         />
       </svg>
     </div>

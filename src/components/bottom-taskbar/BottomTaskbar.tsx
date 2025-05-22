@@ -29,7 +29,7 @@ export const BottomTaskbar = () => {
     })();
   }, [dbLoaded, setActiveApps, setHiddenApps]);
 
-  const handleAppChange = (app: string) => {
+  const handleAppChange = (app: string): void => {
     setCurrentActiveApp([app, appsTabsDict[app]]);
     editValueInStore({ key: "currentActiveApp", value: [app, appsTabsDict[app]] });
 

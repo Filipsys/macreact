@@ -1,11 +1,11 @@
-import { AccountIcon, AppleIcon, MenuIcon, SearchIcon, WifiIcon } from "@/assets/navIcons";
 import { ContextCategory, ContextContainer, ContextItem, Divider } from "@components/ContextMenu";
 import { appsTabsDict, appTabDropdownValues } from "@/constants";
-import { CurrentTime } from "@components/CurrentTime";
 import { mainContext } from "@/main";
 import { useContext, useState } from "react";
 
 import type { JSX, KeyboardEvent, MouseEvent } from "react";
+import { LeftTabs } from "./LeftTabs";
+import { RightTabs } from "./RightTabs";
 
 export const TopTaskbar = () => {
   const [contextMenuState, setContextMenuState] = useState({ visible: false, width: 0, height: 0, x: 0, y: 0 });
@@ -93,58 +93,17 @@ export const TopTaskbar = () => {
   //     });
   // }, [contextMenuState, isUnfocused]);
 
-  const LeftTools = (props: { activeAppName: string; appTabs: string[] }) => {
-    return (
-      <div className="flex h-full flex-row items-center text-[13px] font-light">
-        <TaskbarTab tabIcon={<AppleIcon />} index={-1} />
-
-        <div
-          className="font-extrabold"
-          onClick={(event) => handleActiveTabClick(event)}
-          onKeyUp={(event) => handleActiveTabClick(event)}
-        >
-          <TaskbarTab tabName={props.activeAppName} index={0} />
-        </div>
-
-        {props.appTabs.map((tab, index) => (
-          <TaskbarTab tabName={tab} index={index + 1} key={`topnav-tab-${tab}`} />
-        ))}
-      </div>
-    );
-  };
-
   return (
     <nav
       onContextMenu={(e) => e.preventDefault()}
       className="z-10 flex h-[24px] w-full flex-row items-center justify-between bg-linear-to-r from-[#363b87] via-[#3952a7] to-[#3058b6] font-medium shadow-xs [text-shadow:0px_0px_5px_rgb(0_0_0/30%)]"
     >
-      <div className="flex h-full flex-row items-center">
-        <LeftTools
-          activeAppName={lastUsedApps[lastFromLastUsedApps]}
-          appTabs={appsTabsDict[lastUsedApps[lastFromLastUsedApps]]}
-        />
-      </div>
+      <LeftTabs
+        activeAppName={lastUsedApps[lastFromLastUsedApps]}
+        appTabs={appsTabsDict[lastUsedApps[lastFromLastUsedApps]]}
+      />
 
-      <div className="flex flex-row">
-        <ul className="flex h-5 w-fit flex-row items-center justify-center gap-1.5 *:rounded-xs *:px-2">
-          <li className="active:bg-white/[.2]">
-            <WifiIcon />
-          </li>
-          <li className="active:bg-white/[.2]">
-            <SearchIcon />
-          </li>
-          <li className="active:bg-white/[.2]">
-            <AccountIcon />
-          </li>
-          <li className="active:bg-white/[.2]">
-            <MenuIcon />
-          </li>
-        </ul>
-
-        <div className="px-4 text-center text-[13px] [text-shadow:0px_0px_5px_rgb(0_0_0/30%)]">
-          <CurrentTime />
-        </div>
-      </div>
+      <RightTabs />
 
       {contextMenuState.visible ? (
         <ContextContainer
@@ -157,6 +116,7 @@ export const TopTaskbar = () => {
               {values.map((value) => (
                 <ContextItem name={value} key={`context-${values[0]}-${index}-item-${value}`} disabled />
               ))}
+
               {index !== Object.values(Object.values(appTabDropdownValues)[0])[activeTaskbarTab].length - 1 ? (
                 <Divider />
               ) : null}
